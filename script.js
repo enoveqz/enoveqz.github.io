@@ -28,39 +28,88 @@ document.addEventListener("DOMContentLoaded", () => {
   const darkModeToggle = document.getElementById("dark-mode-toggle")
   const subtitle = document.getElementById("subtitle")
 
-  // Sample Data - Replace with your actual data source (e.g., JSON file or API)
+  // Beispiel-Projektdaten (ersetzen Sie diese durch Ihre tatsächlichen Daten)
   const projects = [
     {
       id: 1,
-      title: "Project 1",
-      subtitle: "Subtitle 1",
-      description: "Description 1",
-      fullDescription: "Full Description 1",
+      title: "Projekt 1",
+      titleEn: "Project 1",
+      subtitle: "Ein cooles Projekt",
+      subtitleEn: "A cool project",
+      description: "Dies ist eine Beschreibung des Projekts.",
+      descriptionEn: "This is a description of the project.",
+      fullDescription:
+        "Dies ist eine ausführliche Beschreibung des Projekts mit mehreren Absätzen.\n\nEin weiterer Absatz.",
+      fullDescriptionEn:
+        "This is a detailed description of the project with multiple paragraphs.\n\nAnother paragraph.",
       image: "images/project1.jpg",
+      category: "Webentwicklung",
+      categoryEn: "Web Development",
+      semester: "WS 2023/24",
+      semesterEn: "Winter Semester 2023/24",
       link: "https://example.com",
-      linkText: "View Project",
+      linkText: "Zur Webseite",
+      linkTextEn: "Visit Website",
+      pdfLink: "documents/example.pdf",
+      pdfLinkText: "Download PDF",
+      pdfLinkTextEn: "Download PDF",
+      videoLink: "https://youtube.com/example",
+      videoLinkText: "Video ansehen",
+      videoLinkTextEn: "Watch Video",
       additionalImages: ["images/project1_1.jpg", "images/project1_2.jpg"],
     },
     {
       id: 2,
-      title: "Project 2",
-      subtitle: "Subtitle 2",
-      description: "Description 2",
-      fullDescription: "Full Description 2",
+      title: "Projekt 2",
+      titleEn: "Project 2",
+      subtitle: "Noch ein Projekt",
+      subtitleEn: "Another project",
+      description: "Dies ist eine weitere Projektbeschreibung.",
+      descriptionEn: "This is another project description.",
+      fullDescription: "Dies ist eine ausführliche Beschreibung des zweiten Projekts.\n\nMit noch mehr Details.",
+      fullDescriptionEn: "This is a detailed description of the second project.\n\nWith even more details.",
       image: "images/project2.jpg",
+      category: "App-Entwicklung",
+      categoryEn: "App Development",
+      semester: "SS 2023",
+      semesterEn: "Summer Semester 2023",
       link: "https://example.com",
-      linkText: "View Project",
+      linkText: "Zur Webseite",
+      linkTextEn: "Visit Website",
+      pdfLink: "documents/example.pdf",
+      pdfLinkText: "Download PDF",
+      pdfLinkTextEn: "Download PDF",
+      videoLink: "https://youtube.com/example",
+      videoLinkText: "Video ansehen",
+      videoLinkTextEn: "Watch Video",
       additionalImages: ["images/project2_1.jpg", "images/project2_2.jpg"],
     },
     {
       id: 3,
-      title: "Project 3",
-      subtitle: "Subtitle 3",
-      description: "Description 3",
-      fullDescription: "Full Description 3",
+      title: "Projekt 3",
+      titleEn: "Project 3",
+      subtitle: "Ein drittes Projekt",
+      subtitleEn: "A third project",
+      description: "Dies ist die Beschreibung des dritten Projekts.",
+      descriptionEn: "This is the description of the third project.",
+      fullDescription:
+        "Dies ist eine ausführliche Beschreibung des dritten Projekts.\n\nMit noch mehr Details und Absätzen.",
+      fullDescriptionEn:
+        "This is a detailed description of the third project.\n\nWith even more details and paragraphs.",
       image: "images/project3.jpg",
+      category: "IoT",
+      categoryEn: "IoT",
+      semester: "WS 2022/23",
+      semesterEn: "Winter Semester 2022/23",
       link: "https://example.com",
-      linkText: "View Project",
+      linkText: "Zur Webseite",
+      linkTextEn: "Visit Website",
+      pdfLink: "documents/example.pdf",
+      pdfLinkText: "Download PDF",
+      pdfLinkTextEn: "Download PDF",
+      videoLink: "https://youtube.com/example",
+      videoLinkText: "Video ansehen",
+      videoLinkTextEn: "Watch Video",
       additionalImages: ["images/project3_1.jpg", "images/project3_2.jpg"],
     },
   ]
@@ -68,88 +117,92 @@ document.addEventListener("DOMContentLoaded", () => {
   const aboutMeTranslations = {
     de: {
       title: "Über Mich",
-      hello: "Hallo, ich bin",
-      bio: ["Ein paar Sätze über mich auf Deutsch.", "Noch ein paar Sätze."],
+      hello: "Hallo,",
+      bio: [
+        "Ich bin ein leidenschaftlicher IoT-Produktdesigner und Entwickler mit einem Hintergrund in Informatik und Design.",
+        "Meine Expertise liegt in der Konzeption und Entwicklung innovativer IoT-Lösungen, die Benutzererlebnisse verbessern und Geschäftsprozesse optimieren.",
+        "Ich bin stets bestrebt, neue Technologien zu erlernen und meine Fähigkeiten kontinuierlich zu verbessern.",
+      ],
       cv: "Lebenslauf",
       education: "Ausbildung",
       educationItems: {
         master: {
-          title: "Master",
-          period: "2020-2022",
-          institution: "Universität",
-          note: "Sehr gut",
+          title: "Master of Science in Informatik",
+          period: "2021 - 2023",
+          institution: "Technische Universität Musterstadt",
+          note: "Abschlussnote: 1.0",
         },
         bachelor: {
-          title: "Bachelor",
-          period: "2016-2020",
-          institution: "Hochschule",
+          title: "Bachelor of Science in Informatik",
+          period: "2018 - 2021",
+          institution: "Universität Musterstadt",
         },
         ib: {
           title: "International Baccalaureate",
-          period: "2014-2016",
-          institution: "Gymnasium",
+          period: "2016 - 2018",
+          institution: "International School Musterstadt",
         },
         school: {
           title: "Abitur",
-          period: "2008-2014",
-          institution: "Realschule",
+          period: "2010 - 2016",
+          institution: "Gymnasium Musterstadt",
         },
       },
       workExperience: "Berufserfahrung",
       workItems: {
         boschSensor: {
-          title: "Werkstudent",
-          period: "2022-Heute",
-          company: "Bosch Sensortec",
+          title: "Werkstudent Softwareentwicklung",
+          period: "2022 - 2023",
+          company: "Bosch Sensortec GmbH",
         },
         simple: {
-          title: "Webentwickler",
-          period: "2021-2022",
+          title: "Frontend Entwickler",
+          period: "2021 - 2022",
           company: "Simple GmbH",
         },
         bosch2021: {
-          title: "Praktikant",
+          title: "Praktikant Softwareentwicklung",
           period: "2021",
-          company: "Bosch Sensortec",
+          company: "Bosch Sensortec GmbH",
         },
         bosch2019: {
-          title: "Praktikant",
+          title: "Praktikant Softwareentwicklung",
           period: "2019",
-          company: "Bosch Sensortec",
+          company: "Bosch Sensortec GmbH",
         },
         mercedes: {
-          title: "Praktikant",
+          title: "Praktikant Softwareentwicklung",
           period: "2018",
-          company: "Mercedes-Benz",
+          company: "Mercedes-Benz AG",
         },
       },
       internships: "Praktika",
       internshipItems: {
         simple: {
-          title: "Mediengestalter",
-          period: "2015",
+          title: "Praktikum Mediengestaltung",
+          period: "2017",
           company: "Simple GmbH",
-          description: "Gestaltung von Webseiten",
+          description: "Gestaltung von Werbematerialien und Unterstützung des Marketingteams.",
         },
         bosch: {
-          title: "Praktikant",
-          period: "2014",
-          company: "Bosch",
+          title: "Praktikum Softwareentwicklung",
+          period: "2016",
+          company: "Bosch Sensortec GmbH",
         },
         disability: {
-          title: "Betreuer",
-          period: "2013",
-          company: "Behindertenheim",
+          title: "Freiwilliges Soziales Jahr",
+          period: "2015 - 2016",
+          company: "Behindertenhilfe Reutlingen",
         },
         fuchsfarm: {
-          title: "Helfer",
-          period: "2012",
-          company: "Fuchsfarm",
+          title: "Ferienjob",
+          period: "2014",
+          company: "Fuchsfarm Reutlingen",
         },
         helchenhof: {
-          title: "Helfer",
-          period: "2011",
-          company: "Helchenhof",
+          title: "Ferienjob",
+          period: "2013",
+          company: "Helchenhof Reutlingen",
         },
       },
       languages: "Sprachen",
@@ -179,114 +232,118 @@ document.addEventListener("DOMContentLoaded", () => {
       skillsCategories: {
         design: {
           title: "Design",
-          content: "UI/UX Design, Prototyping",
+          content: "UI/UX Design, Prototyping, Wireframing",
         },
         technical: {
           title: "Technisch",
-          content: "IoT, Embedded Systems",
+          content: "IoT, Embedded Systems, Cloud Computing",
         },
         software: {
           title: "Software",
-          content: "JavaScript, Python",
+          content: "JavaScript, Python, C++",
         },
         soft: {
           title: "Soft Skills",
-          content: "Teamarbeit, Kommunikation",
+          content: "Teamarbeit, Kommunikation, Problemlösung",
         },
         personal: {
           title: "Persönlich",
-          content: "Kreativ, Engagiert",
+          content: "Kreativität, Engagement, Lernbereitschaft",
         },
         interests: {
           title: "Interessen",
-          content: "Fotografie, Reisen",
+          content: "Fotografie, Reisen, Musik",
         },
       },
     },
     en: {
       title: "About Me",
-      hello: "Hello, I'm",
-      bio: ["A few sentences about me in English.", "And a few more."],
+      hello: "Hello,",
+      bio: [
+        "I am a passionate IoT product designer and developer with a background in computer science and design.",
+        "My expertise lies in the conception and development of innovative IoT solutions that improve user experiences and optimize business processes.",
+        "I am always striving to learn new technologies and continuously improve my skills.",
+      ],
       cv: "Resume",
       education: "Education",
       educationItems: {
         master: {
-          title: "Master",
-          period: "2020-2022",
-          institution: "University",
-          note: "Very good",
+          title: "Master of Science in Computer Science",
+          period: "2021 - 2023",
+          institution: "Technical University Example City",
+          note: "Final Grade: 1.0",
         },
         bachelor: {
-          title: "Bachelor",
-          period: "2016-2020",
-          institution: "College",
+          title: "Bachelor of Science in Computer Science",
+          period: "2018 - 2021",
+          institution: "University Example City",
         },
         ib: {
           title: "International Baccalaureate",
-          period: "2014-2016",
-          institution: "High School",
+          period: "2016 - 2018",
+          institution: "International School Example City",
         },
         school: {
           title: "Abitur",
-          period: "2008-2014",
-          institution: "Secondary School",
+          period: "2010 - 2016",
+          institution: "Gymnasium Example City",
         },
       },
       workExperience: "Work Experience",
       workItems: {
         boschSensor: {
-          title: "Working Student",
-          period: "2022-Present",
-          company: "Bosch Sensortec",
+          title: "Working Student Software Development",
+          period: "2022 - 2023",
+          company: "Bosch Sensortec GmbH",
         },
         simple: {
-          title: "Web Developer",
-          period: "2021-2022",
+          title: "Frontend Developer",
+          period: "2021 - 2022",
           company: "Simple GmbH",
         },
         bosch2021: {
-          title: "Intern",
+          title: "Intern Software Development",
           period: "2021",
-          company: "Bosch Sensortec",
+          company: "Bosch Sensortec GmbH",
         },
         bosch2019: {
-          title: "Intern",
+          title: "Intern Software Development",
           period: "2019",
-          company: "Bosch Sensortec",
+          company: "Bosch Sensortec GmbH",
         },
         mercedes: {
-          title: "Intern",
+          title: "Intern Software Development",
           period: "2018",
-          company: "Mercedes-Benz",
+          company: "Mercedes-Benz AG",
         },
       },
       internships: "Internships",
       internshipItems: {
         simple: {
-          title: "Media Designer",
-          period: "2015",
+          title: "Internship Media Design",
+          period: "2017",
           company: "Simple GmbH",
-          description: "Website Design",
+          description: "Design of advertising materials and support of the marketing team.",
         },
         bosch: {
-          title: "Intern",
-          period: "2014",
-          company: "Bosch",
+          title: "Internship Software Development",
+          period: "2016",
+          company: "Bosch Sensortec GmbH",
         },
         disability: {
-          title: "Caregiver",
-          period: "2013",
-          company: "Disability Home",
+          title: "Voluntary Social Year",
+          period: "2015 - 2016",
+          company: "Disability Support Reutlingen",
         },
         fuchsfarm: {
-          title: "Helper",
-          period: "2012",
-          company: "Fuchsfarm",
+          title: "Holiday Job",
+          period: "2014",
+          company: "Fuchsfarm Reutlingen",
         },
         helchenhof: {
-          title: "Helper",
-          period: "2011",
-          company: "Helchenhof",
+          title: "Holiday Job",
+          period: "2013",
+          company: "Helchenhof Reutlingen",
         },
       },
       languages: "Languages",
@@ -316,27 +373,27 @@ document.addEventListener("DOMContentLoaded", () => {
       skillsCategories: {
         design: {
           title: "Design",
-          content: "UI/UX Design, Prototyping",
+          content: "UI/UX Design, Prototyping, Wireframing",
         },
         technical: {
           title: "Technical",
-          content: "IoT, Embedded Systems",
+          content: "IoT, Embedded Systems, Cloud Computing",
         },
         software: {
           title: "Software",
-          content: "JavaScript, Python",
+          content: "JavaScript, Python, C++",
         },
         soft: {
           title: "Soft Skills",
-          content: "Teamwork, Communication",
+          content: "Teamwork, Communication, Problem Solving",
         },
         personal: {
           title: "Personal",
-          content: "Creative, Dedicated",
+          content: "Creativity, Commitment, Willingness to Learn",
         },
         interests: {
           title: "Interests",
-          content: "Photography, Travel",
+          content: "Photography, Travel, Music",
         },
       },
     },
@@ -351,14 +408,8 @@ document.addEventListener("DOMContentLoaded", () => {
       phone: "Telefon",
       address: "Adresse",
       availability: "Verfügbarkeit",
-      availabilityText: "Ich bin offen für neue Möglichkeiten. Kontaktieren Sie mich gerne!",
-      sendMessage: "Senden Sie mir eine Nachricht",
-      name: "Name",
-      namePlaceholder: "Ihr Name",
-      emailPlaceholder: "Ihre E-Mail",
-      message: "Nachricht",
-      messagePlaceholder: "Ihre Nachricht",
-      sendButton: "Senden",
+      availabilityText: "Ich stehe für neue Projekte und Herausforderungen zur Verfügung. Kontaktieren Sie mich gerne!",
+      sendMessage: "Nachricht senden",
     },
     en: {
       title: "Contact",
@@ -368,14 +419,8 @@ document.addEventListener("DOMContentLoaded", () => {
       phone: "Phone",
       address: "Address",
       availability: "Availability",
-      availabilityText: "I am open to new opportunities. Feel free to contact me!",
-      sendMessage: "Send me a message",
-      name: "Name",
-      namePlaceholder: "Your Name",
-      emailPlaceholder: "Your Email",
-      message: "Message",
-      messagePlaceholder: "Your Message",
-      sendButton: "Send",
+      availabilityText: "I am available for new projects and challenges. Feel free to contact me!",
+      sendMessage: "Send Message",
     },
   }
 
@@ -477,51 +522,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleBackClick() {
     selectedProject = null
     renderContent()
-  }
-
-  function handleFormSubmit(event) {
-    event.preventDefault()
-    const form = event.target
-    const formData = new FormData(form)
-    const name = formData.get("name")
-    const email = formData.get("email")
-    const message = formData.get("message")
-
-    // Validierung
-    if (!name || !email || !message) {
-      showFormStatus(
-        language === "de" ? "Alle Felder müssen ausgefüllt sein." : "All fields must be filled out.",
-        "error",
-      )
-      return
-    }
-
-    // In einer echten Anwendung würde hier ein E-Mail-Service verwendet werden
-    // Für GitHub Pages simulieren wir einen erfolgreichen Versand
-    console.log("E-Mail gesendet an: enissentuerk@hotmail.de")
-    console.log("Von:", name, email)
-    console.log("Nachricht:", message)
-
-    showFormStatus(language === "de" ? "Nachricht erfolgreich gesendet!" : "Message sent successfully!", "success")
-
-    form.reset()
-  }
-
-  function showFormStatus(message, type) {
-    const statusDiv = document.getElementById("form-status")
-    if (statusDiv) {
-      statusDiv.textContent = message
-      statusDiv.className =
-        type === "success"
-          ? "mb-6 p-4 rounded-md bg-green-100 text-green-800"
-          : "mb-6 p-4 rounded-md bg-red-100 text-red-800"
-
-      // Status nach 5 Sekunden zurücksetzen
-      setTimeout(() => {
-        statusDiv.textContent = ""
-        statusDiv.className = "hidden"
-      }, 5000)
-    }
   }
 
   // Inhaltsrendering
@@ -754,7 +754,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <img src="images/profile.jpg" alt="Enis Sentürk" class="w-full object-cover mb-6 transition-transform duration-700 hover:scale-105">
               </div>
               <div>
-                <h2 class="text-lg mb-1">${t.hello}</h2>
+                <h2 class="text-lg mb-1">${t.hello},</h2>
                 <p class="text-2xl font-bold">ENIS SENTÜRK</p>
               </div>
             </div>
@@ -1030,30 +1030,30 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            <div class="reveal" data-delay="500">
-              <div class="mb-16">
-                <h3 class="text-lg font-bold mb-4 text-accent">${t.skills}</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-3">
-                  <div class="hover:translate-x-2 transition-transform duration-300">
-                    <span class="font-medium">${t.skillsCategories.design.title}:</span> ${t.skillsCategories.design.content}
-                  </div>
-                  <div class="hover:translate-x-2 transition-transform duration-300">
-                    <span class="font-medium">${t.skillsCategories.technical.title}:</span> ${t.skillsCategories.technical.content}
-                  </div>
-                  <div class="hover:translate-x-2 transition-transform duration-300">
-                    <span class="font-medium">${t.skillsCategories.software.title}:</span> ${t.skillsCategories.software.content}
-                  </div>
-                  <div class="hover:translate-x-2 transition-transform duration-300">
-                    <span class="font-medium">${t.skillsCategories.soft.title}:</span> ${t.skillsCategories.soft.content}
-                  </div>
-                  <div class="hover:translate-x-2 transition-transform duration-300">
-                    <span class="font-medium">${t.skillsCategories.personal.title}:</span> ${t.skillsCategories.personal.content}
-                  </div>
-                  <div class="hover:translate-x-2 transition-transform duration-300">
-                    <span class="font-medium">${t.skillsCategories.interests.title}:</span> ${t.skillsCategories.interests.content}
-                  </div>
-                </div>
+        <div class="reveal" data-delay="500">
+          <div class="mb-16">
+            <h3 class="text-lg font-bold mb-4 text-accent">${t.skills}</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-3">
+              <div class="hover:translate-x-2 transition-transform duration-300">
+                <span class="font-medium">${t.skillsCategories.design.title}:</span> ${t.skillsCategories.design.content}
+              </div>
+              <div class="hover:translate-x-2 transition-transform duration-300">
+                <span class="font-medium">${t.skillsCategories.technical.title}:</span> ${t.skillsCategories.technical.content}
+              </div>
+              <div class="hover:translate-x-2 transition-transform duration-300">
+                <span class="font-medium">${t.skillsCategories.software.title}:</span> ${t.skillsCategories.software.content}
+              </div>
+              <div class="hover:translate-x-2 transition-transform duration-300">
+                <span class="font-medium">${t.skillsCategories.soft.title}:</span> ${t.skillsCategories.soft.content}
+              </div>
+              <div class="hover:translate-x-2 transition-transform duration-300">
+                <span class="font-medium">${t.skillsCategories.personal.title}:</span> ${t.skillsCategories.personal.content}
+              </div>
+              <div class="hover:translate-x-2 transition-transform duration-300">
+                <span class="font-medium">${t.skillsCategories.interests.title}:</span> ${t.skillsCategories.interests.content}
               </div>
             </div>
           </div>
