@@ -1,52 +1,61 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freezdigital Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enis Sentürk - Portfolio</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1>Freezdigital Portfolio</h1>
-        <nav>
-            <a href="about.html">About Me</a>
-        </nav>
-    </header>
-    <div class="portfolio">
-        <div class="grid">
-            <div class="project">
-                <a href="softrobotics.html">
-                    <img src="images/smart_stick.png" alt="Smart Stick">
-                    <p>Softrobotics</p>
-                </a>
-            </div>
-            <div class="project">
-                <a href="foodbox.html">
-                    <img src="images/sight_guide_app.png" alt="Foodbox">
-                    <p>Foodbox</p>
-                </a>
-            </div>
-            <div class="project">
-                <a href="multim8.html">
-                    <img src="images/key_visual.png" alt="MULTIM8">
-                    <p>MULTIM8</p>
-                </a>
-            </div>
-            <div class="project">
-                <a href="sightguide.html">
-                    <img src="images/braillclet.png" alt="Sight Guide">
-                    <p>Sight Guide</p>
-                </a>
-            </div>
-            <div class="project">
-                <a href="mielehackathon.html">
-                    <img src="images/smart_stick.png" alt="Miele Hackathon">
-                    <p>Miele Hackathon</p>
-                </a>
-            </div>
+  <main id="app" class="min-h-screen bg-white text-black">
+    <div class="container mx-auto px-4 py-8">
+      <header class="mb-16">
+        <div class="flex justify-between items-center mb-8">
+          <div class="flex flex-col items-start">
+            <div class="text-sm tracking-widest mb-1 text-accent">@FREEZDIGITAL</div>
+            <h1 class="text-4xl font-bold tracking-tight">ENIS SENTÜRK</h1>
+            <p class="text-lg mt-1">UX/UI</p>
+            <p class="text-sm mt-2" id="subtitle">IoT Produktdesign und Entwicklung</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button id="language-toggle" class="p-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors mr-2" aria-label="Zu Englisch wechseln" title="Zu Englisch wechseln">
+              <i class="fas fa-globe"></i>
+            </button>
+            <button id="dark-mode-toggle" class="p-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors" aria-label="Zum Dark Mode wechseln">
+              <i class="fas fa-moon"></i>
+            </button>
+          </div>
         </div>
+
+        <nav class="border-t border-b border-black py-4">
+          <ul class="flex flex-wrap space-x-6 md:space-x-12">
+            <li>
+              <button data-page="PORTFOLIO" class="nav-item active text-base tracking-wide hover:font-bold relative transition-all duration-300">
+                PORTFOLIO
+              </button>
+            </li>
+            <li>
+              <button data-page="ABOUT ME" class="nav-item text-base tracking-wide hover:font-bold relative transition-all duration-300">
+                ABOUT ME
+              </button>
+            </li>
+            <li>
+              <button data-page="CONTACT" class="nav-item text-base tracking-wide hover:font-bold relative transition-all duration-300">
+                CONTACT
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+      <div id="content">
+        <!-- Hier wird der Inhalt dynamisch eingefügt -->
+      </div>
     </div>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
