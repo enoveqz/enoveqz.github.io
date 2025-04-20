@@ -28,154 +28,128 @@ document.addEventListener("DOMContentLoaded", () => {
   const darkModeToggle = document.getElementById("dark-mode-toggle")
   const subtitle = document.getElementById("subtitle")
 
-  // Beispiel-Daten für Projekte (ersetzen Sie diese durch Ihre tatsächlichen Daten)
+  // Sample Data - Replace with your actual data source (e.g., JSON file or API)
   const projects = [
     {
       id: 1,
-      title: "Projekt 1",
-      subtitle: "Ein cooles Projekt",
-      description: "Dies ist eine Beschreibung für Projekt 1.",
+      title: "Project 1",
+      subtitle: "Subtitle 1",
+      description: "Description 1",
+      fullDescription: "Full Description 1",
       image: "images/project1.jpg",
-      fullDescription: "Eine ausführlichere Beschreibung von Projekt 1.",
       link: "https://example.com",
-      linkText: "Zur Dokumentation",
-      category: "Webentwicklung",
-      semester: "WS 2023/24",
+      linkText: "View Project",
       additionalImages: ["images/project1_1.jpg", "images/project1_2.jpg"],
-      titleEn: "Project 1",
-      subtitleEn: "A cool project",
-      descriptionEn: "This is a description for project 1.",
-      fullDescriptionEn: "A more detailed description of project 1.",
-      linkTextEn: "View Documentation",
-      categoryEn: "Web Development",
-      semesterEn: "Winter Semester 2023/24",
     },
     {
       id: 2,
-      title: "Projekt 2",
-      subtitle: "Ein weiteres Projekt",
-      description: "Dies ist eine Beschreibung für Projekt 2.",
+      title: "Project 2",
+      subtitle: "Subtitle 2",
+      description: "Description 2",
+      fullDescription: "Full Description 2",
       image: "images/project2.jpg",
-      fullDescription: "Eine ausführlichere Beschreibung von Projekt 2.",
-      category: "IoT",
-      semester: "SS 2023",
+      link: "https://example.com",
+      linkText: "View Project",
       additionalImages: ["images/project2_1.jpg", "images/project2_2.jpg"],
-      titleEn: "Project 2",
-      subtitleEn: "Another project",
-      descriptionEn: "This is a description for project 2.",
-      fullDescriptionEn: "A more detailed description of project 2.",
-      categoryEn: "IoT",
-      semesterEn: "Summer Semester 2023",
     },
     {
       id: 3,
-      title: "Projekt 3",
-      subtitle: "Noch ein Projekt",
-      description: "Dies ist eine Beschreibung für Projekt 3.",
+      title: "Project 3",
+      subtitle: "Subtitle 3",
+      description: "Description 3",
+      fullDescription: "Full Description 3",
       image: "images/project3.jpg",
-      fullDescription: "Eine ausführlichere Beschreibung von Projekt 3.",
-      category: "Mobile App",
-      semester: "WS 2022/23",
+      link: "https://example.com",
+      linkText: "View Project",
       additionalImages: ["images/project3_1.jpg", "images/project3_2.jpg"],
-      titleEn: "Project 3",
-      subtitleEn: "Yet another project",
-      descriptionEn: "This is a description for project 3.",
-      fullDescriptionEn: "A more detailed description of project 3.",
-      categoryEn: "Mobile App",
-      semesterEn: "Winter Semester 2022/23",
     },
   ]
 
-  // Beispiel-Daten für About Me (ersetzen Sie diese durch Ihre tatsächlichen Daten)
   const aboutMeTranslations = {
     de: {
       title: "Über Mich",
-      hello: "Hallo,",
-      bio: [
-        "Ich bin Enis Sentürk, ein leidenschaftlicher IoT-Produktdesigner und -entwickler.",
-        "Meine Expertise liegt in der Konzeption und Umsetzung innovativer IoT-Lösungen.",
-        "Ich habe einen Master-Abschluss in Elektrotechnik und Informationstechnik von der Hochschule Reutlingen.",
-      ],
+      hello: "Hallo, ich bin",
+      bio: ["Ein paar Sätze über mich auf Deutsch.", "Noch ein paar Sätze."],
       cv: "Lebenslauf",
       education: "Ausbildung",
       educationItems: {
         master: {
-          title: "Master of Science in Elektrotechnik und Informationstechnik",
-          period: "2021 - 2023",
-          institution: "Hochschule Reutlingen",
-          note: "Abschlussnote: 1,3",
+          title: "Master",
+          period: "2020-2022",
+          institution: "Universität",
+          note: "Sehr gut",
         },
         bachelor: {
-          title: "Bachelor of Engineering in Mechatronik",
-          period: "2017 - 2021",
-          institution: "Hochschule Reutlingen",
+          title: "Bachelor",
+          period: "2016-2020",
+          institution: "Hochschule",
         },
         ib: {
           title: "International Baccalaureate",
-          period: "2015 - 2017",
-          institution: "Bodensee Gymnasium Überlingen",
+          period: "2014-2016",
+          institution: "Gymnasium",
         },
         school: {
-          title: "Realschulabschluss",
-          period: "2011 - 2015",
-          institution: "Realschule Überlingen",
+          title: "Abitur",
+          period: "2008-2014",
+          institution: "Realschule",
         },
       },
       workExperience: "Berufserfahrung",
       workItems: {
         boschSensor: {
-          title: "Werkstudent im Bereich Softwareentwicklung",
-          period: "2022 - 2023",
-          company: "Bosch Sensortec GmbH",
+          title: "Werkstudent",
+          period: "2022-Heute",
+          company: "Bosch Sensortec",
         },
         simple: {
-          title: "Werkstudent im Bereich Webentwicklung",
-          period: "2021 - 2022",
-          company: "simple GmbH",
+          title: "Webentwickler",
+          period: "2021-2022",
+          company: "Simple GmbH",
         },
         bosch2021: {
-          title: "Praktikant im Bereich Hardwareentwicklung",
+          title: "Praktikant",
           period: "2021",
-          company: "Bosch Sensortec GmbH",
+          company: "Bosch Sensortec",
         },
         bosch2019: {
-          title: "Praktikant im Bereich Hardwareentwicklung",
+          title: "Praktikant",
           period: "2019",
-          company: "Bosch Sensortec GmbH",
+          company: "Bosch Sensortec",
         },
         mercedes: {
-          title: "Praktikant im Bereich Produktion",
+          title: "Praktikant",
           period: "2018",
-          company: "Mercedes-Benz AG",
+          company: "Mercedes-Benz",
         },
       },
       internships: "Praktika",
       internshipItems: {
         simple: {
-          title: "Praktikum im Bereich Mediengestaltung",
-          period: "2017",
-          company: "simple GmbH",
-          description: "Erstellung von Grafiken und Videos für Social Media.",
+          title: "Mediengestalter",
+          period: "2015",
+          company: "Simple GmbH",
+          description: "Gestaltung von Webseiten",
         },
         bosch: {
-          title: "Praktikum im Bereich Hardwareentwicklung",
-          period: "2016",
-          company: "Bosch Sensortec GmbH",
+          title: "Praktikant",
+          period: "2014",
+          company: "Bosch",
         },
         disability: {
-          title: "Freiwilliges Soziales Jahr",
-          period: "2015 - 2016",
-          company: "Stiftung Liebenau",
+          title: "Betreuer",
+          period: "2013",
+          company: "Behindertenheim",
         },
         fuchsfarm: {
-          title: "Ferienjob",
-          period: "2014",
-          company: "Fuchsfarm Überlingen",
+          title: "Helfer",
+          period: "2012",
+          company: "Fuchsfarm",
         },
         helchenhof: {
-          title: "Ferienjob",
-          period: "2013",
-          company: "Helchenhof Überlingen",
+          title: "Helfer",
+          period: "2011",
+          company: "Helchenhof",
         },
       },
       languages: "Sprachen",
@@ -205,118 +179,114 @@ document.addEventListener("DOMContentLoaded", () => {
       skillsCategories: {
         design: {
           title: "Design",
-          content: "UI/UX Design, Prototyping, Grafikdesign",
+          content: "UI/UX Design, Prototyping",
         },
         technical: {
           title: "Technisch",
-          content: "Embedded Systems, IoT, Sensorik, Regelungstechnik",
+          content: "IoT, Embedded Systems",
         },
         software: {
           title: "Software",
-          content: "C++, Python, JavaScript, Node.js, React",
+          content: "JavaScript, Python",
         },
         soft: {
           title: "Soft Skills",
-          content: "Teamfähigkeit, Kommunikationsfähigkeit, Problemlösung",
+          content: "Teamarbeit, Kommunikation",
         },
         personal: {
           title: "Persönlich",
-          content: "Kreativ, Engagiert, Lernbereit",
+          content: "Kreativ, Engagiert",
         },
         interests: {
           title: "Interessen",
-          content: "Fotografie, Reisen, Sport",
+          content: "Fotografie, Reisen",
         },
       },
     },
     en: {
       title: "About Me",
-      hello: "Hello,",
-      bio: [
-        "I am Enis Sentürk, a passionate IoT product designer and developer.",
-        "My expertise lies in the conception and implementation of innovative IoT solutions.",
-        "I hold a Master of Science degree in Electrical Engineering and Information Technology from Reutlingen University.",
-      ],
+      hello: "Hello, I'm",
+      bio: ["A few sentences about me in English.", "And a few more."],
       cv: "Resume",
       education: "Education",
       educationItems: {
         master: {
-          title: "Master of Science in Electrical Engineering and Information Technology",
-          period: "2021 - 2023",
-          institution: "Reutlingen University",
-          note: "Final Grade: 1.3",
+          title: "Master",
+          period: "2020-2022",
+          institution: "University",
+          note: "Very good",
         },
         bachelor: {
-          title: "Bachelor of Engineering in Mechatronics",
-          period: "2017 - 2021",
-          institution: "Reutlingen University",
+          title: "Bachelor",
+          period: "2016-2020",
+          institution: "College",
         },
         ib: {
           title: "International Baccalaureate",
-          period: "2015 - 2017",
-          institution: "Bodensee Gymnasium Überlingen",
+          period: "2014-2016",
+          institution: "High School",
         },
         school: {
-          title: "Realschulabschluss",
-          period: "2011 - 2015",
-          institution: "Realschule Überlingen",
+          title: "Abitur",
+          period: "2008-2014",
+          institution: "Secondary School",
         },
       },
       workExperience: "Work Experience",
       workItems: {
         boschSensor: {
-          title: "Working Student in Software Development",
-          period: "2022 - 2023",
-          company: "Bosch Sensortec GmbH",
+          title: "Working Student",
+          period: "2022-Present",
+          company: "Bosch Sensortec",
         },
         simple: {
-          title: "Working Student in Web Development",
-          period: "2021 - 2022",
-          company: "simple GmbH",
+          title: "Web Developer",
+          period: "2021-2022",
+          company: "Simple GmbH",
         },
         bosch2021: {
-          title: "Intern in Hardware Development",
+          title: "Intern",
           period: "2021",
-          company: "Bosch Sensortec GmbH",
+          company: "Bosch Sensortec",
         },
         bosch2019: {
-          title: "Intern in Hardware Development",
+          title: "Intern",
           period: "2019",
-          company: "Bosch Sensortec GmbH",
+          company: "Bosch Sensortec",
         },
         mercedes: {
-          title: "Intern in Production",
+          title: "Intern",
           period: "2018",
-          company: "Mercedes-Benz AG",
+          company: "Mercedes-Benz",
         },
       },
       internships: "Internships",
       internshipItems: {
         simple: {
-          title: "Internship in Media Design",
-          period: "2017",
-          company: "simple GmbH",
-          description: "Creation of graphics and videos for social media.",
+          title: "Media Designer",
+          period: "2015",
+          company: "Simple GmbH",
+          description: "Website Design",
         },
         bosch: {
-          title: "Internship in Hardware Development",
-          period: "2016",
-          company: "Bosch Sensortec GmbH",
+          title: "Intern",
+          period: "2014",
+          company: "Bosch",
         },
         disability: {
-          title: "Voluntary Social Year",
-          period: "2015 - 2016",
-          company: "Stiftung Liebenau",
+          title: "Caregiver",
+          period: "2013",
+          company: "Disability Home",
         },
         fuchsfarm: {
-          title: "Holiday Job",
-          period: "2014",
-          company: "Fuchsfarm Überlingen",
+          title: "Helper",
+          period: "2012",
+          company: "Fuchsfarm",
         },
         helchenhof: {
-          title: "Holiday Job",
-          period: "2013",
-          company: "Helchenhof Überlingen",
+          title: "Helper",
+          period: "2011",
+          company: "Helchenhof",
         },
       },
       languages: "Languages",
@@ -346,33 +316,32 @@ document.addEventListener("DOMContentLoaded", () => {
       skillsCategories: {
         design: {
           title: "Design",
-          content: "UI/UX Design, Prototyping, Graphic Design",
+          content: "UI/UX Design, Prototyping",
         },
         technical: {
           title: "Technical",
-          content: "Embedded Systems, IoT, Sensor Technology, Control Engineering",
+          content: "IoT, Embedded Systems",
         },
         software: {
           title: "Software",
-          content: "C++, Python, JavaScript, Node.js, React",
+          content: "JavaScript, Python",
         },
         soft: {
           title: "Soft Skills",
-          content: "Teamwork, Communication, Problem Solving",
+          content: "Teamwork, Communication",
         },
         personal: {
           title: "Personal",
-          content: "Creative, Committed, Eager to Learn",
+          content: "Creative, Dedicated",
         },
         interests: {
           title: "Interests",
-          content: "Photography, Travel, Sports",
+          content: "Photography, Travel",
         },
       },
     },
   }
 
-  // Beispiel-Daten für Contact (ersetzen Sie diese durch Ihre tatsächlichen Daten)
   const contactTranslations = {
     de: {
       title: "Kontakt",
@@ -382,8 +351,8 @@ document.addEventListener("DOMContentLoaded", () => {
       phone: "Telefon",
       address: "Adresse",
       availability: "Verfügbarkeit",
-      availabilityText: "Ich stehe für neue Projekte und Herausforderungen zur Verfügung.",
-      sendMessage: "Senden Sie eine Nachricht",
+      availabilityText: "Ich bin offen für neue Möglichkeiten. Kontaktieren Sie mich gerne!",
+      sendMessage: "Senden Sie mir eine Nachricht",
       name: "Name",
       namePlaceholder: "Ihr Name",
       emailPlaceholder: "Ihre E-Mail",
@@ -399,8 +368,8 @@ document.addEventListener("DOMContentLoaded", () => {
       phone: "Phone",
       address: "Address",
       availability: "Availability",
-      availabilityText: "I am available for new projects and challenges.",
-      sendMessage: "Send a Message",
+      availabilityText: "I am open to new opportunities. Feel free to contact me!",
+      sendMessage: "Send me a message",
       name: "Name",
       namePlaceholder: "Your Name",
       emailPlaceholder: "Your Email",
@@ -785,7 +754,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <img src="images/profile.jpg" alt="Enis Sentürk" class="w-full object-cover mb-6 transition-transform duration-700 hover:scale-105">
               </div>
               <div>
-                <h2 class="text-lg mb-1">${t.hello},</h2>
+                <h2 class="text-lg mb-1">${t.hello}</h2>
                 <p class="text-2xl font-bold">ENIS SENTÜRK</p>
               </div>
             </div>
@@ -1061,30 +1030,30 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div class="reveal" data-delay="500">
-          <div class="mb-16">
-            <h3 class="text-lg font-bold mb-4 text-accent">${t.skills}</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-3">
-              <div class="hover:translate-x-2 transition-transform duration-300">
-                <span class="font-medium">${t.skillsCategories.design.title}:</span> ${t.skillsCategories.design.content}
-              </div>
-              <div class="hover:translate-x-2 transition-transform duration-300">
-                <span class="font-medium">${t.skillsCategories.technical.title}:</span> ${t.skillsCategories.technical.content}
-              </div>
-              <div class="hover:translate-x-2 transition-transform duration-300">
-                <span class="font-medium">${t.skillsCategories.software.title}:</span> ${t.skillsCategories.software.content}
-              </div>
-              <div class="hover:translate-x-2 transition-transform duration-300">
-                <span class="font-medium">${t.skillsCategories.soft.title}:</span> ${t.skillsCategories.soft.content}
-              </div>
-              <div class="hover:translate-x-2 transition-transform duration-300">
-                <span class="font-medium">${t.skillsCategories.personal.title}:</span> ${t.skillsCategories.personal.content}
-              </div>
-              <div class="hover:translate-x-2 transition-transform duration-300">
-                <span class="font-medium">${t.skillsCategories.interests.title}:</span> ${t.skillsCategories.interests.content}
+            <div class="reveal" data-delay="500">
+              <div class="mb-16">
+                <h3 class="text-lg font-bold mb-4 text-accent">${t.skills}</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-3">
+                  <div class="hover:translate-x-2 transition-transform duration-300">
+                    <span class="font-medium">${t.skillsCategories.design.title}:</span> ${t.skillsCategories.design.content}
+                  </div>
+                  <div class="hover:translate-x-2 transition-transform duration-300">
+                    <span class="font-medium">${t.skillsCategories.technical.title}:</span> ${t.skillsCategories.technical.content}
+                  </div>
+                  <div class="hover:translate-x-2 transition-transform duration-300">
+                    <span class="font-medium">${t.skillsCategories.software.title}:</span> ${t.skillsCategories.software.content}
+                  </div>
+                  <div class="hover:translate-x-2 transition-transform duration-300">
+                    <span class="font-medium">${t.skillsCategories.soft.title}:</span> ${t.skillsCategories.soft.content}
+                  </div>
+                  <div class="hover:translate-x-2 transition-transform duration-300">
+                    <span class="font-medium">${t.skillsCategories.personal.title}:</span> ${t.skillsCategories.personal.content}
+                  </div>
+                  <div class="hover:translate-x-2 transition-transform duration-300">
+                    <span class="font-medium">${t.skillsCategories.interests.title}:</span> ${t.skillsCategories.interests.content}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1099,116 +1068,85 @@ document.addEventListener("DOMContentLoaded", () => {
     const t = contactTranslations[language]
 
     const html = `
-      <div class="max-w-3xl mx-auto mt-12">
-        <div class="reveal">
-          <h1 class="text-3xl font-bold mb-4">${t.title}</h1>
-          <p class="mb-12 text-lg">${t.subtitle}</p>
-        </div>
+    <div class="max-w-3xl mx-auto mt-12">
+      <div class="reveal">
+        <h1 class="text-3xl font-bold mb-4">${t.title}</h1>
+        <p class="mb-12 text-lg">${t.subtitle}</p>
+      </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16">
-          <div class="reveal reveal-left">
-            <div class="space-y-8">
-              <h2 class="text-xl font-bold mb-6 border-b border-accent pb-2">${t.contactInfo}</h2>
-              <ul class="space-y-6">
-                <li class="hover:translate-x-2 transition-transform duration-300 flex items-center">
-                  <div class="w-10 h-10 rounded-full bg-accent bg-opacity-10 flex items-center justify-center mr-4">
-                    <i class="fas fa-envelope text-accent"></i>
-                  </div>
-                  <div>
-                    <p class="text-sm text-gray-600 mb-1">${t.email}</p>
-                    <a href="mailto:Enissentuerk@hotmail.de" class="font-medium hover:text-accent">
-                      Enissentuerk@hotmail.de
-                    </a>
-                  </div>
-                </li>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16">
+        <div class="reveal reveal-left">
+          <div class="space-y-8">
+            <h2 class="text-xl font-bold mb-6 border-b border-accent pb-2">${t.contactInfo}</h2>
+            <ul class="space-y-6">
+              <li class="hover:translate-x-2 transition-transform duration-300 flex items-center">
+                <div class="w-10 h-10 rounded-full bg-accent bg-opacity-10 flex items-center justify-center mr-4">
+                  <i class="fas fa-envelope text-accent"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600 mb-1">${t.email}</p>
+                  <a href="mailto:Enissentuerk@hotmail.de" class="font-medium hover:text-accent">
+                    Enissentuerk@hotmail.de
+                  </a>
+                </div>
+              </li>
 
-                <li class="hover:translate-x-2 transition-transform duration-300 flex items-center">
-                  <div class="w-10 h-10 rounded-full bg-accent bg-opacity-10 flex items-center justify-center mr-4">
-                    <i class="fas fa-phone text-accent"></i>
-                  </div>
-                  <div>
-                    <p class="text-sm text-gray-600 mb-1">${t.phone}</p>
-                    <a href="tel:01734186952" class="font-medium hover:text-accent">
-                      01734186952
-                    </a>
-                  </div>
-                </li>
+              <li class="hover:translate-x-2 transition-transform duration-300 flex items-center">
+                <div class="w-10 h-10 rounded-full bg-accent bg-opacity-10 flex items-center justify-center mr-4">
+                  <i class="fas fa-phone text-accent"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600 mb-1">${t.phone}</p>
+                  <a href="tel:01734186952" class="font-medium hover:text-accent">
+                    01734186952
+                  </a>
+                </div>
+              </li>
 
-                <li class="hover:translate-x-2 transition-transform duration-300 flex items-center">
-                  <div class="w-10 h-10 rounded-full bg-accent bg-opacity-10 flex items-center justify-center mr-4">
-                    <i class="fas fa-map-marker-alt text-accent"></i>
-                  </div>
-                  <div>
-                    <p class="text-sm text-gray-600 mb-1">${t.address}</p>
-                    <p class="font-medium">Kreuzem 7/4, 72762 Reutlingen</p>
-                  </div>
-                </li>
-              </ul>
+              <li class="hover:translate-x-2 transition-transform duration-300 flex items-center">
+                <div class="w-10 h-10 rounded-full bg-accent bg-opacity-10 flex items-center justify-center mr-4">
+                  <i class="fas fa-map-marker-alt text-accent"></i>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-600 mb-1">${t.address}</p>
+                  <p class="font-medium">Kreuzem 7/4, 72762 Reutlingen</p>
+                </div>
+              </li>
+            </ul>
 
-              <div class="pt-8 mt-8 border-t border-gray-200">
-                <h3 class="text-lg font-semibold mb-4">${t.availability}</h3>
-                <p class="text-gray-700">${t.availabilityText}</p>
-              </div>
+            <div class="pt-8 mt-8 border-t border-gray-200">
+              <h3 class="text-lg font-semibold mb-4">${t.availability}</h3>
+              <p class="text-gray-700">${t.availabilityText}</p>
             </div>
           </div>
+        </div>
 
-          <div class="reveal reveal-right">
-            <div>
-              <h2 class="text-xl font-bold mb-6 border-b border-accent pb-2">${t.sendMessage}</h2>
-
-              <div id="form-status" class="hidden"></div>
-
-              <form id="contact-form" class="space-y-6">
-                <div>
-                  <label for="name" class="block mb-2 font-medium">${t.name}</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    class="w-full p-3 border border-gray-300 focus:outline-none transition-all duration-300 focus:border-accent focus:shadow-md rounded-md"
-                    placeholder="${t.namePlaceholder}"
-                    required
-                  />
-                </div>
-                <div>
-                  <label for="email" class="block mb-2 font-medium">${t.email}</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    class="w-full p-3 border border-gray-300 focus:outline-none transition-all duration-300 focus:border-accent focus:shadow-md rounded-md"
-                    placeholder="${t.emailPlaceholder}"
-                    required
-                  />
-                </div>
-                <div>
-                  <label for="message" class="block mb-2 font-medium">${t.message}</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows="6"
-                    class="w-full p-3 border border-gray-300 focus:outline-none transition-all duration-300 focus:border-accent focus:shadow-md rounded-md"
-                    placeholder="${t.messagePlaceholder}"
-                    required
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  class="btn"
-                >
-                  ${t.sendButton}
-                </button>
-              </form>
+        <div class="reveal reveal-right">
+          <div>
+            <h2 class="text-xl font-bold mb-6 border-b border-accent pb-2">${t.sendMessage}</h2>
+            
+            <p class="mb-6">${language === "de" ? "Senden Sie mir eine E-Mail, um in Kontakt zu treten:" : "Send me an email to get in touch:"}</p>
+            
+            <a href="mailto:Enissentuerk@hotmail.de" class="btn inline-block">
+              <i class="fas fa-envelope mr-2"></i> ${language === "de" ? "E-Mail senden" : "Send Email"}
+            </a>
+            
+            <div class="mt-8">
+              <p class="text-gray-700">
+                ${
+                  language === "de"
+                    ? "Alternativ können Sie mich auch telefonisch unter der oben angegebenen Nummer erreichen oder mir über soziale Medien eine Nachricht senden."
+                    : "Alternatively, you can also reach me by phone at the number listed above or send me a message via social media."
+                }
+              </p>
             </div>
           </div>
         </div>
       </div>
-    `
+    </div>
+  `
 
     contentElement.innerHTML = html
-
-    // Event-Listener für das Formular
-    document.getElementById("contact-form").addEventListener("submit", handleFormSubmit)
   }
 
   // Hilfsfunktionen
