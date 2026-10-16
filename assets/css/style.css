@@ -421,3 +421,22 @@ a.sticker { text-decoration: none; color: var(--ink); cursor: pointer; }
 .cv-about .cv-title h2 { font: 800 clamp(40px, 6vw, 72px)/1 var(--mono); letter-spacing: -.03em; margin: 0; }
 .cv-about .cv-title .btn { padding: 12px 18px; font-size: 13px; }
 .about-teaser img, .portrait img, .cv-head img { object-position: 50% 100%; }
+
+/* ---------- Handy-Feinschliff ---------- */
+.intro-ph { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 40px; }
+.ph-text { font-size: 22px; max-width: 46ch; margin: 0 0 30px; }
+@media (max-width: 900px) {
+  .intro-ph { grid-template-columns: 1fr; gap: 16px; }
+  .ph-text { font-size: 18px; }
+}
+@media (max-width: 800px) {
+  .about-teaser img { aspect-ratio: 4/5; height: auto; }
+}
+@media (max-width: 760px) {
+  .nav .links a { padding: 10px 0 8px; }
+  .nav .links a::after { bottom: 2px; }
+  .yt-note { display: none; }
+  .yt .lab { font-size: 10px; padding: 8px 10px; }
+  .chips { row-gap: 10px; }
+  .footer a, .legal-links a { display: inline-block; padding: 6px 0; }
+}

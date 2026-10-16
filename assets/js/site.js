@@ -107,7 +107,7 @@ function sectionHTML(s, k) {
   if (s.image) body += fig(s.image, s.caption, s.size);
   if (s.cards) body += `<div class="cards">${s.cards.map(pair).map(([a, b], j) => `<div class="card rv"><div class="n">${num(j)}</div><h3>${esc(a)}</h3><p>${txt(b)}</p></div>`).join('')}</div>`;
   if (s.type === 'phases') {
-    return `<section class="chapter wide rv"><div class="intro-ph" style="display:grid;grid-template-columns:320px minmax(0,1fr);gap:40px">${head}<div class="body">${s.text ? `<p style="font-size:22px;max-width:46ch;margin:0 0 30px">${txt(s.text)}</p>` : ''}</div></div>
+    return `<section class="chapter wide rv"><div class="intro-ph">${head}<div class="body">${s.text ? `<p class="ph-text">${txt(s.text)}</p>` : ''}</div></div>
       <div class="phases">${(s.items || []).map(it => `<div class="card rv">${it.image ? `<img src="${esc(it.image)}" alt="${esc(it.title)}" loading="lazy">` : ''}<div style="margin-top:20px"><span class="chip fill">${esc(it.label)}</span></div><div class="small muted" style="margin-top:14px">${esc(it.meta)}</div><h3>${esc(it.title)}</h3><p style="margin:0;font-size:16px">${txt(it.text)}</p></div>`).join('')}</div></section>`;
   }
   return `<section class="chapter rv">${head}<div class="body">${body}</div></section>`;
