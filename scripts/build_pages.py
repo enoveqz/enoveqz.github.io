@@ -64,7 +64,7 @@ def shell(title, desc, image, page, path, slug=None, base=''):
 <link rel="stylesheet" href="assets/css/style.css?v={V_CSS}">
 {redirect}</head>
 <body data-page="{page}"{extra}>
-<div id="app"><p class="loading">Loading…</p></div>
+<div id="app"><div class="loader" role="status" aria-label="Loading"><img src="assets/img/blobs/blob-1.png" alt=""><img src="assets/img/blobs/blob-2.png" alt=""><img src="assets/img/blobs/blob-4.png" alt=""><img src="assets/img/blobs/blob-6.png" alt=""><img src="assets/img/blobs/blob-8.png" alt=""></div></div>
 <script src="assets/js/js-yaml.min.js"></script>
 <script src="assets/js/site.js?v={V_JS}"></script>
 </body>
@@ -127,7 +127,8 @@ def og_image(out, title, kicker, line, img=None, bg='#dddddd'):
 
 os.makedirs('og', exist_ok=True)
 hero = ' '.join(str(site.get('hero', '')).split())
-og_image('og/home.png', hero.title() if len(hero) < 60 else NAME, site.get('nav_tag', '').strip('[]'), site.get('meta_description', ''), None)
+_ab = yaml.safe_load(open('content/about.yml', encoding='utf-8')) or {}
+og_image('og/home.png', NAME, site.get('nav_tag', '').strip('[]'), site.get('meta_description', ''), _ab.get('portrait'), '#bdb3ab')
 for p in projects:
     img = p.get('tile') or p.get('cover')
     og_image(f"og/{p['slug']}.png", p.get('title', ''), f"{p.get('kind', '')} · {p.get('year', '')}", p.get('line', ''), img, p.get('tile_bg', '#dddddd'))
@@ -140,6 +141,7 @@ pages = {
     'cv.html': shell('CV – ' + NAME, 'Curriculum vitae of ' + NAME + ': education, experience, projects and skills.', 'og/home.png', 'cv', 'cv.html'),
     'project.html': shell(mt, md, 'og/home.png', 'project', 'project.html'),
     'impressum.html': shell('Impressum – ' + NAME, 'Impressum', 'og/home.png', 'impressum', 'impressum.html'),
+    '404.html': shell('404 – ' + NAME, 'Page not found', 'og/home.png', 'notfound', '404.html', None, '/'),
     'datenschutz.html': shell('Datenschutz – ' + NAME, 'Datenschutzerklärung', 'og/home.png', 'privacy', 'datenschutz.html'),
 }
 for f, c in pages.items():

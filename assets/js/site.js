@@ -8,7 +8,7 @@ const pair = a => Array.isArray(a) ? [a[0], a.slice(1).join(', ')] : [a.title ||
 const num = i => String(i + 1).padStart(2, '0');
 const up = s => String(s || '').toUpperCase();
 const purl = slug => 'p/' + encodeURIComponent(slug) + '/';          // saubere Projekt-URL
-const here = h => (/impressum|privacy/.test(document.body.dataset.page) && h === '#contact') ? 'index.html#contact' : location.pathname + h;                              // Anker auf der aktuellen Seite
+const here = h => (/impressum|privacy|notfound/.test(document.body.dataset.page) && h === '#contact') ? 'index.html#contact' : location.pathname + h;                              // Anker auf der aktuellen Seite
 
 async function load(path) {
   const r = await fetch(path, { cache: 'no-cache' });
@@ -215,6 +215,23 @@ function cvPage({ site, about, projects }, C) {
   </main>${contact(site)}${footer(site)}`;
 }
 
+function notFound({ site, projects }) {
+  document.title = '404 – ' + site.name;
+  const blobs = [1, 2, 3, 4, 5, 6, 7, 8].map((n, i) => `<img src="assets/img/blobs/blob-${n}.png" alt="" style="--i:${i}">`).join('');
+  const words = ['Page not found', 'Lost in a dream', 'Error 404', 'Wake up', 'Wrong turn'];
+  const band = words.map(w => `<span>${esc(up(w))}  /</span>`).join('');
+  return nav(site, '') + `<main id="top" class="nf">
+  <section class="wrap nf-hero"><div class="card pad nf-card"><span class="small">Error 404</span>
+    <h1>THIS PAGE<br>FELL ASLEEP.</h1>
+    <p>Either the link is wrong or the page is somewhere in REM sleep. Better not wake it, go back instead:</p>
+    <div class="btns"><a class="btn" href="index.html#work">Back to work ↗</a><a class="btn alt" href="about.html">About me</a></div></div>
+    <a class="sticker" href="index.html#contact">ZZZ<br>Z…</a></section>
+  <div class="nf-blobs" aria-hidden="true">${blobs}</div>
+  <div class="marquee nf-band" aria-hidden="true"><div class="track">${band.repeat(4)}${band.repeat(4)}</div></div>
+  <div class="marquee nf-band two" aria-hidden="true"><div class="track">${band.repeat(4)}${band.repeat(4)}</div></div>
+  </main>${footer(site)}`;
+}
+
 function legalPage({ site }, kind, L) {
   const adr = String(L.address || '').split('\n').filter(l => l.trim() && !l.trim().startsWith('#')).join('\n').trim();
   const who = `<p>${esc(L.name || site.name)}${adr ? '<br>' + txt(adr) : ''}</p>`;
@@ -266,10 +283,12 @@ function interactions() {
     const data = await loadAll();
     if (page === 'home') root.innerHTML = home(data);
     else if (page === 'about') root.innerHTML = aboutPage(data, await load('content/cv.yml').catch(() => null));
+    else if (page === 'notfound') root.innerHTML = notFound(data);
     else if (page === 'cv') root.innerHTML = cvPage(data, await load('content/cv.yml'));
     else if (page === 'impressum' || page === 'privacy') root.innerHTML = legalPage(data, page, await load('content/legal.yml'));
     else root.innerHTML = project(data, document.body.dataset.slug || new URLSearchParams(location.search).get('p'));
     interactions();
+    document.documentElement.classList.add('ready');
   } catch (e) {
     root.innerHTML = `<p class="loading">Content could not be loaded: ${esc(e.message)}<br>Check the YAML files in /content.</p>`;
     console.error(e);

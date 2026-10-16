@@ -7,7 +7,8 @@ Statische Website für GitHub Pages im Paper-Classic-Stil. Kein Build-Schritt, k
 content/
   site.yml            ← allgemeine Texte (Startseite, Kontakt, Footer, E-Mail, Navigation)
   about.yml           ← About-Seite (Porträt, Lebenslauf, Forschungsinteressen)
-  cv.yml              ← CV-Seite (cv.html) + PDF unter assets/cv/
+  cv.yml              ← Lebenslauf (unten auf der About-Seite) + PDF unter assets/cv/
+  legal.yml           ← Impressum & Datenschutz (Adresse)
   projects.yml        ← welche Projekte gezeigt werden + Reihenfolge
   projects/
     somnia.yml        ← ein Projekt = eine Datei
@@ -89,3 +90,9 @@ und `http://localhost:8000` aufrufen. (Oder in VS Code die Erweiterung „Live S
 4. Nach ca. 1–2 Minuten ist die Seite online. Jede spätere Änderung (auch direkt im Browser auf GitHub mit dem Stift-Symbol) wird automatisch veröffentlicht.
 
 Die Datei `.nojekyll` sorgt dafür, dass GitHub die Dateien unverändert ausliefert.
+
+## Sonstiges
+- **404-Seite:** `404.html` wird automatisch erzeugt (Text in `assets/js/site.js`, Funktion `notFound`).
+- **Lade-Animation & Tab-Icon:** die SOMNIA-Blobs liegen in `assets/img/blobs/`, das Tab-Icon in `assets/icons/` und `favicon.ico`.
+- **CV-PDF:** `assets/cv/Enis-Sentuerk-CV.pdf`. Nach Änderungen an `content/cv.yml` neu erzeugen: `cv.html` im Browser öffnen → Drucken → Als PDF speichern (Hintergrundgrafiken an) und die Datei ersetzen.
+- **Updates erscheinen sofort:** CSS/JS bekommen beim Build eine Versionsnummer, Browser laden Änderungen daher ohne Strg + F5.

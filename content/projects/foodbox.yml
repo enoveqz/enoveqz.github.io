@@ -3,8 +3,9 @@ line: Neighbourhood food sharing, unlocked by image recognition
 kind: B.A. project, Prototyping/Redesign
 year: "2022/23"
 tags: [IoT, Physical Prototyping, Interaction Design]
+question: How can surplus food reach people who depend on donations, fairly and right in their own neighbourhood?
 tile: assets/img/foodbox/tile.jpg
-tile_bg: "#3d5c55"
+tile_bg: "#ffffff"
 cover: assets/img/foodbox/foodbox-box.jpg
 cover_caption: Foodbox prototype with a phone mounted on the door and an apple in the compartment
 video: AIleHmXAPgE

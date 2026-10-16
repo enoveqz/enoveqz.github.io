@@ -34,5 +34,5 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A p og sitemap.xml robots.txt index.html about.html cv.html project.html impressum.html datenschutz.html
+          git add -A p og sitemap.xml robots.txt index.html about.html 404.html cv.html project.html impressum.html datenschutz.html
           git diff --cached --quiet || (git commit -m "Build pages from content" && git push)
