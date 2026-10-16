@@ -61,8 +61,18 @@ Oben auf der Projektseite: `cover:` (ein Bild) oder `covers:` (mehrere Bilder ne
 
 Optional ganz unten: `author:` (Autor-Karte wie bei SOMNIA).
 
+## Impressum & Datenschutz
+`content/legal.yml`: Dort **deine Postanschrift** eintragen (die `#` vor den Zeilen entfernen). Ohne Anschrift ist das Impressum nicht vollständig.
+
+## Automatisch erzeugt (nicht von Hand bearbeiten)
+Bei jeder Änderung in `content/`, `assets/img/` oder `scripts/` läuft auf GitHub automatisch `scripts/build_pages.py` (siehe Reiter **Actions**). Es erzeugt:
+- `p/<projekt>/` – die Adresse jedes Projekts, z. B. `https://enoveqz.github.io/p/somnia/`
+- `og/<projekt>.png` – Vorschaubild, wenn der Link auf LinkedIn, WhatsApp usw. geteilt wird
+- `sitemap.xml`, `robots.txt` und die HTML-Grundgerüste
+Nach dem Hinzufügen eines Projekts also ca. 1–2 Minuten warten, bis die Action durch ist.
+
 ## Farben und Schriften
-Oben in `assets/css/style.css` unter `:root` (Papierfarbe, Tinte, Rahmenstärke, Schattenlänge).
+Oben in `assets/css/style.css` unter `:root` (Papierfarbe, Tinte, Rahmenstärke, Schattenlänge). Die Schriften liegen lokal in `assets/fonts/` (keine Verbindung zu Google).
 
 ## Lokal ansehen
 Die Seite lädt die YAML-Dateien per `fetch`, deshalb nicht per Doppelklick öffnen, sondern einen kleinen Server starten:

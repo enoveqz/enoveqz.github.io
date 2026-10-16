@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://enoveqz.github.io/sitemap.xml

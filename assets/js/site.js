@@ -7,6 +7,8 @@ const txt = s => esc(String(s == null ? '' : s).trim()).replace(/\\n|\n/g, '<br>
 const pair = a => Array.isArray(a) ? [a[0], a.slice(1).join(', ')] : [a.title || a.label, a.text || a.url];
 const num = i => String(i + 1).padStart(2, '0');
 const up = s => String(s || '').toUpperCase();
+const purl = slug => 'p/' + encodeURIComponent(slug) + '/';          // saubere Projekt-URL
+const here = h => (/impressum|privacy/.test(document.body.dataset.page) && h === '#contact') ? 'index.html#contact' : location.pathname + h;                              // Anker auf der aktuellen Seite
 
 async function load(path) {
   const r = await fetch(path, { cache: 'no-cache' });
@@ -30,7 +32,7 @@ function nav(site, active) {
   return `<header class="nav"><div class="wrap">
     <a class="logo" href="index.html">${esc(site.logo)}</a>
     <span class="tag">${esc(site.nav_tag)}</span>
-    <nav class="links">${l('index.html#work', 'Work', 'work')}${l('about.html', 'About', 'about')}${l('#contact', 'Contact', 'contact')}</nav>
+    <nav class="links">${l('index.html#work', 'Work', 'work')}${l('about.html', 'About', 'about')}${l(here('#contact'), 'Contact', 'contact')}</nav>
   </div><div class="bar"></div></header>`;
 }
 function contact(site) {
@@ -47,9 +49,9 @@ function footer(site) {
   const soc = (site.social || []).map(pair).map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a></li>`).join('');
   return `<footer class="wrap footer"><div class="top">
     <div><h4>${esc(up(site.name))}</h4><div class="line">${esc(String(site.footer_line || '').trim())}</div></div>
-    <div><span class="small muted">Index</span><ul><li><a href="index.html#work">Work</a></li><li><a href="about.html">About</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div><span class="small muted">Index</span><ul><li><a href="index.html#work">Work</a></li><li><a href="about.html">About</a></li><li><a href="${here('#contact')}">Contact</a></li></ul></div>
     <div><span class="small muted">Contact</span><ul><li><a href="mailto:${esc(site.email)}">${esc(site.email)}</a></li>${soc}</ul></div>
-  </div><div class="bottom"><span>© ${new Date().getFullYear()} ${esc(site.name)}</span><a href="#top">Back to top ↑</a></div></footer>`;
+  </div><div class="bottom"><span>© ${new Date().getFullYear()} ${esc(site.name)}</span><span class="legal-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="${here('#top')}">Back to top ↑</a></span></div></footer>`;
 }
 function marquee(words) {
   const one = (words || []).map(w => `<span>${esc(up(w))}  /</span>`).join('');
@@ -60,7 +62,7 @@ function interests(about) {
 }
 const tileOf = p => p.tile || p.cover;
 function pcard(p, i, big, total) {
-  return `<a class="card pcard rv ${big ? 'big' : ''}" href="project.html?p=${encodeURIComponent(p.slug)}">
+  return `<a class="card pcard rv ${big ? 'big' : ''}" href="${purl(p.slug)}">
     <div class="tile" style="--tile-bg:${esc(p.tile_bg || '#ddd')}"><img src="${esc(tileOf(p))}" alt="${esc(p.title)}" loading="${big ? 'eager' : 'lazy'}" style="view-transition-name:tile-${esc(p.slug)}">${p.video ? '<span class="vbadge">▶ VIDEO</span>' : ''}</div>
     <div class="meta small"><span>${num(i)} / ${total}</span><span>${esc(p.year)}</span></div>
     <h3>${esc(p.title)}</h3>
@@ -119,9 +121,12 @@ function project({ site, projects }, slug) {
     else if (s.type === 'card') secs += `<section class="card pad abstract rv"><span class="small">${esc(s.label || '')}</span><p class="lead" style="margin-top:18px">${txt(s.lead)}</p>${s.text ? `<p class="more">${txt(s.text)}</p>` : ''}</section>`;
     else secs += sectionHTML(s, k++);
   }
+  const allFacts = (p.facts || []).map(pair);
+  const role = allFacts.find(([k]) => /role|rolle/i.test(k));
+  const facts = allFacts.filter(f => f !== role);
   const links = (p.links || []).map(pair).filter(([, u]) => u);
   const video = p.video ? `<section class="video rv"><span class="chip fill sec-tag">Video &amp; links</span>
-      <button class="yt" type="button" data-yt="${esc(p.video)}" aria-label="Play project video"><img src="https://i.ytimg.com/vi/${esc(p.video)}/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${esc(p.video)}/hqdefault.jpg'" alt="" loading="lazy"><span class="lab">WATCH THE PROJECT VIDEO · YOUTUBE</span><span class="play">▶</span></button>
+      <button class="yt" type="button" data-yt="${esc(p.video)}" aria-label="Play project video"><img src="${esc(p.video_poster || (p.covers ? pair(p.covers[0])[0] : p.cover) || tileOf(p))}" alt="" loading="lazy"><span class="lab">WATCH THE PROJECT VIDEO · YOUTUBE</span><span class="yt-note">Click to load the video from YouTube.</span><span class="play">▶</span></button>
       <div class="btns"><a class="btn" href="https://www.youtube.com/watch?v=${esc(p.video)}" target="_blank" rel="noopener">Watch on YouTube ↗</a>${links.map(([t, u]) => `<a class="btn alt" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join('')}</div></section>`
     : (links.length ? `<div class="btns" style="margin-bottom:110px">${links.map(([t, u]) => `<a class="btn" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join('')}</div>` : '');
   const au = p.author ? `<section class="card pad author rv"><img src="${esc(p.author.image)}" alt="${esc(p.author.name)}" loading="lazy"><div><span class="small">Thesis by</span><h3>${esc(p.author.name)}</h3><p style="font-size:18px">${txt(p.author.text)}</p><p class="small muted" style="line-height:1.7">${txt(p.author.note)}</p></div></section>` : '';
@@ -135,12 +140,13 @@ function project({ site, projects }, slug) {
       <span class="label">${esc(p.label || '★ ' + p.year)}</span>
       <div class="mini" style="--tile-bg:${esc(p.tile_bg || '#ddd')}"><img src="${esc(tileOf(p))}" alt="" style="view-transition-name:tile-${esc(p.slug)}"></div>
     </section>
-    <section class="facts">${(p.facts || []).map(pair).map(([a, b], j) => `<div class="card rv"><span class="chip fill">${esc(a)}</span><p>${txt(b)}</p></div>`).join('')}</section>
+    ${role ? `<section class="card ink pad role rv"><span class="chip fill">${esc(role[0])}</span><p>${txt(role[1])}</p></section>` : ''}
+    <section class="facts">${facts.map(([a, b], j) => `<div class="card rv"><span class="chip fill">${esc(a)}</span><p>${txt(b)}</p></div>`).join('')}</section>
     ${p.covers ? `<div class="cover covers rv">${p.covers.map(pair).map(([src, cap]) => `<figure><img src="${esc(src)}" alt="${esc(cap)}"><figcaption>↑ ${esc(cap)}</figcaption></figure>`).join('')}</div>`
       : p.cover ? `<figure class="cover rv"><img src="${esc(p.cover)}" alt="${esc(p.cover_caption || p.title)}"><figcaption>↑ ${esc(p.cover_caption || '')}</figcaption></figure>` : ''}
     <div class="chapters">${secs}</div>
     ${video}${au}
-    ${nx && nx !== p ? `<a class="card next rv" href="project.html?p=${encodeURIComponent(nx.slug)}"><div><span class="small">Next project →</span><h2>${esc(nx.title)}</h2><p style="max-width:40ch;opacity:.8">${txt(nx.line)}</p><span class="arrow">↗</span></div><div class="tile" style="--tile-bg:${esc(nx.tile_bg || '#ddd')}"><img src="${esc(tileOf(nx))}" alt="" loading="lazy"></div></a>` : ''}
+    ${nx && nx !== p ? `<a class="card next rv" href="${purl(nx.slug)}"><div><span class="small">Next project →</span><h2>${esc(nx.title)}</h2><p style="max-width:40ch;opacity:.8">${txt(nx.line)}</p><span class="arrow">↗</span></div><div class="tile" style="--tile-bg:${esc(nx.tile_bg || '#ddd')}"><img src="${esc(tileOf(nx))}" alt="" loading="lazy"></div></a>` : ''}
   </main>${contact(site)}${footer(site)}`;
 }
 
@@ -157,8 +163,36 @@ function aboutPage({ site, about, projects }) {
   ${marquee(about.marquee)}
   <section class="wrap block"><span class="chip fill sec-tag">Research interests</span>${interests(about)}</section>
   <section class="wrap block"><span class="chip fill sec-tag">Selected work</span><div class="plist">
-    ${projects.map((p, i) => `<a href="project.html?p=${encodeURIComponent(p.slug)}"><span class="small">${num(i)}</span><b>${esc(p.title)}</b><span class="small k">${esc(p.kind)} · ${esc(p.year)}</span><span style="font-size:24px">↗</span></a>`).join('')}</div></section>
+    ${projects.map((p, i) => `<a href="${purl(p.slug)}"><span class="small">${num(i)}</span><b>${esc(p.title)}</b><span class="small k">${esc(p.kind)} · ${esc(p.year)}</span><span style="font-size:24px">↗</span></a>`).join('')}</div></section>
   ${contact(site)}</main>${footer(site)}`;
+}
+
+function legalPage({ site }, kind, L) {
+  const adr = String(L.address || '').split('\n').filter(l => l.trim() && !l.trim().startsWith('#')).join('\n').trim();
+  const who = `<p>${esc(L.name || site.name)}${adr ? '<br>' + txt(adr) : ''}</p>`;
+  const mail = `<p>E-Mail: <a href="mailto:${esc(site.email)}">${esc(site.email)}</a></p>`;
+  let body;
+  if (kind === 'impressum') {
+    document.title = 'Impressum – ' + site.name;
+    body = `<h1>Impressum</h1>
+      <h2>Angaben gemäß § 5 DDG</h2>${who}
+      <h2>Kontakt</h2>${mail}
+      <h2>Verantwortlich für den Inhalt gemäß § 18 Abs. 2 MStV</h2>${who}
+      <h2>Haftung für Links</h2><p>Diese Website enthält Links zu externen Websites Dritter, auf deren Inhalte ich keinen Einfluss habe. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich. Bei Bekanntwerden von Rechtsverletzungen werden entsprechende Links umgehend entfernt.</p>
+      <h2>Urheberrecht</h2><p>Die Inhalte dieser Website (Texte, Bilder, Grafiken, Videos) unterliegen dem Urheberrecht. Projekte, die im Team entstanden sind, sind gemeinsame Arbeiten der jeweils genannten Personen. Eine Verwendung außerhalb dieser Website bedarf der Zustimmung.</p>`;
+  } else {
+    document.title = 'Datenschutz – ' + site.name;
+    body = `<h1>Datenschutz</h1>
+      <h2>1. Verantwortlicher</h2>${who}${mail}
+      <h2>2. Hosting über GitHub Pages</h2><p>Diese Website wird über GitHub Pages bereitgestellt, einen Dienst der GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Beim Aufruf der Seite verarbeitet GitHub technisch notwendige Daten wie IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene Datei und Browserinformationen (Server-Logfiles), um die Seite auszuliefern und die Sicherheit zu gewährleisten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer sicheren und stabilen Bereitstellung). Dabei kann eine Übermittlung in die USA stattfinden. Weitere Informationen: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub Privacy Statement</a>.</p>
+      <h2>3. Keine Cookies, kein Tracking</h2><p>Diese Website setzt keine Cookies und verwendet keine Analyse- oder Tracking-Dienste. Schriftarten werden lokal von dieser Website geladen, es besteht keine Verbindung zu Google Fonts.</p>
+      <h2>4. YouTube-Videos</h2><p>Videos sind über YouTube (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland) eingebunden. Sie werden erst geladen, wenn Sie auf das Vorschaubild klicken; vorher werden keine Daten an YouTube übertragen. Nach dem Klick wird eine Verbindung zu YouTube im erweiterten Datenschutzmodus (youtube-nocookie.com) hergestellt, und YouTube erhält u. a. Ihre IP-Adresse und die Information, welches Video Sie aufgerufen haben. Rechtsgrundlage ist Ihre Einwilligung durch den Klick (Art. 6 Abs. 1 lit. a DSGVO). Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutzerklärung von Google</a>.</p>
+      <h2>5. Kontakt per E-Mail</h2><p>Wenn Sie mir eine E-Mail schreiben, verarbeite ich Ihre Angaben ausschließlich, um Ihre Anfrage zu beantworten (Art. 6 Abs. 1 lit. b bzw. f DSGVO). Die Daten werden gelöscht, sobald sie dafür nicht mehr benötigt werden.</p>
+      <h2>6. Externe Links</h2><p>Links zu anderen Websites (z. B. Hochschul-Ausstellungsseiten, YouTube, LinkedIn) öffnen die jeweilige Seite des Anbieters. Für die Datenverarbeitung dort ist der jeweilige Anbieter verantwortlich.</p>
+      <h2>7. Ihre Rechte</h2><p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO) sowie das Recht, eine erteilte Einwilligung jederzeit zu widerrufen. Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren, z. B. beim Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg.</p>
+      <p class="small muted" style="margin-top:40px">Stand: ${esc(L.updated || '')}</p>`;
+  }
+  return nav(site, '') + `<main id="top" class="wrap legal">${body}</main>${footer(site)}`;
 }
 
 /* ---------- Start ---------- */
@@ -183,7 +217,8 @@ function interactions() {
     const data = await loadAll();
     if (page === 'home') root.innerHTML = home(data);
     else if (page === 'about') root.innerHTML = aboutPage(data);
-    else root.innerHTML = project(data, new URLSearchParams(location.search).get('p'));
+    else if (page === 'impressum' || page === 'privacy') root.innerHTML = legalPage(data, page, await load('content/legal.yml'));
+    else root.innerHTML = project(data, document.body.dataset.slug || new URLSearchParams(location.search).get('p'));
     interactions();
   } catch (e) {
     root.innerHTML = `<p class="loading">Content could not be loaded: ${esc(e.message)}<br>Check the YAML files in /content.</p>`;
