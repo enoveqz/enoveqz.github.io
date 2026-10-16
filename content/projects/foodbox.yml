@@ -7,13 +7,14 @@ tile: assets/img/foodbox/tile.jpg
 tile_bg: "#3d5c55"
 cover: assets/img/foodbox/foodbox-box.jpg
 cover_caption: Foodbox prototype with a phone mounted on the door and an apple in the compartment
-video:
+video: AIleHmXAPgE
 links:
   - [HfG exhibition page, "https://ausstellung.hfg-gmuend.de/w-2223/projekte/foodbox/studiengang:dp"]
 
 facts:
-  - [Context, "Prototyping/Redesign course, B.A., HfG Schwäbisch Gmünd"]
-  - [Team, Team project]
+  - [Context, "Prototyping/Redesign, B.A. Internet of Things, 3rd semester, winter 2022/23, HfG Schwäbisch Gmünd"]
+  - [Team, "Alice Sopp, Freya Michl, Paul Bense, Enis Sentürk"]
+  - [Supervision, "Prof. Michael Schuster, Benjamin Thomsen"]
   - [Tech, "Arduino, NFC reader, light barrier and photoresistor, camera, Edge Impulse / Teachable Machine, Node, Socket.IO, Vue.js"]
 
 sections:
@@ -26,6 +27,14 @@ sections:
     text: A food-sharing station in the neighbourhood. The app shows nearby boxes and their contents. Donors place food in a scan compartment; image recognition identifies it and opens the matching compartment. When someone collects it, the donor gets a thank-you.
     image: assets/img/foodbox/fb-flow.jpg
     caption: "Donor flow: scan compartment, recognised donation, overview, notification"
+
+  - type: chapter
+    heading: The system
+    text: "Box and apps work together. We designed the service around two fictional personas, Luca and Klaus, who stand for typical donors and recipients."
+    cards:
+      - [The box, "A phone holder with NFC tag, a scan compartment with webcam and light guide, locked doors, and chilled and unchilled compartments."]
+      - [Donor app, "Donors offer surplus food, get a thank-you when it is collected and earn points to reach higher levels the more they give."]
+      - [Recipient app, "Recipients verify with their food bank ID and get a daily allowance of “Foodies”, the in-app currency for collecting food."]
 
   - type: chapter
     heading: Prototype

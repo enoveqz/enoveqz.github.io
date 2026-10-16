@@ -57,6 +57,8 @@ links:
 | `card`     | weiße Textkarte, z. B. Abstract (`label`, `lead`, `text`) |
 | `phases`   | Karten mit Bild, z. B. Phasen/Zeitachse (`items` mit `label`, `meta`, `title`, `text`, `image`) |
 
+Oben auf der Projektseite: `cover:` (ein Bild) oder `covers:` (mehrere Bilder nebeneinander, Liste aus `[bild, Unterschrift]`).
+
 Optional ganz unten: `author:` (Autor-Karte wie bei SOMNIA).
 
 ## Farben und Schriften

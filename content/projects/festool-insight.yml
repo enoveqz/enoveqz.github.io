@@ -6,8 +6,11 @@ year: "2025/26"
 tags: [Future of Work, Emerging Technologies, Design Research, IoT]
 tile: assets/img/festool-insight/tile.jpg
 tile_bg: "#2a2340"
-cover: assets/img/festool-insight/cover.jpg
+cover: assets/img/festool-insight/cover.jpg      # wird genutzt, wenn "covers" fehlt
 cover_caption: "Festool Insight: sensor pack and AR glasses"
+covers:                                          # mehrere Bilder nebeneinander oben auf der Seite
+  - [assets/img/festool-insight/sensor-pack.jpg, "SmartSensor Pack CSP27 between battery and tool"]
+  - [assets/img/festool-insight/ar-glasses.jpg, "AR glasses with RGB camera for the visual environment"]
 video: WLERX9tgy0U
 links:
   - [HfG Strategic Design page, "https://sg.hfg-gmuend.de/projects/festool-insight"]

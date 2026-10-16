@@ -75,8 +75,8 @@ function home({ site, about, projects }) {
   const t = site.about_teaser || {};
   return nav(site, 'work') + `<main id="top">
   <section class="wrap hero">
-    <div class="card pad"><h1>${esc(String(site.hero || '').trim())}</h1></div>
-    <div class="sticker" aria-hidden="true">${esc(String(site.sticker || '').trim())}</div>
+    <div class="hero-top"><div class="card pad"><h1>${esc(String(site.hero || '').trim())}</h1></div>
+    <div class="sticker" aria-hidden="true">${esc(String(site.sticker || '').trim())}</div></div>
     <div class="intro"><p>${esc(String(site.intro || '').trim())}</p>
       <div class="btns"><a class="btn" href="#work">See work ↓</a><a class="btn alt" href="about.html">About me</a></div></div>
     <div class="chips">${(site.chips || []).map((c, k) => `<span class="chip ${k === 0 ? 'fill' : ''}">${esc(c)}</span>`).join('')}</div>
@@ -136,7 +136,8 @@ function project({ site, projects }, slug) {
       <div class="mini" style="--tile-bg:${esc(p.tile_bg || '#ddd')}"><img src="${esc(tileOf(p))}" alt="" style="view-transition-name:tile-${esc(p.slug)}"></div>
     </section>
     <section class="facts">${(p.facts || []).map(pair).map(([a, b], j) => `<div class="card rv"><span class="chip fill">${esc(a)}</span><p>${txt(b)}</p></div>`).join('')}</section>
-    ${p.cover ? `<figure class="cover rv"><img src="${esc(p.cover)}" alt="${esc(p.cover_caption || p.title)}"><figcaption>↑ ${esc(p.cover_caption || '')}</figcaption></figure>` : ''}
+    ${p.covers ? `<div class="cover covers rv">${p.covers.map(pair).map(([src, cap]) => `<figure><img src="${esc(src)}" alt="${esc(cap)}"><figcaption>↑ ${esc(cap)}</figcaption></figure>`).join('')}</div>`
+      : p.cover ? `<figure class="cover rv"><img src="${esc(p.cover)}" alt="${esc(p.cover_caption || p.title)}"><figcaption>↑ ${esc(p.cover_caption || '')}</figcaption></figure>` : ''}
     <div class="chapters">${secs}</div>
     ${video}${au}
     ${nx && nx !== p ? `<a class="card next rv" href="project.html?p=${encodeURIComponent(nx.slug)}"><div><span class="small">Next project →</span><h2>${esc(nx.title)}</h2><p style="max-width:40ch;opacity:.8">${txt(nx.line)}</p><span class="arrow">↗</span></div><div class="tile" style="--tile-bg:${esc(nx.tile_bg || '#ddd')}"><img src="${esc(tileOf(nx))}" alt="" loading="lazy"></div></a>` : ''}
@@ -147,8 +148,8 @@ function aboutPage({ site, about, projects }) {
   document.title = 'About – ' + site.name;
   const n = String(projects.length).padStart(2, '0');
   return nav(site, 'about') + `<main id="top">
-  <section class="wrap a-hero"><div class="card pad"><span class="small">About</span><h1>${esc(String(about.title || '').trim())}</h1></div>
-    <div class="sticker" aria-hidden="true">${esc(String(about.sticker || '').trim())}</div></section>
+  <section class="wrap a-hero"><div class="hero-top"><div class="card pad"><span class="small">About</span><h1>${esc(String(about.title || '').trim())}</h1></div>
+    <div class="sticker" aria-hidden="true">${esc(String(about.sticker || '').trim())}</div></div></section>
   <section class="wrap a-grid"><div class="portrait rv"><img src="${esc(about.portrait)}" alt="Portrait of ${esc(site.name)}"><span class="label">${esc(about.portrait_label || '')}</span></div>
     <div><p class="lead rv">${txt(about.lead)}</p>
       <div class="card cv rv">${(about.cv || []).map(pair).map(([a, b], j) => `<div><span><span class="chip ${j === 0 ? 'fill' : ''}">${esc(a)}</span></span><p>${txt(b)}</p></div>`).join('')}
