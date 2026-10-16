@@ -58,7 +58,9 @@ def shell(title, desc, image, page, path, slug=None, base=''):
 <meta property="og:image" content="{esc(URL + '/' + image)}">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="{ICON}">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/css/style.css?v={V_CSS}">
 {redirect}</head>
 <body data-page="{page}"{extra}>
