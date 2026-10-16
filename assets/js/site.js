@@ -69,7 +69,7 @@ function pcard(p, i, big, total) {
     <div class="meta small"><span>${num(i)} / ${total}</span><span>${esc(p.year)}</span></div>
     <h3>${esc(p.title)}</h3>
     ${rqOf(p) ? `<p class="rq"><span class="small">Research question</span>${txt(rqOf(p))}</p>` : ''}
-    <div class="row"><div>${String(p.line || '').trim().toLowerCase() !== rqOf(p).trim().toLowerCase() ? `<p>${txt(p.line)}</p>` : ''}<span class="chip">${esc(p.kind)}</span></div><span class="arrow">↗</span></div>
+    <div class="row"><div>${rqOf(p) ? '' : `<p>${txt(p.line)}</p>`}<span class="chip">${esc(p.kind)}</span></div><span class="arrow">↗</span></div>
   </a>`;
 }
 
@@ -132,7 +132,6 @@ function project({ site, projects }, slug) {
   let sub = String(p.subtitle || p.line || '').trim();
   if (rq && sub.toLowerCase().startsWith(rq.toLowerCase())) sub = sub.slice(rq.length).trim();
   if (rq && sub.toLowerCase() === rq.toLowerCase()) sub = '';
-  const big = f => f ? `<section class="card ink pad role rv"><span class="chip fill">${esc(f[0])}</span><p>${txt(f[1])}</p></section>` : '';
   const links = (p.links || []).map(pair).filter(([, u]) => u);
   const video = p.video ? `<section class="video rv" id="video"><span class="chip fill sec-tag">Video &amp; links</span>
       <button class="yt" type="button" data-yt="${esc(p.video)}" aria-label="Play project video"><img src="${esc(p.video_poster || (p.covers ? pair(p.covers[0])[0] : p.cover) || tileOf(p))}" alt="" loading="lazy"><span class="lab">WATCH THE PROJECT VIDEO · YOUTUBE</span><span class="yt-note">Click to load the video from YouTube.</span><span class="play">▶</span></button>
@@ -151,8 +150,7 @@ function project({ site, projects }, slug) {
       <div class="mini" style="--tile-bg:${esc(p.tile_bg || '#ddd')}"><img src="${esc(tileOf(p))}" alt="" style="view-transition-name:tile-${esc(p.slug)}"></div>
     </section>
     ${video}
-    ${big(role)}${big(meth)}
-    <section class="facts">${facts.map(([a, b], j) => `<div class="card rv"><span class="chip fill">${esc(a)}</span><p>${txt(b)}</p></div>`).join('')}</section>
+    <section class="facts">${[role, meth].filter(Boolean).concat(facts).map(([a, b], j) => `<div class="card rv"><span class="chip fill">${esc(a)}</span><p>${txt(b)}</p></div>`).join('')}</section>
     ${p.covers ? `<div class="cover covers rv">${p.covers.map(pair).map(([src, cap]) => `<figure><img src="${esc(src)}" alt="${esc(cap)}"><figcaption>↑ ${esc(cap)}</figcaption></figure>`).join('')}</div>`
       : p.cover && !(p.video && !p.video_poster) ? `<figure class="cover rv"><img src="${esc(p.cover)}" alt="${esc(p.cover_caption || p.title)}"><figcaption>↑ ${esc(p.cover_caption || '')}</figcaption></figure>` : ''}
     <div class="chapters">${secs}</div>
