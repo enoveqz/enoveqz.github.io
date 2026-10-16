@@ -12,7 +12,7 @@ links: []
 
 facts:
   - [Context, "Bachelor’s thesis, B.A. Internet of Things, HfG Schwäbisch Gmünd"]
-  - [Team, Team project]
+  - [Team, "Paul Bense, Enis Sentürk"]
   - [Scope, "Switzerland, using public Swiss geodata"]
   - [Outcome, "Mobile-first web app, QR-code posters, flyers and an online campaign"]
 
