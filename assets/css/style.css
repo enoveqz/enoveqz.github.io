@@ -420,3 +420,4 @@ a.sticker { text-decoration: none; color: var(--ink); cursor: pointer; }
 .cv-about .cv-title { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; border-bottom: var(--bw) solid var(--ink); padding-bottom: 18px; }
 .cv-about .cv-title h2 { font: 800 clamp(40px, 6vw, 72px)/1 var(--mono); letter-spacing: -.03em; margin: 0; }
 .cv-about .cv-title .btn { padding: 12px 18px; font-size: 13px; }
+.about-teaser img, .portrait img, .cv-head img { object-position: 50% 100%; }
