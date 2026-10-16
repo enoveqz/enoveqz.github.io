@@ -12,7 +12,7 @@ email: enissentuerk@hotmail.de
 
 # Browser-Tab und Suchmaschinen
 meta_title: Enis Sentürk – Strategic Design & Research
-meta_description: Strategic designer with an engineering background in IoT, researching how emerging technologies enter everyday life.
+meta_description: Strategic designer with a background in IoT, working between research, frameworks and prototypes for technology people actually live with.
 
 # Startseite oben
 hero: |
@@ -25,26 +25,27 @@ sticker: |
   FOR
   WORK
 intro: |
-  Strategic designer with an engineering background in IoT.
-  I research emerging technologies and turn what I find into frameworks, concepts and prototypes.
-chips: [Strategic Design, IoT, HCI, Sleep Tech, Design Research]
+  Not a classic designer, not a classic engineer.
+  I work in between: research, frameworks and prototypes for technology people actually live with.
+chips: [Strategic Design, IoT, HCI, Futures, Design Research]
 work_label: "01 / Selected work · 2022—2026"
 
 # Schwarze Karte unter den Projekten
+# leer lassen = Karte wird nicht angezeigt (Text steht jetzt oben im Intro)
 statement_label: IN BETWEEN
-statement: "Not a classic designer, not a classic engineer. I work in between: research, frameworks and prototypes for technology people actually live with."
+statement: ""
 
 # Kurzes "About" auf der Startseite
 about_teaser:
-  text: I’m a strategic designer with an engineering background in the Internet of Things. I research how emerging technologies enter everyday life and turn what I find into frameworks, concepts and prototypes that teams can build on.
+  text: Before design, I worked in logistics and tried mechatronics, agriculture and social care. I still want to know how things are built and how they feel for the people who use them.
   rows:
     - [Education, "M.A. Strategic Design, 2026 · B.A. Internet of Things · HfG Schwäbisch Gmünd"]
     - [Experience, "UI/UX design, Bosch Sensortec · Exhibition design, Simple GmbH"]
-    - [Focus, "Sleep and technology, HCI, sensing and wearables, digital health"]
+    - [Focus, "HCI, futures, sensing and wearables, health and sleep"]
 
 # Kontakt-Karte (unten auf jeder Seite)
 contact_title: LET’S TALK →
-contact_text: Open to PhD positions, research collaborations and roles in sleep tech, HCI and design research.
+contact_text: Open to PhD positions, research collaborations and roles in HCI, design research and strategic design.
 contact_sticker: |
   SAY
   HELLO

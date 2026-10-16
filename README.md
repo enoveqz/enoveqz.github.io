@@ -7,6 +7,7 @@ Statische Website für GitHub Pages im Paper-Classic-Stil. Kein Build-Schritt, k
 content/
   site.yml            ← allgemeine Texte (Startseite, Kontakt, Footer, E-Mail, Navigation)
   about.yml           ← About-Seite (Porträt, Lebenslauf, Forschungsinteressen)
+  cv.yml              ← CV-Seite (cv.html) + PDF unter assets/cv/
   projects.yml        ← welche Projekte gezeigt werden + Reihenfolge
   projects/
     somnia.yml        ← ein Projekt = eine Datei

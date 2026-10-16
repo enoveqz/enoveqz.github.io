@@ -32,7 +32,7 @@ function nav(site, active) {
   return `<header class="nav"><div class="wrap">
     <a class="logo" href="index.html">${esc(site.logo)}</a>
     <span class="tag">${esc(site.nav_tag)}</span>
-    <nav class="links">${l('index.html#work', 'Work', 'work')}${l('about.html', 'About', 'about')}${l(here('#contact'), 'Contact', 'contact')}</nav>
+    <nav class="links">${l('index.html#work', 'Work', 'work')}${l('about.html', 'About', 'about')}${l('cv.html', 'CV', 'cv')}${l(here('#contact'), 'Contact', 'contact')}</nav>
   </div><div class="bar"></div></header>`;
 }
 function contact(site) {
@@ -50,7 +50,7 @@ function footer(site) {
   const soc = (site.social || []).map(pair).map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a></li>`).join('');
   return `<footer class="wrap footer"><div class="top">
     <div><h4>${esc(up(site.name))}</h4><div class="line">${esc(String(site.footer_line || '').trim())}</div></div>
-    <div><span class="small muted">Index</span><ul><li><a href="index.html#work">Work</a></li><li><a href="about.html">About</a></li><li><a href="${here('#contact')}">Contact</a></li></ul></div>
+    <div><span class="small muted">Index</span><ul><li><a href="index.html#work">Work</a></li><li><a href="about.html">About</a></li><li><a href="cv.html">CV</a></li><li><a href="${here('#contact')}">Contact</a></li></ul></div>
     <div><span class="small muted">Contact</span><ul><li><a href="mailto:${esc(site.email)}">${esc(site.email)}</a></li>${soc}</ul></div>
   </div><div class="bottom"><span>© ${new Date().getFullYear()} ${esc(site.name)}</span><span class="legal-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="${here('#top')}">Back to top ↑</a></span></div></footer>`;
 }
@@ -62,12 +62,14 @@ function interests(about) {
   return `<div class="grid3">${(about.interests || []).map((it, k) => `<div class="card icard rv"><div class="n">${num(k)}</div><h3>${esc(it.title)}</h3><p>${txt(it.text)}</p></div>`).join('')}</div>`;
 }
 const tileOf = p => p.tile || p.cover;
+const rqOf = p => p.question || ((p.sections || []).find(s => s.type === 'question') || {}).text || '';
 function pcard(p, i, big, total) {
   return `<a class="card pcard rv ${big ? 'big' : ''}" href="${purl(p.slug)}">
-    <div class="tile" style="--tile-bg:${esc(p.tile_bg || '#ddd')}"><img src="${esc(tileOf(p))}" alt="${esc(p.title)}" loading="${big ? 'eager' : 'lazy'}" style="view-transition-name:tile-${esc(p.slug)}">${p.video ? '<span class="vbadge">▶ VIDEO</span>' : ''}</div>
+    <div class="tile" style="--tile-bg:${esc(p.tile_bg || '#ddd')}"><img src="${esc(tileOf(p))}" alt="${esc(p.title)}" loading="${big ? 'eager' : 'lazy'}" style="view-transition-name:tile-${esc(p.slug)}">${p.video ? `<span class="vbadge" role="link" tabindex="0" data-go="${purl(p.slug)}#video">▶ PLAY VIDEO</span>` : ''}</div>
     <div class="meta small"><span>${num(i)} / ${total}</span><span>${esc(p.year)}</span></div>
     <h3>${esc(p.title)}</h3>
-    <div class="row"><div><p>${txt(p.line)}</p><span class="chip fill">${esc(p.kind)}</span></div><span class="arrow">↗</span></div>
+    ${rqOf(p) ? `<p class="rq"><span class="small">Research question</span>${txt(rqOf(p))}</p>` : ''}
+    <div class="row"><div>${String(p.line || '').trim().toLowerCase() !== rqOf(p).trim().toLowerCase() ? `<p>${txt(p.line)}</p>` : ''}<span class="chip">${esc(p.kind)}</span></div><span class="arrow">↗</span></div>
   </a>`;
 }
 
@@ -79,15 +81,15 @@ function home({ site, about, projects }) {
   return nav(site, 'work') + `<main id="top">
   <section class="wrap hero">
     <div class="hero-top"><div class="card pad"><h1>${esc(String(site.hero || '').trim())}</h1></div>
-    <div class="sticker" aria-hidden="true">${esc(String(site.sticker || '').trim())}</div></div>
+    <a class="sticker" href="#contact" title="Contact">${esc(String(site.sticker || '').trim())}</a></div>
     <div class="intro"><p>${esc(String(site.intro || '').trim())}</p>
       <div class="btns"><a class="btn" href="#work">See work ↓</a><a class="btn alt" href="about.html">About me</a></div></div>
-    <div class="chips">${(site.chips || []).map((c, k) => `<span class="chip ${k === 0 ? 'fill' : ''}">${esc(c)}</span>`).join('')}</div>
+    <div class="chips">${(site.chips || []).map((c, k) => `<span class="chip">${esc(c)}</span>`).join('')}</div>
   </section>
   <section class="wrap work" id="work"><span class="chip fill sec-tag">${esc(site.work_label)}</span>
     ${cards[0] || ''}<div class="grid2">${cards.slice(1).join('')}</div></section>
   ${marquee(projects.map(p => p.title))}
-  <section class="wrap block"><div class="card ink pad statement rv"><span class="small">${esc(site.statement_label)}</span><p>${txt(site.statement)}</p></div></section>
+  ${site.statement ? `<section class="wrap block"><div class="card ink pad statement rv"><span class="small">${esc(site.statement_label)}</span><p>${txt(site.statement)}</p></div></section>` : ''}
   <section class="wrap block"><span class="chip fill sec-tag">02 / About</span>
     <div class="card pad about-teaser rv"><img src="${esc(about.portrait)}" alt="Portrait of ${esc(site.name)}" loading="lazy">
       <div><p class="lead">${txt(t.text)}</p><dl class="rows">${(t.rows || []).map(pair).map(([a, b]) => `<div><dt>${esc(a)}</dt><dd>${txt(b)}</dd></div>`).join('')}</dl>
@@ -97,10 +99,10 @@ function home({ site, about, projects }) {
 }
 
 function sectionHTML(s, k) {
-  const head = `<div><div class="num">${num(k)}</div><span class="chip">${esc(s.heading)}</span></div>`;
+  const head = `<div><div class="num">${num(k)}</div><h2 class="ch-title">${esc(s.heading)}</h2></div>`;
   const fig = (src, cap, size) => `<figure class="fig ${size === 'half' ? 'half' : ''}"><img src="${esc(src)}" alt="${esc(cap || '')}" loading="lazy">${cap ? `<figcaption>Fig. ${num(k)} — ${esc(cap)}</figcaption>` : ''}</figure>`;
   let body = s.text ? `<p>${txt(s.text)}</p>` : '';
-  if (s.chips) body += `<div class="chips" style="margin-bottom:30px">${s.chips.map((c, j) => `<span class="chip ${j === 0 ? 'fill' : ''}">${esc(c)}</span>`).join('')}</div>`;
+  if (s.chips) body += `<div class="chips" style="margin-bottom:30px">${s.chips.map((c, j) => `<span class="chip">${esc(c)}</span>`).join('')}</div>`;
   if (s.gallery) body += `<div class="gallery">${s.gallery.map(pair).map(([src, cap]) => `<figure class="fig"><img src="${esc(src)}" alt="${esc(cap)}" loading="lazy">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`).join('')}</div>`;
   if (s.image) body += fig(s.image, s.caption, s.size);
   if (s.cards) body += `<div class="cards">${s.cards.map(pair).map(([a, b], j) => `<div class="card rv"><div class="n">${num(j)}</div><h3>${esc(a)}</h3><p>${txt(b)}</p></div>`).join('')}</div>`;
@@ -118,15 +120,21 @@ function project({ site, projects }, slug) {
   document.title = p.title + ' – ' + site.name;
   let k = 0, secs = '';
   for (const s of p.sections || []) {
-    if (s.type === 'question') secs += `<section class="card ink pad question rv"><span class="small">Research question</span><p>${txt(s.text)}</p></section>`;
+    if (s.type === 'question') continue;
     else if (s.type === 'card') secs += `<section class="card pad abstract rv"><span class="small">${esc(s.label || '')}</span><p class="lead" style="margin-top:18px">${txt(s.lead)}</p>${s.text ? `<p class="more">${txt(s.text)}</p>` : ''}</section>`;
     else secs += sectionHTML(s, k++);
   }
   const allFacts = (p.facts || []).map(pair);
   const role = allFacts.find(([k]) => /role|rolle/i.test(k));
-  const facts = allFacts.filter(f => f !== role);
+  const meth = allFacts.find(([k]) => /method|methode/i.test(k));
+  const facts = allFacts.filter(f => f !== role && f !== meth);
+  const rq = rqOf(p);
+  let sub = String(p.subtitle || p.line || '').trim();
+  if (rq && sub.toLowerCase().startsWith(rq.toLowerCase())) sub = sub.slice(rq.length).trim();
+  if (rq && sub.toLowerCase() === rq.toLowerCase()) sub = '';
+  const big = f => f ? `<section class="card ink pad role rv"><span class="chip fill">${esc(f[0])}</span><p>${txt(f[1])}</p></section>` : '';
   const links = (p.links || []).map(pair).filter(([, u]) => u);
-  const video = p.video ? `<section class="video rv"><span class="chip fill sec-tag">Video &amp; links</span>
+  const video = p.video ? `<section class="video rv" id="video"><span class="chip fill sec-tag">Video &amp; links</span>
       <button class="yt" type="button" data-yt="${esc(p.video)}" aria-label="Play project video"><img src="${esc(p.video_poster || (p.covers ? pair(p.covers[0])[0] : p.cover) || tileOf(p))}" alt="" loading="lazy"><span class="lab">WATCH THE PROJECT VIDEO · YOUTUBE</span><span class="yt-note">Click to load the video from YouTube.</span><span class="play">▶</span></button>
       <div class="btns"><a class="btn" href="https://www.youtube.com/watch?v=${esc(p.video)}" target="_blank" rel="noopener">Watch on YouTube ↗</a>${links.map(([t, u]) => `<a class="btn alt" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join('')}</div></section>`
     : (links.length ? `<div class="btns" style="margin-bottom:110px">${links.map(([t, u]) => `<a class="btn" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join('')}</div>` : '');
@@ -136,17 +144,19 @@ function project({ site, projects }, slug) {
     <section class="p-hero">
       <div class="card pad"><span class="small">Project ${num(i)} / ${String(projects.length).padStart(2, '0')} — ${esc(p.kind)}, ${esc(p.year)}</span>
         <h1 style="view-transition-name:title-${esc(p.slug)}">${esc(p.title)}</h1>
-        <p class="sub">${txt(p.subtitle || p.line)}</p>
+        ${rq ? `<div class="p-rq"><span class="small">Research question</span><p>${txt(rq)}</p></div>` : ''}
+        ${sub ? `<p class="sub">${txt(sub)}</p>` : ''}
         <div class="chips">${(p.tags || []).map(t => `<span class="chip">${esc(t)}</span>`).join('')}</div></div>
       <span class="label">${esc(p.label || '★ ' + p.year)}</span>
       <div class="mini" style="--tile-bg:${esc(p.tile_bg || '#ddd')}"><img src="${esc(tileOf(p))}" alt="" style="view-transition-name:tile-${esc(p.slug)}"></div>
     </section>
-    ${role ? `<section class="card ink pad role rv"><span class="chip fill">${esc(role[0])}</span><p>${txt(role[1])}</p></section>` : ''}
+    ${video}
+    ${big(role)}${big(meth)}
     <section class="facts">${facts.map(([a, b], j) => `<div class="card rv"><span class="chip fill">${esc(a)}</span><p>${txt(b)}</p></div>`).join('')}</section>
     ${p.covers ? `<div class="cover covers rv">${p.covers.map(pair).map(([src, cap]) => `<figure><img src="${esc(src)}" alt="${esc(cap)}"><figcaption>↑ ${esc(cap)}</figcaption></figure>`).join('')}</div>`
-      : p.cover ? `<figure class="cover rv"><img src="${esc(p.cover)}" alt="${esc(p.cover_caption || p.title)}"><figcaption>↑ ${esc(p.cover_caption || '')}</figcaption></figure>` : ''}
+      : p.cover && !(p.video && !p.video_poster) ? `<figure class="cover rv"><img src="${esc(p.cover)}" alt="${esc(p.cover_caption || p.title)}"><figcaption>↑ ${esc(p.cover_caption || '')}</figcaption></figure>` : ''}
     <div class="chapters">${secs}</div>
-    ${video}${au}
+    ${au}
     ${nx && nx !== p ? `<a class="card next rv" href="${purl(nx.slug)}"><div><span class="small">Next project →</span><h2>${esc(nx.title)}</h2><p style="max-width:40ch;opacity:.8">${txt(nx.line)}</p><span class="arrow">↗</span></div><div class="tile" style="--tile-bg:${esc(nx.tile_bg || '#ddd')}"><img src="${esc(tileOf(nx))}" alt="" loading="lazy"></div></a>` : ''}
   </main>${contact(site)}${footer(site)}`;
 }
@@ -160,12 +170,37 @@ function aboutPage({ site, about, projects }) {
   <section class="wrap a-grid"><div class="portrait rv"><img src="${esc(about.portrait)}" alt="Portrait of ${esc(site.name)}"><span class="label">${esc(about.portrait_label || '')}</span></div>
     <div><p class="lead rv">${txt(about.lead)}</p>
       <div class="card cv rv">${(about.cv || []).map(pair).map(([a, b], j) => `<div><span><span class="chip ${j === 0 ? 'fill' : ''}">${esc(a)}</span></span><p>${txt(b)}</p></div>`).join('')}
-        <div><span><span class="chip">Contact</span></span><p><a href="mailto:${esc(site.email)}">${esc(site.email)}</a>${(site.social || []).map(pair).map(([t, u]) => `<br><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join('')}</p></div></div></div></section>
+        <div><span><span class="chip">Contact</span></span><p><a href="mailto:${esc(site.email)}">${esc(site.email)}</a>${(site.social || []).map(pair).map(([t, u]) => `<br><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join('')}<br><a href="cv.html">Full CV / PDF ↗</a></p></div></div></div></section>
   ${marquee(about.marquee)}
   <section class="wrap block"><span class="chip fill sec-tag">Research interests</span>${interests(about)}</section>
   <section class="wrap block"><span class="chip fill sec-tag">Selected work</span><div class="plist">
     ${projects.map((p, i) => `<a href="${purl(p.slug)}"><span class="small">${num(i)}</span><b>${esc(p.title)}</b><span class="small k">${esc(p.kind)} · ${esc(p.year)}</span><span style="font-size:24px">↗</span></a>`).join('')}</div></section>
   ${contact(site)}</main>${footer(site)}`;
+}
+
+function cvPage({ site, about, projects }, C) {
+  document.title = 'CV – ' + site.name;
+  const ent = e => `<div class="cv-e"><span class="when">${esc(e.when)}</span><div><b>${esc(e.title)}</b>${e.where ? `<span class="where">${esc(e.where)}</span>` : ''}${e.note ? `<p>${txt(e.note)}</p>` : ''}</div></div>`;
+  const sec = (t, body) => `<section class="cv-sec"><span class="chip fill sec-tag">${esc(t)}</span>${body}</section>`;
+  const soc = (site.social || []).map(pair);
+  const rows = [['Email', `<a href="mailto:${esc(site.email)}">${esc(site.email)}</a>`], ['Portfolio', `<a href="index.html">${esc(String(site.url || '').replace(/^https?:\/\//, ''))}</a>`]]
+    .concat(soc.map(([t, u]) => [t, `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))}</a>`]));
+  return nav(site, 'cv') + `<main id="top" class="wrap cvp">
+  <div class="cv-actions no-print">${C.pdf ? `<a class="btn" href="${esc(C.pdf)}" download>Download PDF ↓</a>` : ''}<button class="btn alt" type="button" onclick="window.print()">Print</button></div>
+  <div class="card pad cv-head"><img src="${esc(about.portrait)}" alt="Portrait of ${esc(site.name)}">
+    <div><h1>${esc(up(site.name))}</h1><p class="ttl">${esc(C.title)}</p><dl>${rows.map(([k, v]) => `<dt>${esc(up(k))}</dt><dd>${v}</dd>`).join('')}</dl></div>
+    <div class="sticker" aria-hidden="true">${esc(String(C.sticker || '').trim())}</div></div>
+  ${sec('Profile', `<p class="cv-prof">${txt(C.profile)}</p>`)}
+  ${sec('Education', (C.education || []).map(ent).join(''))}
+  ${sec('Experience', (C.experience || []).map(ent).join(''))}
+  <div class="cv-two"><div>
+    ${sec('Skills', (C.skills || []).map(pair).map(([k, v]) => `<div class="cv-sk"><span class="small">${esc(k)}</span><p>${txt(v)}</p></div>`).join(''))}
+    ${sec('Workshops & more', (C.workshops || []).map(ent).join(''))}
+  </div><div>
+    <div class="card cv-lang"><span class="small">Languages</span>${(C.languages || []).map(pair).map(([l, v]) => `<div><b>${esc(l)}</b><span>${esc(up(v))}</span></div>`).join('')}</div>
+    ${C.looking ? `<div class="card pad cv-look"><span class="small">Looking for</span><p>${txt(C.looking)}</p></div>` : ''}
+  </div></div>
+  </main>${contact(site)}${footer(site)}`;
 }
 
 function legalPage({ site }, kind, L) {
@@ -209,6 +244,7 @@ function interactions() {
     try { await navigator.clipboard.writeText(v); b.innerHTML = 'COPIED ✓'; } catch (e) { location.href = 'mailto:' + v; }
     setTimeout(() => { b.innerHTML = old; }, 1600);
   }));
+  document.querySelectorAll('[data-go]').forEach(b => { const go = e => { e.preventDefault(); e.stopPropagation(); location.href = b.dataset.go; }; b.addEventListener('click', go); b.addEventListener('keydown', e => { if (e.key === 'Enter') go(e); }); });
   if (location.hash) { const t = document.getElementById(location.hash.slice(1)); if (t) setTimeout(() => t.scrollIntoView(), 50); }
 }
 
@@ -218,6 +254,7 @@ function interactions() {
     const data = await loadAll();
     if (page === 'home') root.innerHTML = home(data);
     else if (page === 'about') root.innerHTML = aboutPage(data);
+    else if (page === 'cv') root.innerHTML = cvPage(data, await load('content/cv.yml'));
     else if (page === 'impressum' || page === 'privacy') root.innerHTML = legalPage(data, page, await load('content/legal.yml'));
     else root.innerHTML = project(data, document.body.dataset.slug || new URLSearchParams(location.search).get('p'));
     interactions();

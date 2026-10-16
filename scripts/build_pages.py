@@ -132,6 +132,7 @@ mt, md = site.get('meta_title', NAME), site.get('meta_description', '')
 pages = {
     'index.html': shell(mt, md, 'og/home.png', 'home', ''),
     'about.html': shell('About – ' + NAME, md, 'og/home.png', 'about', 'about.html'),
+    'cv.html': shell('CV – ' + NAME, 'Curriculum vitae of ' + NAME + ': education, experience, projects and skills.', 'og/home.png', 'cv', 'cv.html'),
     'project.html': shell(mt, md, 'og/home.png', 'project', 'project.html'),
     'impressum.html': shell('Impressum – ' + NAME, 'Impressum', 'og/home.png', 'impressum', 'impressum.html'),
     'datenschutz.html': shell('Datenschutz – ' + NAME, 'Datenschutzerklärung', 'og/home.png', 'privacy', 'datenschutz.html'),
@@ -146,7 +147,7 @@ for p in projects:
     open(f'{d}/index.html', 'w', encoding='utf-8').write(
         shell(f"{p.get('title')} – {NAME}", ' '.join(str(desc).split()), f"og/{p['slug']}.png", 'project', f"p/{p['slug']}/", p['slug'], '../../'))
 
-urls = ['', 'about.html'] + [f"p/{p['slug']}/" for p in projects] + ['impressum.html', 'datenschutz.html']
+urls = ['', 'about.html', 'cv.html'] + [f"p/{p['slug']}/" for p in projects] + ['impressum.html', 'datenschutz.html']
 open('sitemap.xml', 'w', encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     ''.join(f'  <url><loc>{esc(URL + "/" + u)}</loc></url>\n' for u in urls) + '</urlset>\n')
 open('robots.txt', 'w').write(f'User-agent: *\nAllow: /\nSitemap: {URL}/sitemap.xml\n')

@@ -1,0 +1,71 @@
+# ─────────────────────────────────────────────────────────────
+#  LEBENSLAUF (cv.html) – öffentliche Version, ohne Telefon/Adresse
+#  PDF: assets/cv/Enis-Sentuerk-CV.pdf (bei Änderungen neu exportieren,
+#  z. B. cv.html im Browser öffnen → Drucken → Als PDF speichern)
+# ─────────────────────────────────────────────────────────────
+title: Strategic Designer · IoT · Design Research
+profile: 'Strategic designer with a design background in the Internet of Things. Not a classic designer, not a classic engineer: I work in between, with research, frameworks and prototypes for technology people actually live with. Interests: HCI, futures, sensing and wearables, health and sleep.'
+pdf: assets/cv/Enis-Sentuerk-CV.pdf
+sticker: |
+  OPEN
+  FOR
+  WORK
+education:
+- when: 2025 — 2026
+  title: M.A. Strategic Design
+  where: HfG Schwäbisch Gmünd
+  note: 'Thesis: SOMNIA – a framework for using lucid dreaming as a learning resource without compromising sleep. Supervised by Prof. Dr. Matthias Peißner and Prof. Dr. Julia Duwe.'
+- when: 2020 — 2025
+  title: B.A. Internet of Things
+  where: HfG Schwäbisch Gmünd
+  note: 'Thesis: PathAware – safer hiking through shared, real-time trail information.'
+- when: 2017 — 2019
+  title: Fachhochschulreife
+  where: IB Berufliche Schulen Reutlingen
+- when: 2003 — 2017
+  title: School
+  where: Freie Georgenschule Reutlingen
+experience:
+- when: 2023 — 2024
+  title: Exhibition Design · 6 months
+  where: Simple GmbH, Cologne
+  note: Content creation for BMW and the Schokoladenmuseum Köln, conception for Beiersdorf AG.
+- when: '2023'
+  title: UI/UX Design · 6 months
+  where: Bosch Sensortec
+  note: Internal interfaces for sensor testing.
+- when: Freelance
+  title: Social media & content
+  where: HfG Schwäbisch Gmünd · Freie Waldorfschule Schwäbisch Gmünd
+  note: Social media concepts and content creation; funnels and newsletters.
+- when: 2019 — 2021
+  title: Student jobs · Logistics
+  where: Robert Bosch GmbH · Mercedes-Benz
+workshops:
+- when: '2025'
+  title: 'Workshop „Zeig deine Arbeit: deine digitale Visitenkarte“ (with Alexandra Heider), M.A. Strategic Design, HfG'
+- when: '2025'
+  title: Workshop at Festool on Powertools 2035 (with Lynn Metzner, Meltem Yalaz)
+- when: '2022'
+  title: Miele Circular Economy Hackathon, Impact Hub Berlin
+- when: 2011 — 2014
+  title: 'Early internships: mechatronics (Robert Bosch GmbH), social care, agriculture and surveying'
+skills:
+- - Methods
+  - Literature synthesis, interviews, speculative design, framework development, service and interaction design, physical and digital prototyping
+- - Tools
+  - Figma, Arduino, Blender, After Effects, Premiere Pro, AI tools
+- - Interests
+  - HCI, futures, health & sleep, ceramics, sports, art
+languages:
+- - German
+  - Fluent
+- - Turkish
+  - Fluent
+- - English
+  - Fluent
+- - French
+  - Basic
+- - Spanish
+  - Basic
+looking: PhD positions, research collaborations and roles in HCI, design research and strategic design. Open to Erasmus+ placements abroad.

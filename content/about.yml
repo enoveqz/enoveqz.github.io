@@ -10,7 +10,9 @@ sticker: |
   DESIGN
 portrait: assets/img/about/portrait.jpg
 portrait_label: ★ HFG SCHWÄBISCH GMÜND
-lead: I’m a strategic designer with a design background in Internet of Things. I research how emerging technologies enter everyday life and turn what I find into frameworks, concepts and prototypes that teams can build on.
+lead: |
+  I grew up in Reutlingen. Before I studied design, I worked in logistics at Bosch and Mercedes-Benz and did internships in mechatronics, agriculture and social care. That mix still shapes how I work: I want to understand how something is built and how it feels for the people who live with it.
+  Outside the studio I cast ceramic mugs, do sports and spend time with art. I speak German, Turkish and English.
 
 # Lebenslauf-Zeilen: [Titel, Text]  – Zeilenumbruch mit \n
 cv:
@@ -19,13 +21,13 @@ cv:
   - [Methods, "Literature synthesis, interviews, speculative design, framework development, service and interaction design, physical and digital prototyping"]
   - [Tools, "Figma, Arduino, Blender, After Effects, Premiere Pro, AI tools"]
 
-marquee: [Sleep & technology, HCI, Futures, Wearables, Digital health]
+marquee: [HCI, Futures, Wearables, Strategic design, Health & sleep]
 
 # Forschungsinteressen (erscheinen auch auf der Startseite)
 interests:
-  - title: Sleep & technology
-    text: How sleep technology can support people without turning rest into another metric to optimise.
   - title: Human–computer interaction
     text: Sensing, wearables and interfaces that work in the background of everyday life.
   - title: Futures
     text: "Speculative design as a research instrument: making possible futures concrete enough to debate."
+  - title: Health & sleep
+    text: How technology can support wellbeing and rest without turning them into another metric to optimise.
