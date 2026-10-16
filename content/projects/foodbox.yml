@@ -15,6 +15,7 @@ facts:
   - [Context, "Prototyping/Redesign, B.A. Internet of Things, 3rd semester, winter 2022/23, HfG Schwäbisch Gmünd"]
   - [Team, "Alice Sopp, Freya Michl, Paul Bense, Enis Sentürk"]
   - [Supervision, "Prof. Michael Schuster, Benjamin Thomsen"]
+  - [My role, "Whole project, with a focus on the IoT prototype: all of the code for box, image recognition and server, plus the app design in Figma"]
   - [Tech, "Arduino, NFC reader, light barrier and photoresistor, camera, Edge Impulse / Teachable Machine, Node, Socket.IO, Vue.js"]
 
 sections:
