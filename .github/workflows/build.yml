@@ -9,6 +9,8 @@ on:
       - 'content/**'
       - 'assets/img/**'
       - 'scripts/**'
+      - 'assets/js/**'
+      - 'assets/css/**'
   workflow_dispatch:
 
 permissions:

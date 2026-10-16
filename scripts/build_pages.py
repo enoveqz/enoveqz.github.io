@@ -7,7 +7,7 @@
 Läuft automatisch über GitHub Actions bei jeder Änderung (.github/workflows/build.yml).
 Lokal: pip install pyyaml pillow && python scripts/build_pages.py
 """
-import html, os, shutil, sys
+import hashlib, html, os, shutil, sys
 import yaml
 from PIL import Image, ImageDraw, ImageFont
 
@@ -27,6 +27,9 @@ for slug in order:
         projects.append(p)
 URL = str(site.get('url') or '').rstrip('/')
 NAME = site.get('name', '')
+def ver(f):  # Versionsnummer gegen veraltete Browser-Caches
+    return hashlib.md5(open(f, 'rb').read()).hexdigest()[:8]
+V_CSS, V_JS = ver('assets/css/style.css'), ver('assets/js/site.js')
 ICON = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f2efe6'/%3E"
         "%3Crect x='4' y='4' width='56' height='56' fill='none' stroke='%230a0a0a' stroke-width='6'/%3E%3Ctext x='32' y='42' font-family='monospace' "
         "font-weight='700' font-size='26' text-anchor='middle'%3EES%3C/text%3E%3C/svg%3E")
@@ -56,12 +59,12 @@ def shell(title, desc, image, page, path, slug=None, base=''):
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{ICON}">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css?v={V_CSS}">
 {redirect}</head>
 <body data-page="{page}"{extra}>
 <div id="app"><p class="loading">Loading…</p></div>
 <script src="assets/js/js-yaml.min.js"></script>
-<script src="assets/js/site.js"></script>
+<script src="assets/js/site.js?v={V_JS}"></script>
 </body>
 </html>
 """
