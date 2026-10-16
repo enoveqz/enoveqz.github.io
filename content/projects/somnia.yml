@@ -98,8 +98,3 @@ sections:
     heading: Limits & next step
     text: "The framework is grounded in research but not yet tested with people, and many of the studies it builds on use small samples. The next step is a pilot with 15 to 20 participants over several weeks: do people accept a system that withholds features to protect their sleep?"
 
-author:
-  image: assets/img/somnia/enis.jpg
-  name: ENIS SENTÜRK
-  text: Strategic designer with an engineering background in IoT. SOMNIA is the start of a longer research interest in sleep and technology.
-  note: Supervised by Prof. Dr. Matthias Peissner and Prof. Dr. Julia Duwe · HfG Schwäbisch Gmünd
