@@ -19,7 +19,7 @@ links:
 
 facts:
   - [Context, "Master’s thesis, M.A. Strategic Design, HfG Schwäbisch Gmünd, 3rd semester, summer 2026"]
-  - [Supervision, "Prof. Dr. Matthias Peißner, Prof. Dr. Julia Duwe"]
+  - [Supervision, "Prof. Dr. Matthias Peissner, Prof. Dr. Julia Duwe"]
   - [My role, "Solo project: research, strategy, framework, product and interface design, 3D"]
   - [Methods, "Literature synthesis (~40 sources), speculative design, framework development, competitive and SWOT analysis, scenarios, UX, UI and product design"]
 
@@ -102,4 +102,4 @@ author:
   image: assets/img/somnia/enis.jpg
   name: ENIS SENTÜRK
   text: Strategic designer with an engineering background in IoT. SOMNIA is the start of a longer research interest in sleep and technology.
-  note: Supervised by Prof. Dr. Matthias Peißner and Prof. Dr. Julia Duwe · HfG Schwäbisch Gmünd
+  note: Supervised by Prof. Dr. Matthias Peissner and Prof. Dr. Julia Duwe · HfG Schwäbisch Gmünd
