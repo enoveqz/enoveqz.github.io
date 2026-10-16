@@ -65,7 +65,7 @@ const tileOf = p => p.tile || p.cover;
 const rqOf = p => p.question || ((p.sections || []).find(s => s.type === 'question') || {}).text || '';
 function pcard(p, i, big, total) {
   return `<a class="card pcard rv ${big ? 'big' : ''}" href="${purl(p.slug)}">
-    <div class="tile" style="--tile-bg:${esc(p.tile_bg || '#ddd')}"><img src="${esc(tileOf(p))}" alt="${esc(p.title)}" loading="${big ? 'eager' : 'lazy'}" style="view-transition-name:tile-${esc(p.slug)}">${p.video ? `<span class="vbadge" role="link" tabindex="0" data-go="${purl(p.slug)}#video">▶ PLAY VIDEO</span>` : ''}</div>
+    <div class="tile" style="--tile-bg:${esc(p.tile_bg || '#ddd')}"><img src="${esc(tileOf(p))}" alt="${esc(p.title)}" loading="${big ? 'eager' : 'lazy'}" style="view-transition-name:tile-${esc(p.slug)}"></div>
     <div class="meta small"><span>${num(i)} / ${total}</span><span>${esc(p.year)}</span></div>
     <h3>${esc(p.title)}</h3>
     ${rqOf(p) ? `<p class="rq"><span class="small">Research question</span>${txt(rqOf(p))}</p>` : ''}
