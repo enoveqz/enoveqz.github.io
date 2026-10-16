@@ -42,6 +42,7 @@ function contact(site) {
     <p>${txt(site.contact_text)}</p>
     <button class="mail" type="button" data-copy="${esc(site.email)}" title="Copy e-mail">${esc(up(site.email))} <span aria-hidden="true">⧉</span></button>
     <a class="mail" style="background:transparent;color:inherit;border:2px solid currentColor;margin-left:10px" href="mailto:${esc(site.email)}">Write ↗</a>
+    ${(site.social || []).map(pair).map(([t, u]) => `<a class="mail" style="background:transparent;color:inherit;border:2px solid currentColor;margin-left:10px" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join('')}
     <div class="sticker" aria-hidden="true">${esc(String(site.contact_sticker || '').trim())}</div>
   </div></section>`;
 }
@@ -159,7 +160,7 @@ function aboutPage({ site, about, projects }) {
   <section class="wrap a-grid"><div class="portrait rv"><img src="${esc(about.portrait)}" alt="Portrait of ${esc(site.name)}"><span class="label">${esc(about.portrait_label || '')}</span></div>
     <div><p class="lead rv">${txt(about.lead)}</p>
       <div class="card cv rv">${(about.cv || []).map(pair).map(([a, b], j) => `<div><span><span class="chip ${j === 0 ? 'fill' : ''}">${esc(a)}</span></span><p>${txt(b)}</p></div>`).join('')}
-        <div><span><span class="chip">Contact</span></span><p><a href="mailto:${esc(site.email)}">${esc(site.email)}</a></p></div></div></div></section>
+        <div><span><span class="chip">Contact</span></span><p><a href="mailto:${esc(site.email)}">${esc(site.email)}</a>${(site.social || []).map(pair).map(([t, u]) => `<br><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join('')}</p></div></div></div></section>
   ${marquee(about.marquee)}
   <section class="wrap block"><span class="chip fill sec-tag">Research interests</span>${interests(about)}</section>
   <section class="wrap block"><span class="chip fill sec-tag">Selected work</span><div class="plist">

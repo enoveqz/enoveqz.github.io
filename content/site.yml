@@ -55,6 +55,7 @@ footer_line: |
   STRATEGIC DESIGNER · M.A. STRATEGIC DESIGN
   B.A. INTERNET OF THINGS · HFG SCHWÄBISCH GMÜND
 # Weitere Links im Footer (z. B. LinkedIn). Leer lassen = nicht angezeigt.
-social: []
+social:
+  - [LinkedIn, "https://www.linkedin.com/in/freezdigital/"]
 #  - [LinkedIn, "https://www.linkedin.com/in/DEIN-PROFIL"]
 #  - [Instagram, "https://www.instagram.com/DEIN-PROFIL"]
