@@ -32,7 +32,7 @@ function nav(site, active) {
   return `<header class="nav"><div class="wrap">
     <a class="logo" href="index.html">${esc(site.logo)}</a>
     <span class="tag">${esc(site.nav_tag)}</span>
-    <nav class="links">${l('index.html#work', 'Work', 'work')}${l('about.html', 'About', 'about')}${l('cv.html', 'CV', 'cv')}${l(here('#contact'), 'Contact', 'contact')}</nav>
+    <nav class="links">${l('index.html#work', 'Work', 'work')}${l('about.html', 'About', 'about')}${l(here('#contact'), 'Contact', 'contact')}</nav>
   </div><div class="bar"></div></header>`;
 }
 function contact(site) {
@@ -50,7 +50,7 @@ function footer(site) {
   const soc = (site.social || []).map(pair).map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a></li>`).join('');
   return `<footer class="wrap footer"><div class="top">
     <div><h4>${esc(up(site.name))}</h4><div class="line">${esc(String(site.footer_line || '').trim())}</div></div>
-    <div><span class="small muted">Index</span><ul><li><a href="index.html#work">Work</a></li><li><a href="about.html">About</a></li><li><a href="cv.html">CV</a></li><li><a href="${here('#contact')}">Contact</a></li></ul></div>
+    <div><span class="small muted">Index</span><ul><li><a href="index.html#work">Work</a></li><li><a href="about.html">About</a></li><li><a href="${here('#contact')}">Contact</a></li></ul></div>
     <div><span class="small muted">Contact</span><ul><li><a href="mailto:${esc(site.email)}">${esc(site.email)}</a></li>${soc}</ul></div>
   </div><div class="bottom"><span>© ${new Date().getFullYear()} ${esc(site.name)}</span><span class="legal-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="${here('#top')}">Back to top ↑</a></span></div></footer>`;
 }
@@ -159,7 +159,7 @@ function project({ site, projects }, slug) {
   </main>${contact(site)}${footer(site)}`;
 }
 
-function aboutPage({ site, about, projects }) {
+function aboutPage({ site, about, projects }, C) {
   document.title = 'About – ' + site.name;
   const n = String(projects.length).padStart(2, '0');
   return nav(site, 'about') + `<main id="top">
@@ -167,15 +167,29 @@ function aboutPage({ site, about, projects }) {
     <div class="sticker" aria-hidden="true">${esc(String(about.sticker || '').trim())}</div></div></section>
   <section class="wrap a-grid"><div class="portrait rv"><img src="${esc(about.portrait)}" alt="Portrait of ${esc(site.name)}"><span class="label">${esc(about.portrait_label || '')}</span></div>
     <div><p class="lead rv">${txt(about.lead)}</p>
-      <div class="card cv rv">${(about.cv || []).map(pair).map(([a, b], j) => `<div><span><span class="chip ${j === 0 ? 'fill' : ''}">${esc(a)}</span></span><p>${txt(b)}</p></div>`).join('')}
-        <div><span><span class="chip">Contact</span></span><p><a href="mailto:${esc(site.email)}">${esc(site.email)}</a>${(site.social || []).map(pair).map(([t, u]) => `<br><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join('')}<br><a href="cv.html">Full CV / PDF ↗</a></p></div></div></div></section>
+      <div class="card cv rv">
+        <div><span><span class="chip">Contact</span></span><p><a href="mailto:${esc(site.email)}">${esc(site.email)}</a>${(site.social || []).map(pair).map(([t, u]) => `<br><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join('')}${C && C.pdf ? `<br><a href="${esc(C.pdf)}" download>CV as PDF ↓</a>` : ''}</p></div></div></div></section>
   ${marquee(about.marquee)}
   <section class="wrap block"><span class="chip fill sec-tag">Research interests</span>${interests(about)}</section>
+  ${C ? `<section class="wrap block cv-about" id="cv"><div class="cv-title"><h2>CV</h2>${C.pdf ? `<a class="btn" href="${esc(C.pdf)}" download>Download PDF ↓</a>` : ''}</div>${cvBody(C)}</section>` : ''}
   <section class="wrap block"><span class="chip fill sec-tag">Selected work</span><div class="plist">
     ${projects.map((p, i) => `<a href="${purl(p.slug)}"><span class="small">${num(i)}</span><b>${esc(p.title)}</b><span class="small k">${esc(p.kind)} · ${esc(p.year)}</span><span style="font-size:24px">↗</span></a>`).join('')}</div></section>
   ${contact(site)}</main>${footer(site)}`;
 }
 
+const cvEnt = e => `<div class="cv-e"><span class="when">${esc(e.when)}</span><div><b>${esc(e.title)}</b>${e.where ? `<span class="where">${esc(e.where)}</span>` : ''}${e.note ? `<p>${txt(e.note)}</p>` : ''}</div></div>`;
+const cvSec = (t, body) => `<section class="cv-sec"><span class="chip fill sec-tag">${esc(t)}</span>${body}</section>`;
+function cvBody(C) {
+  return `${cvSec('Education', (C.education || []).map(cvEnt).join(''))}
+  ${cvSec('Experience', (C.experience || []).map(cvEnt).join(''))}
+  <div class="cv-two"><div>
+    ${cvSec('Skills', (C.skills || []).map(pair).map(([k, v]) => `<div class="cv-sk"><span class="small">${esc(k)}</span><p>${txt(v)}</p></div>`).join(''))}
+    ${cvSec('Workshops & more', (C.workshops || []).map(cvEnt).join(''))}
+  </div><div>
+    <div class="card cv-lang"><span class="small">Languages</span>${(C.languages || []).map(pair).map(([l, v]) => `<div><b>${esc(l)}</b><span>${esc(up(v))}</span></div>`).join('')}</div>
+    ${C.looking ? `<div class="card pad cv-look"><span class="small">Looking for</span><p>${txt(C.looking)}</p></div>` : ''}
+  </div></div>`;
+}
 function cvPage({ site, about, projects }, C) {
   document.title = 'CV – ' + site.name;
   const ent = e => `<div class="cv-e"><span class="when">${esc(e.when)}</span><div><b>${esc(e.title)}</b>${e.where ? `<span class="where">${esc(e.where)}</span>` : ''}${e.note ? `<p>${txt(e.note)}</p>` : ''}</div></div>`;
@@ -251,7 +265,7 @@ function interactions() {
   try {
     const data = await loadAll();
     if (page === 'home') root.innerHTML = home(data);
-    else if (page === 'about') root.innerHTML = aboutPage(data);
+    else if (page === 'about') root.innerHTML = aboutPage(data, await load('content/cv.yml').catch(() => null));
     else if (page === 'cv') root.innerHTML = cvPage(data, await load('content/cv.yml'));
     else if (page === 'impressum' || page === 'privacy') root.innerHTML = legalPage(data, page, await load('content/legal.yml'));
     else root.innerHTML = project(data, document.body.dataset.slug || new URLSearchParams(location.search).get('p'));

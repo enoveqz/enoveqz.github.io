@@ -416,3 +416,7 @@ a.sticker { text-decoration: none; color: var(--ink); cursor: pointer; }
 @media print { .chapter .num { font-size: 13px; } }
 #video { margin-bottom: 0; }
 .p-rq + .sub, .p-hero .p-rq ~ .sub { font-size: clamp(17px, 1.6vw, 21px); opacity: .8; margin-top: 14px; }
+/* CV auf der About-Seite */
+.cv-about .cv-title { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; border-bottom: var(--bw) solid var(--ink); padding-bottom: 18px; }
+.cv-about .cv-title h2 { font: 800 clamp(40px, 6vw, 72px)/1 var(--mono); letter-spacing: -.03em; margin: 0; }
+.cv-about .cv-title .btn { padding: 12px 18px; font-size: 13px; }
