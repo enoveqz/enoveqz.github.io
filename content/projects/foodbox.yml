@@ -1,0 +1,42 @@
+title: Foodbox
+line: Neighbourhood food sharing, unlocked by image recognition
+kind: B.A. project, Prototyping/Redesign
+year: "2022/23"
+tags: [IoT, Physical Prototyping, Interaction Design]
+tile: assets/img/foodbox/tile.jpg
+tile_bg: "#3d5c55"
+cover: assets/img/foodbox/foodbox-box.jpg
+cover_caption: Foodbox prototype with a phone mounted on the door and an apple in the compartment
+video:
+links:
+  - [HfG exhibition page, "https://ausstellung.hfg-gmuend.de/w-2223/projekte/foodbox/studiengang:dp"]
+
+facts:
+  - [Context, "Prototyping/Redesign course, B.A., HfG Schwäbisch Gmünd"]
+  - [Team, Team project]
+  - [Tech, "Arduino, NFC reader, light barrier and photoresistor, camera, Edge Impulse / Teachable Machine, Node, Socket.IO, Vue.js"]
+
+sections:
+  - type: chapter
+    heading: Starting point
+    text: Food that is still good gets thrown away, while others in the same neighbourhood rely on donations. We wanted a way to share it directly, without an intermediary.
+
+  - type: chapter
+    heading: Concept
+    text: A food-sharing station in the neighbourhood. The app shows nearby boxes and their contents. Donors place food in a scan compartment; image recognition identifies it and opens the matching compartment. When someone collects it, the donor gets a thank-you.
+    image: assets/img/foodbox/fb-flow.jpg
+    caption: "Donor flow: scan compartment, recognised donation, overview, notification"
+
+  - type: chapter
+    heading: Prototype
+    text: "A working MDF prototype: a photoresistor and light barrier trigger the camera, the model classifies the food, an Arduino with NFC reader and H-bridge unlocks the compartments, and app and box talk to each other in real time."
+    image: assets/img/foodbox/fb-dims.jpg
+    caption: Prototype with dimensions
+    size: half
+
+  - type: chapter
+    heading: Outcome
+    text: Shown at the HfG exhibition with a product video.
+    image: assets/img/foodbox/foodbox-donation.jpg
+    caption: A donor places an apple in the Foodbox
+    size: half

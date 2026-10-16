@@ -1,0 +1,15 @@
+# ─────────────────────────────────────────────────────────────
+#  WELCHE PROJEKTE GEZEIGT WERDEN – UND IN WELCHER REIHENFOLGE
+#
+#  Jede Zeile ist der Dateiname aus content/projects/ (ohne .yml).
+#  • Projekt hinzufügen:  Datei in content/projects/ anlegen
+#                         (Vorlage: content/projects/_vorlage.yml) und hier eintragen
+#  • Projekt ausblenden:  Zeile löschen oder mit # auskommentieren
+#  • Reihenfolge ändern:  Zeilen verschieben
+#  Das erste Projekt wird auf der Startseite groß gezeigt.
+# ─────────────────────────────────────────────────────────────
+- somnia
+- or3
+- festool-insight
+- pathaware
+- foodbox

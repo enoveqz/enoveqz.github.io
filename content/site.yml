@@ -1,0 +1,59 @@
+# ─────────────────────────────────────────────────────────────
+#  ALLGEMEINE TEXTE DER WEBSITE
+#  Nur die Texte rechts vom Doppelpunkt ändern.
+#  Texte mit Doppelpunkt oder Sonderzeichen in "Anführungszeichen" setzen.
+# ─────────────────────────────────────────────────────────────
+
+name: Enis Sentürk
+logo: E.S. ©2026                       # oben links in der Navigation
+nav_tag: "[STRATEGIC DESIGN · Internet Of Things]"
+email: enissentuerk@hotmail.de
+
+# Browser-Tab und Suchmaschinen
+meta_title: Enis Sentürk – Strategic Design & Research
+meta_description: Strategic designer with an engineering background in IoT, researching how emerging technologies enter everyday life.
+
+# Startseite oben
+hero: |
+  HI, I’M ENIS.
+  I DESIGN HOW
+  TECHNOLOGY ENTERS
+  EVERYDAY LIFE.
+sticker: |
+  OPEN
+  FOR
+  WORK
+intro: |
+  Strategic designer with an engineering background in IoT.
+  I research emerging technologies and turn what I find into frameworks, concepts and prototypes.
+chips: [Strategic Design, IoT, HCI, Sleep Tech, Design Research]
+work_label: "01 / Selected work · 2022—2026"
+
+# Schwarze Karte unter den Projekten
+statement_label: IN BETWEEN
+statement: "Not a classic designer, not a classic engineer. I work in between: research, frameworks and prototypes for technology people actually live with."
+
+# Kurzes "About" auf der Startseite
+about_teaser:
+  text: I’m a strategic designer with an engineering background in the Internet of Things. I research how emerging technologies enter everyday life and turn what I find into frameworks, concepts and prototypes that teams can build on.
+  rows:
+    - [Education, "M.A. Strategic Design, 2026 · B.A. Internet of Things · HfG Schwäbisch Gmünd"]
+    - [Experience, "UI/UX design, Bosch Sensortec · Exhibition design, Simple GmbH"]
+    - [Focus, "Sleep and technology, HCI, sensing and wearables, digital health"]
+
+# Kontakt-Karte (unten auf jeder Seite)
+contact_title: LET’S TALK →
+contact_text: Open to PhD positions, research collaborations and roles in sleep tech, HCI and design research.
+contact_sticker: |
+  SAY
+  HELLO
+  :)
+
+# Footer
+footer_line: |
+  STRATEGIC DESIGNER · M.A. STRATEGIC DESIGN
+  B.A. INTERNET OF THINGS · HFG SCHWÄBISCH GMÜND
+# Weitere Links im Footer (z. B. LinkedIn). Leer lassen = nicht angezeigt.
+social: []
+#  - [LinkedIn, "https://www.linkedin.com/in/DEIN-PROFIL"]
+#  - [Instagram, "https://www.instagram.com/DEIN-PROFIL"]

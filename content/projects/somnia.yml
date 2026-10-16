@@ -1,0 +1,105 @@
+title: SOMNIA
+line: Designing safeguards for sleep technology        # Kurztext auf der Startseite
+subtitle: "A framework for using lucid dreaming as a learning resource: safe, effective, inclusive, and without giving up sleep itself."
+kind: Master’s thesis
+year: "2026"
+label: ★ M.A. STRATEGIC DESIGN
+sticker: |
+  SLEEP
+  COMES
+  FIRST
+tags: [Design Futuring, Speculative Design, Framework, Lucid Dreaming, Sleep]
+tile: assets/img/somnia/cover.jpg        # Kachel auf der Startseite
+tile_bg: "#d2d2d2"
+cover: assets/img/somnia/cover.jpg
+cover_caption: The SOMNIA dream object – 3D rendering
+video: CneyQ2VE3qg                        # YouTube-ID (Teil nach watch?v=)
+links:
+  - [HfG exhibition page, "https://ausstellung.hfg-gmuend.de/s-2626/projekte/somnia/studiengang:sg"]
+
+facts:
+  - [Context, "Master’s thesis, M.A. Strategic Design, HfG Schwäbisch Gmünd, 3rd semester, summer 2026"]
+  - [Supervision, "Prof. Dr. Matthias Peißner, Prof. Dr. Julia Duwe"]
+  - [My role, "Solo project: research, strategy, framework, product and interface design, 3D"]
+  - [Methods, "Literature synthesis (~40 sources), speculative design, framework development, competitive and SWOT analysis, scenarios, UX, UI and product design"]
+
+sections:
+  - type: card
+    label: Abstract
+    lead: "Sleep is not a pause. It is an active process in which the brain consolidates memories, motor skills and what we learn during the day. SOMNIA focuses on lucid dreaming: dreams in which you know that you are dreaming and can shape what happens."
+    text: The thesis brings current research on sleep, dreams and learning together into a practical framework of principles and guidelines. Its main contribution is to combine dream-induction techniques that so far existed only in separate studies into one integrated system, presented through a speculative three-phase model.
+
+  - type: question
+    text: How can lucid dreaming be used as a learning resource, safely and for everyone, without compromising sleep itself?
+
+  - type: chapter
+    heading: Starting point
+    text: Research on targeted memory reactivation, dream incubation and lucid dreaming shows that sleep can be addressed with technology. But the methods exist as scattered findings in single studies, and none of them comes with a frame that protects the sleep it uses.
+
+  - type: chapter
+    heading: Approach
+    text: I synthesised research from sleep neuroscience and on dream-induction techniques, mapped each method to the sleep phase it works in, and translated the result into a framework. Speculative design let me test that framework against possible futures instead of a single product.
+    image: assets/img/somnia/forms.jpg
+    caption: "Form studies: one dream object per state"
+
+  - type: chapter
+    heading: The framework
+    text: "At the centre is the QQRT gate: sleep quality, quantity, regularity and timing. No method unlocks until these are stable. Around it sit the sleep environment and an ethical layer. Sleep protection is a technical precondition, not a recommendation."
+    image: assets/img/somnia/framework.jpg
+    caption: The SOMNIA framework with the QQRT gate
+    cards:
+      - [Sleep environment, "Humidity, noise level and brightness are measured and adjusted before any induction starts."]
+      - [Sleep quality · QQRT, "Quality, Quantity, Regularity, Timing. The gate stays closed until all four are stable."]
+      - [Ethics, "Psychological safety, limits for induction, sleep as a right, no manipulation."]
+
+  - type: phases
+    heading: Three phases
+    text: SOMNIA grows in three stages, each tied to a realistic technology horizon. The further the phase, the more it becomes a question for debate rather than a product.
+    items:
+      - label: PHASE 01
+        meta: 2026 · Market launch
+        title: App & wearable
+        text: "Works today: an app with existing wearables tracks sleep, opens the gate and guides first techniques."
+        image: assets/img/somnia/phase1.jpg
+      - label: PHASE 02
+        meta: 2036 · Precision phase
+        title: EEG headband
+        text: A dedicated headband reads sleep stages directly and places cues precisely, designed as a ritual object rather than a device.
+        image: assets/img/somnia/phase2.jpg
+      - label: PHASE 03
+        meta: 2046 · Integrative phase
+        title: Neural interface
+        text: "Framed as critical design: if technology reaches into the dream itself, who owns the dream space?"
+        image: assets/img/somnia/phase3.jpg
+
+  - type: chapter
+    heading: The app
+    text: The app follows the rhythm of evening, night and morning instead of a classic tab structure. In the morning, a voice-to-text dream journal captures dreams before they fade; the daily overview shows dream recall, REM quality and the next session.
+    gallery:
+      - [assets/img/somnia/app-welcome.jpg, Onboarding]
+      - [assets/img/somnia/app-dream.jpg, "Dream recording, voice to text"]
+    image: assets/img/somnia/app-hand.jpg
+    caption: “Welcome to Somnia”
+
+  - type: chapter
+    heading: Fixed conditions
+    text: Three things are not up for negotiation in any phase. They are built into the system as design conditions, so that sleep stays restorative and never becomes one more thing to optimise.
+    cards:
+      - [Sleep protection, A screening for contraindications that cannot be switched off. Features stay locked while sleep is unstable.]
+      - [Autonomy, The dreamer decides what happens in the dream and with the data about it.]
+      - [Inclusion, "Designed for anyone who wants to learn, not only for experienced lucid dreamers."]
+
+  - type: chapter
+    heading: Where it could lead
+    text: SOMNIA is aimed at anyone who wants to learn. The framework points to applications in sport, education and therapy, and to questions for the ethical design of neurotechnology.
+    chips: [Sport & motor learning, Education, Therapy, Ethical neurotech design]
+
+  - type: chapter
+    heading: Limits & next step
+    text: "The framework is grounded in research but not yet tested with people, and many of the studies it builds on use small samples. The next step is a pilot with 15 to 20 participants over several weeks: do people accept a system that withholds features to protect their sleep?"
+
+author:
+  image: assets/img/somnia/enis.jpg
+  name: ENIS SENTÜRK
+  text: Strategic designer with an engineering background in IoT. SOMNIA is the start of a longer research interest in sleep and technology.
+  note: Supervised by Prof. Dr. Matthias Peißner and Prof. Dr. Julia Duwe · HfG Schwäbisch Gmünd

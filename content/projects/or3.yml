@@ -1,0 +1,69 @@
+title: OR3
+line: Orientation and transparent waiting times for the emergency department
+kind: M.A. project, Strategic Design
+year: "2025"
+tags: [Service Design, Health Care, UX Design, Wearables]
+tile: assets/img/or3/tile.jpg
+tile_bg: "#c0c0c0"
+cover: assets/img/or3/or3-dashboard.jpg
+cover_caption: OR3 staff dashboard above a workstation in the emergency department
+video: OKm8fwmFr6I
+links:
+  - [HfG Strategic Design page, "https://sg.hfg-gmuend.de/projects/or3-optimierung-von-notaufnahmen"]
+
+facts:
+  - [Context, "Strategic design project, M.A. Strategic Design, 1st semester, summer 2025, HfG Schwäbisch Gmünd"]
+  - [Partner, "Rems-Murr-Klinik Schorndorf, emergency department"]
+  - [Team, "Hope Sikuade, Julia Unger, Luisa Lamparter, Enis Sentürk"]
+  - [Supervision, "Susanne Schade, Gabriele N. Reichert"]
+  - [My role, "Research (interviews, on-site visits, stakeholder map, user journeys), wristband materials and functions, vibration prototype, drop-off box"]
+  - [Methods, "Design sprint, interviews with clinic staff, site visits, journey mapping, crazy 8s, functional prototyping"]
+
+sections:
+  - type: chapter
+    heading: Starting point
+    text: "Emergency departments are places where every second counts, and they concern everyone. In Germany they have been under strain for years: overcrowding, long waits, inefficient workflows and staff shortages. Weak digitalisation and unclear structures add safety risks such as patient mix-ups and faulty documentation, and funding programmes like the KHZG have had little effect so far."
+
+  - type: question
+    text: How can an emergency department give patients and relatives orientation and transparent waiting times while relieving its staff?
+
+  - type: chapter
+    heading: Approach
+    text: We visited the emergency department of Rems-Murr-Klinik and interviewed staff several times. Our first concept connected every emergency department in the region with the on-call service and ambulances. After feedback we focused on one clinic and its real processes.
+    image: assets/img/or3/or3-handover.jpg
+    caption: The wristband is handed over at registration
+    size: half
+
+  - type: chapter
+    heading: Key insight
+    text: No app. Patients are in a stressful situation, installing an app costs staff time and needs connectivity. The customer is the clinic; patients and relatives are the secondary target group.
+
+  - type: chapter
+    heading: Concept
+    text: OR3 is a smart orientation and organisation system for German emergency departments. At registration, patients receive a wristband that takes over their health-card data. It guides them to the right area, shows the estimated waiting time and vibrates when it is their turn. The system is practical, modular and scalable.
+    image: assets/img/or3/or3-wristband.jpg
+    caption: "Digital navigation via wristband: straight ahead to the waiting room"
+
+  - type: chapter
+    heading: The system
+    text: Six parts work together, from the moment patients arrive until they leave.
+    cards:
+      - [Wristband, "The core of the system. An integrated interface and vibration guide patients through the department: orientation, transparency, safety."]
+      - [Staff dashboard, "Shows the wristband data and replaces several parallel software systems with one simple, modern tool."]
+      - [Orientation system, "Analog and modular wayfinding as a second layer that always works, also in emergencies. A plug-in mechanism keeps it flexible."]
+      - [Storage station, "One station per department stores the wristbands, charges and cleans them and clears their data."]
+      - [Return box, "At every exit, patients return the wristband without contact: safer, more hygienic, more efficient."]
+      - [Waiting-room screen, "Alternates between general information and an explanation of the Manchester Triage System, so prioritisation becomes understandable."]
+
+  - type: chapter
+    heading: Prototypes
+    text: I built a functional vibration prototype of the wristband and designed the drop-off and storage box, helped in the creation of the concepts and the process. The signage was prototyped at full scale.
+    image: assets/img/or3/or3-signs.jpg
+    caption: Analog and modular orientation system
+    size: half
+
+  - type: chapter
+    heading: Outcome
+    text: "A complete service for one emergency department: wristband, drop-off box, signage, waiting-room screen and staff dashboard, presented in a video and an exhibition."
+    image: assets/img/or3/or3-waitscreen.jpg
+    caption: Waiting-room screen with capacity and Manchester triage levels

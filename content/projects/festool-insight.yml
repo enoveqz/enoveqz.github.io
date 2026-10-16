@@ -1,0 +1,68 @@
+title: Festool Insight
+line: What if tools could understand, not just react?
+subtitle: What if tools could understand, not just react? Data-driven efficiency in craft, 2035.
+kind: M.A. project with Festool
+year: "2025/26"
+tags: [Future of Work, Emerging Technologies, Design Research, IoT]
+tile: assets/img/festool-insight/tile.jpg
+tile_bg: "#2a2340"
+cover: assets/img/festool-insight/cover.jpg
+cover_caption: "Festool Insight: sensor pack and AR glasses"
+video: WLERX9tgy0U
+links:
+  - [HfG Strategic Design page, "https://sg.hfg-gmuend.de/projects/festool-insight"]
+
+facts:
+  - [Context, "Analytical design project, M.A. Strategic Design, 2nd semester, winter 2025/26, HfG Schwäbisch Gmünd, with Festool as project partner"]
+  - [Supervision, "Prof. Benedikt Groß, Prof. Leif Huff"]
+  - [Team, "Lynn Metzner, Meltem Yalaz and Enis Sentürk"]
+  - [Methods, "Technology research, future scenario (2027–2035), product and interface design, 3D visualisation"]
+
+sections:
+  - type: chapter
+    heading: Context
+    text: Craft is facing its biggest technological shift since industrialisation. In our scenario, sensors start in 2027 as retrofit add-ons and are an integral part of every tool by 2035. AR glasses connect machines, materials and craftspeople in real time.
+
+  - type: chapter
+    heading: Starting point
+    text: Power tools are powerful but don’t speak. They give no feedback when they are misused or overloaded, and failures only become visible when a tool breaks. Experience stays with the user, not in the system. At the same time, the trades face a shortage of skilled workers, rising complexity and pressure on quality.
+
+  - type: question
+    text: What if tools could understand, not just react?
+
+  - type: chapter
+    heading: Sensor pack
+    text: The first step is perception, not intelligence. A sensor pack between battery and tool combines an edge-AI microcontroller, an IMU, Bluetooth, UWB and temperature sensing. It measures forces, vibration and material condition, enables predictive maintenance, safety warnings and documented work quality, and upgrades existing Festool tools.
+    image: assets/img/festool-insight/festool-board.jpg
+    caption: The sensor board between battery and tool
+
+  - type: chapter
+    heading: AR glasses
+    text: Data alone doesn’t change how people work; it needs a new interface. The glasses use head tracking, a camera and UWB to show step-by-step guidance and real-time feedback in the field of view, with minimal overlays that only appear when they are relevant.
+    image: assets/img/festool-insight/festool-arview.jpg
+    caption: "AR view during drywall work: task progress and recommendations"
+
+  - type: chapter
+    heading: Augmented craftsmanship
+    text: Technology as an unobtrusive co-pilot. Four principles shape the system.
+    cards:
+      - [Sensing, "Retrofit solution in 2027, integrated into the tool by 2035."]
+      - [AR design, "Minimal overlays with context-dependent data, directly in the work area."]
+      - [Edge AI, "Data is processed on site, without cloud latency."]
+      - [Craftspeople in the loop, "The technology learns from real use; the person stays in control."]
+
+  - type: chapter
+    heading: Platform
+    text: "A platform brings tool and usage data together for the whole construction site: early error detection, theft detection through location anomalies, and building plans that turn into warnings in the AR view."
+    image: assets/img/festool-insight/festool-platform2.jpg
+    caption: "Insight platform: upload plans, see warnings per site"
+
+  - type: chapter
+    heading: Why it matters
+    text: The goal is to keep craft knowledge in the trade instead of replacing it. The scenario aims at efficiency gains of more than 30 percent, consistent quality and AR-supported learning paths for the next generation of craftspeople.
+
+  - type: chapter
+    heading: Outcome
+    text: A future scenario in three stages up to 2035, developed with Festool. Festool doesn’t just build tools. Festool builds understanding.
+    image: assets/img/festool-insight/festool-ar.jpg
+    caption: "Festool Insight AR glasses: documentation, guidance, real-time feedback"

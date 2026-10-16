@@ -1,0 +1,56 @@
+# ─────────────────────────────────────────────────────────────
+#  VORLAGE FÜR EIN NEUES PROJEKT
+#  1. Diese Datei kopieren und umbenennen, z. B. mein-projekt.yml
+#     (nur Kleinbuchstaben, Zahlen und Bindestriche)
+#  2. Bilder in den Ordner assets/img/mein-projekt/ legen
+#  3. "mein-projekt" in content/projects.yml eintragen
+#  Alles, was du nicht brauchst, kannst du löschen.
+# ─────────────────────────────────────────────────────────────
+title: Projektname
+line: Ein Satz, der das Projekt beschreibt (Startseite + Kopf der Projektseite)
+subtitle:                  # optional: längerer Text im Kopf der Projektseite
+kind: M.A. project, Strategic Design
+year: "2026"
+tags: [Tag 1, Tag 2, Tag 3]
+tile: assets/img/mein-projekt/tile.jpg       # Kachel auf der Startseite (z. B. Logo auf Farbe), sonst wird das Cover genommen
+tile_bg: "#dddddd"                          # Hintergrundfarbe hinter der Kachel
+cover: assets/img/mein-projekt/cover.jpg    # großes Bild oben auf der Projektseite
+cover_caption: Bildunterschrift
+video:                     # YouTube-ID, z. B. CneyQ2VE3qg  (leer = kein Video)
+links:
+  - [HfG exhibition page, "https://..."]
+
+facts:
+  - [Context, "Kurs, Semester, Hochschule"]
+  - [Team, "Namen"]
+  - [My role, "Was du gemacht hast"]
+
+sections:
+  # Text-Kapitel (Bild, Galerie, Karten und Chips sind optional)
+  - type: chapter
+    heading: Starting point
+    text: Worum geht es?
+    image: assets/img/mein-projekt/bild1.jpg
+    caption: Bildunterschrift
+    size: half             # half = halbe Breite, weglassen = volle Breite
+
+  # Forschungsfrage als schwarze Karte
+  - type: question
+    text: Wie kann ...?
+
+  # Kapitel mit Karten
+  - type: chapter
+    heading: The system
+    text: Kurzer Einleitungssatz.
+    cards:
+      - [Titel 1, Text 1]
+      - [Titel 2, Text 2]
+      - [Titel 3, Text 3]
+
+  # Kapitel mit mehreren Bildern nebeneinander
+  - type: chapter
+    heading: Prototype
+    text: Text.
+    gallery:
+      - [assets/img/mein-projekt/bild2.jpg, Unterschrift]
+      - [assets/img/mein-projekt/bild3.jpg, Unterschrift]

@@ -1,0 +1,41 @@
+title: PathAware
+line: Safer hiking through shared, real-time trail information
+kind: B.A. thesis
+year: "2024/25"
+tags: [Service Design, UX/UI, Campaign]
+tile: assets/img/pathaware/tile.jpg
+tile_bg: "#5b3045"
+cover: assets/img/pathaware/pa-screens.jpg
+cover_caption: "PathAware web app: tour overview, hazard report and fastest way back"
+video:                                   # leer = kein Video
+links: []
+
+facts:
+  - [Context, "Bachelor’s thesis, B.A. Internet of Things, HfG Schwäbisch Gmünd"]
+  - [Team, Team project]
+  - [Scope, "Switzerland, using public Swiss geodata"]
+  - [Outcome, "Mobile-first web app, QR-code posters, flyers and an online campaign"]
+
+sections:
+  - type: chapter
+    heading: Starting point
+    text: More and more people hike in the Alps. In Switzerland, hiking and mountain accidents rose from about 17,700 a year in the early 2000s to around 40,000 today. Climate change brings more washouts and rockfalls, yet popular apps rarely show current closures or hazards.
+
+  - type: question
+    text: How can the flow of information between hikers be improved to inform inexperienced hikers in particular and make tours safer?
+
+  - type: chapter
+    heading: Approach
+    text: "We analysed accident statistics and existing apps, defined two personas (a first-time alpine hiker and an experienced one) and mapped the stakeholders: hikers, Alpine clubs and trail maintainers."
+
+  - type: chapter
+    heading: Concept
+    text: "No download: QR codes at trailheads and closures open a web app. Hikers report hazards with a photo, Alpine clubs verify them, and everyone else gets warnings, alternative routes and the fastest way back. A checklist and the T1–T6 difficulty scale help people prepare."
+    image: assets/img/pathaware/pa-poster1.jpg
+    caption: "Trailhead poster: scan the code to start the hike informed"
+
+  - type: chapter
+    heading: Campaign
+    text: Posters at trailheads are the entry point into the service, supported by flyers and online marketing.
+    image: assets/img/pathaware/pa-poster2.jpg
+    caption: "Campaign poster: real-time info for your next tour"
