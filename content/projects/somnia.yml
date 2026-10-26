@@ -30,7 +30,7 @@ sections:
     text: "The thesis brings current research on sleep, dreams and learning together into a practical framework of principles and guidelines. Its main contribution is protective gating: no method unlocks until sleep is stable, and the system, not the person, stops when sleep is disturbed. Existing induction and reactivation techniques are mapped onto this condition and explored through a speculative three-phase model."
 
   - type: question
-    text: How can sleep-based learning techniques be designed so that protecting sleep comes before any learning goal?
+    text: How can sleep-induction techniques be translated into a practical framework that enables safe, effective and inclusive use of sleep as a learning resource?
 
   - type: chapter
     heading: Starting point
