@@ -1,0 +1,69 @@
+title: OR3
+line: Orientierung und transparente Wartezeiten für die Notaufnahme
+kind: M.A.-Projekt, Strategic Design
+year: "2025"
+tags: [Service Design, Gesundheitswesen, UX Design, Wearables]
+tile: assets/img/or3/tile.jpg
+tile_bg: "#c0c0c0"
+cover: assets/img/or3/or3-dashboard.jpg
+cover_caption: OR3-Dashboard für das Personal über einem Arbeitsplatz in der Notaufnahme
+video: OKm8fwmFr6I
+links:
+  - [Seite des Studiengangs Strategic Design, "https://sg.hfg-gmuend.de/projects/or3-optimierung-von-notaufnahmen"]
+
+facts:
+  - [Kontext, "Strategisches Designprojekt, M.A. Strategic Design, 1. Semester, Sommer 2025, HfG Schwäbisch Gmünd"]
+  - [Partner, "Rems-Murr-Klinik Schorndorf, Notaufnahme"]
+  - [Team, "Hope Sikuade, Julia Unger, Luisa Lamparter, Enis Sentürk"]
+  - [Betreuung, "Susanne Schade, Gabriele N. Reichert"]
+  - [Meine Rolle, "Recherche (Interviews, Besuche vor Ort, Stakeholder-Map, User Journeys), Materialien und Funktionen des Armbands, Vibrationsprototyp, Rückgabebox"]
+  - [Methoden, "Design Sprint, Interviews mit Klinikpersonal, Vor-Ort-Besuche, Journey Mapping, Crazy 8s, funktionales Prototyping"]
+
+sections:
+  - type: chapter
+    heading: Ausgangslage
+    text: "Notaufnahmen sind Orte, an denen jede Sekunde zählt, und sie betreffen alle. In Deutschland stehen sie seit Jahren unter Druck: Überfüllung, lange Wartezeiten, ineffiziente Abläufe und Personalmangel. Schwache Digitalisierung und unklare Strukturen bringen zusätzliche Sicherheitsrisiken wie Patientenverwechslungen und fehlerhafte Dokumentation, und Förderprogramme wie das KHZG haben bisher wenig bewirkt."
+
+  - type: question
+    text: Wie kann eine Notaufnahme Patient:innen und Angehörigen Orientierung und transparente Wartezeiten geben und gleichzeitig ihr Personal entlasten?
+
+  - type: chapter
+    heading: Vorgehen
+    text: Wir haben die Notaufnahme der Rems-Murr-Klinik besucht und das Personal mehrfach interviewt. Unser erstes Konzept verband alle Notaufnahmen der Region mit dem Bereitschaftsdienst und den Rettungswagen. Nach Feedback haben wir uns auf eine Klinik und ihre realen Abläufe konzentriert.
+    image: assets/img/or3/or3-handover.jpg
+    caption: Das Armband wird bei der Anmeldung ausgegeben
+    size: half
+
+  - type: chapter
+    heading: Zentrale Erkenntnis
+    text: Keine App. Patient:innen sind in einer Stresssituation, eine App zu installieren kostet das Personal Zeit und braucht Netz. Die Kundin ist die Klinik; Patient:innen und Angehörige sind die sekundäre Zielgruppe.
+
+  - type: chapter
+    heading: Konzept
+    text: OR3 ist ein smartes Orientierungs- und Organisationssystem für deutsche Notaufnahmen. Bei der Anmeldung erhalten Patient:innen ein Armband, das die Daten ihrer Gesundheitskarte übernimmt. Es leitet sie in den richtigen Bereich, zeigt die voraussichtliche Wartezeit und vibriert, wenn sie an der Reihe sind. Das System ist praxistauglich, modular und skalierbar.
+    image: assets/img/or3/or3-wristband.jpg
+    caption: "Digitale Navigation per Armband: geradeaus zum Wartebereich"
+
+  - type: chapter
+    heading: Das System
+    text: Sechs Teile greifen ineinander, von der Ankunft bis zum Verlassen der Notaufnahme.
+    cards:
+      - [Armband, "Das Herzstück des Systems. Ein integriertes Interface und Vibration leiten Patient:innen durch die Notaufnahme: Orientierung, Transparenz, Sicherheit."]
+      - [Personal-Dashboard, "Zeigt die Daten der Armbänder und ersetzt mehrere parallele Softwaresysteme durch ein einfaches, modernes Werkzeug."]
+      - [Leitsystem, "Analoge und modulare Wegeführung als zweite Ebene, die immer funktioniert, auch im Notfall. Ein Stecksystem hält sie flexibel."]
+      - [Ladestation, "Eine Station pro Abteilung bewahrt die Armbänder auf, lädt und reinigt sie und löscht ihre Daten."]
+      - [Rückgabebox, "An jedem Ausgang geben Patient:innen das Armband kontaktlos zurück: sicherer, hygienischer, effizienter."]
+      - [Wartebereich-Screen, "Wechselt zwischen allgemeinen Infos und einer Erklärung des Manchester-Triage-Systems, damit die Priorisierung nachvollziehbar wird."]
+
+  - type: chapter
+    heading: Prototypen
+    text: Ich habe einen funktionsfähigen Vibrationsprototyp des Armbands gebaut, die Rückgabe- und Aufbewahrungsbox gestaltet und an den Konzepten und am Prozess mitgearbeitet. Die Beschilderung wurde im Maßstab 1:1 prototypisch umgesetzt.
+    image: assets/img/or3/or3-signs.jpg
+    caption: Analoges und modulares Leitsystem
+    size: half
+
+  - type: chapter
+    heading: Ergebnis
+    text: "Ein vollständiger Service für eine Notaufnahme: Armband, Rückgabebox, Beschilderung, Wartebereich-Screen und Personal-Dashboard, präsentiert in einem Video und einer Ausstellung."
+    image: assets/img/or3/or3-waitscreen.jpg
+    caption: Wartebereich-Screen mit Auslastung und Manchester-Triage-Stufen

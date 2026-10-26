@@ -1,0 +1,99 @@
+title: SOMNIA
+line: Schutzmechanismen für Schlaftechnologie gestalten
+subtitle: "Ein Design-Framework für schlafbasiertes Lernen, in dem Schlafschutz eine technische Voraussetzung ist und keine Empfehlung."
+kind: Masterthesis
+year: "2026"
+label: ★ M.A. STRATEGIC DESIGN
+sticker: |
+  SCHLAF
+  KOMMT
+  ZUERST
+tags: [Design Futuring, Spekulatives Design, Framework, Schlafbasiertes Lernen, Schlaf]
+tile: assets/img/somnia/tile.jpg
+tile_bg: "#d2d2d2"
+cover: assets/img/somnia/cover.jpg
+cover_caption: Das SOMNIA-Traumobjekt – 3D-Rendering
+video: CneyQ2VE3qg
+links:
+  - [HfG-Ausstellungsseite, "https://ausstellung.hfg-gmuend.de/s-2626/projekte/somnia/studiengang:sg"]
+
+facts:
+  - [Kontext, "Masterthesis, M.A. Strategic Design, HfG Schwäbisch Gmünd, 3. Semester, Sommer 2026"]
+  - [Betreuung, "Prof. Dr. Matthias Peissner, Prof. Dr. Julia Duwe"]
+  - [Meine Rolle, "Einzelprojekt: Recherche, Strategie, Framework, Produkt- und Interface-Design, 3D"]
+  - [Methoden, "Literatursynthese (~55 Quellen), spekulatives Design, Framework-Entwicklung, Wettbewerbs- und SWOT-Analyse, Szenarien, UX-, UI- und Produktdesign"]
+
+sections:
+  - type: card
+    label: Abstract
+    lead: "Schlaf ist keine Pause. Er ist ein aktiver Prozess, in dem das Gehirn Erinnerungen, motorische Fähigkeiten und das tagsüber Gelernte festigt. SOMNIA betrachtet Techniken, die auf den Schlaf einwirken, von gezielter Gedächtnisreaktivierung und Trauminkubation bis zum Klartraum."
+    text: "Die Arbeit führt aktuelle Forschung zu Schlaf, Träumen und Lernen zu einem praxisnahen Framework aus Prinzipien und Leitlinien zusammen. Ihr zentraler Beitrag ist ein schützendes Gating: Keine Methode wird freigeschaltet, bevor der Schlaf stabil ist, und das System, nicht die Person, stoppt, sobald der Schlaf gestört wird. Bestehende Induktions- und Reaktivierungstechniken werden auf diese Bedingung abgebildet und in einem spekulativen Drei-Phasen-Modell durchgespielt."
+
+  - type: question
+    text: Wie lassen sich Techniken des schlafbasierten Lernens so gestalten, dass der Schutz des Schlafs vor jedem Lernziel steht?
+
+  - type: chapter
+    heading: Ausgangslage
+    text: Forschung zu gezielter Gedächtnisreaktivierung, Trauminkubation und Klarträumen zeigt, dass sich Schlaf mit Technologie ansprechen lässt. Bestehende ethische Leitlinien im Dream Engineering fordern zwar, dass diese Technologien den Schlaf möglichst wenig beeinträchtigen, doch keine setzt Schlafschutz als technische Voraussetzung durch. Neuere Studien zeigen sogar, dass Reize, die den Schlaf stören, genau die Erinnerungen schwächen können, auf die sie abzielen.
+
+  - type: chapter
+    heading: Vorgehen
+    text: Ich habe Forschung aus der Schlafneurowissenschaft und zu Traum-Induktionstechniken zusammengeführt, jede Methode der Schlafphase zugeordnet, in der sie wirkt, und das Ergebnis in ein Framework übersetzt. Mit spekulativem Design konnte ich dieses Framework an möglichen Zukünften testen statt an einem einzelnen Produkt.
+    image: assets/img/somnia/forms.jpg
+    caption: "Formstudien: ein Traumobjekt pro Zustand"
+
+  - type: chapter
+    heading: Das Framework
+    text: "Im Zentrum steht das QQRT-Gate: Schlafqualität, -menge, -regelmäßigkeit und -timing. Keine Methode wird freigeschaltet, bevor diese stabil sind. Darum liegen die Schlafumgebung und eine ethische Ebene. Schlafschutz ist eine technische Voraussetzung, keine Empfehlung."
+    image: assets/img/somnia/framework.jpg
+    caption: Das SOMNIA-Framework mit dem QQRT-Gate
+    cards:
+      - [Schlafumgebung, "Luftfeuchtigkeit, Lautstärke und Helligkeit werden gemessen und angepasst, bevor eine Induktion startet."]
+      - [Schlafqualität · QQRT, "Quality, Quantity, Regularity, Timing. Das Gate bleibt geschlossen, bis alle vier stabil sind."]
+      - [Ethik, "Psychologische Sicherheit, Grenzen für Induktion, Schlaf als Recht, keine Manipulation."]
+
+  - type: phases
+    heading: Drei Phasen
+    text: SOMNIA wächst in drei Stufen, jede an einen realistischen Technologiehorizont gebunden. Je weiter die Phase, desto mehr wird sie zur Frage für eine Debatte statt zu einem Produkt.
+    items:
+      - label: PHASE 01
+        meta: 2026 · Markteinführung
+        title: App & Wearable
+        text: "Funktioniert heute: Eine App mit bestehenden Wearables misst den Schlaf, öffnet das Gate und begleitet erste Techniken."
+        image: assets/img/somnia/phase1.jpg
+      - label: PHASE 02
+        meta: 2036 · Präzisionsphase
+        title: EEG-Stirnband
+        text: Ein eigenes Stirnband liest Schlafphasen direkt aus und setzt Reize präzise, gestaltet als Ritualobjekt statt als Gerät.
+        image: assets/img/somnia/phase2.jpg
+      - label: PHASE 03
+        meta: 2046 · Integrative Phase
+        title: Neuronales Interface
+        text: "Als Critical Design gedacht: Wenn Technologie bis in den Traum selbst reicht, wem gehört dann der Traumraum?"
+        image: assets/img/somnia/phase3.jpg
+
+  - type: chapter
+    heading: Die App
+    text: Die App folgt dem Rhythmus von Abend, Nacht und Morgen statt einer klassischen Tab-Struktur. Am Morgen hält ein Traumtagebuch mit Spracheingabe Träume fest, bevor sie verblassen; die Tagesübersicht zeigt den Status des Gates und die Session für die kommende Nacht, bewusst ohne Schlaf-Scores, Streaks oder Rankings.
+    gallery:
+      - [assets/img/somnia/app-welcome.jpg, Onboarding]
+      - [assets/img/somnia/app-dream.jpg, "Traumaufnahme, Sprache zu Text"]
+    image: assets/img/somnia/app-hand.jpg
+    caption: “Welcome to Somnia”
+
+  - type: chapter
+    heading: Feste Bedingungen
+    text: Drei Dinge sind in keiner Phase verhandelbar. Sie sind als Gestaltungsbedingungen ins System eingebaut, damit Schlaf erholsam bleibt und nie zu einer weiteren Sache wird, die man optimiert.
+    cards:
+      - [Schlafschutz, "Ein Screening auf Kontraindikationen, das sich nicht abschalten lässt. Funktionen bleiben gesperrt, solange der Schlaf instabil ist."]
+      - [Autonomie, "Die träumende Person entscheidet, was im Traum passiert und was mit den Daten darüber geschieht."]
+      - [Inklusion, "Gestaltet für alle, die lernen wollen, nicht nur für erfahrene Klarträumer:innen."]
+
+  - type: chapter
+    heading: Wohin es führen kann
+    text: SOMNIA richtet sich an alle, die lernen wollen. Das Framework zeigt Anwendungen in Sport und Bildung auf und wirft Fragen für die ethische Gestaltung von Neurotechnologie auf. Ein therapeutischer Einsatz würde klinische Begleitung erfordern und liegt außerhalb seines Rahmens.
+    chips: [Sport & motorisches Lernen, Bildung, Ethisches Neurotech-Design]
+
+  - type: chapter
+    heading: Grenzen & nächster Schritt
+    text: "Das Framework ist forschungsbasiert, aber noch nicht mit Menschen getestet, und viele der Studien, auf denen es aufbaut, haben kleine Stichproben. Der nächste Schritt ist ein Pilot mit 15 bis 20 Teilnehmenden über mehrere Wochen: Akzeptieren Menschen ein System, das Funktionen zurückhält, um ihren Schlaf zu schützen?"

@@ -1,0 +1,23 @@
+# ─────────────────────────────────────────────────────────────
+#  ABOUT-SEITE – DEUTSCHE VERSION (Gegenstück zu content/about.yml)
+# ─────────────────────────────────────────────────────────────
+title: |
+  HALLO,
+  ICH BIN ENIS.
+sticker: |
+  IOT +
+  STRATEGIC
+  DESIGN
+portrait: assets/img/about/portrait.jpg
+portrait_label: ★ M.A. STRATEGIC DESIGN
+lead: |
+  Ich bin in Reutlingen aufgewachsen. Bevor ich Design studiert habe, habe ich in der Logistik bei Bosch und Mercedes-Benz gearbeitet und Praktika in Mechatronik, Landwirtschaft und sozialer Arbeit gemacht. Diese Mischung prägt bis heute, wie ich arbeite: Ich will verstehen, wie etwas gebaut ist und wie es sich für die Menschen anfühlt, die damit leben.
+  Abseits vom Design gieße ich Keramiktassen, mache Sport und beschäftige mich mit Kunst. Ich spreche Deutsch, Türkisch und Englisch.
+
+interests:
+  - title: Mensch-Computer-Interaktion
+    text: Sensorik, Wearables und Interfaces, die im Hintergrund des Alltags funktionieren.
+  - title: Futures
+    text: "Spekulatives Design als Forschungsinstrument: mögliche Zukünfte so konkret machen, dass man über sie diskutieren kann."
+  - title: Gesundheit & Schlaf
+    text: Wie Technologie Wohlbefinden und Erholung unterstützen kann, ohne sie zu einer weiteren Kennzahl zu machen, die man optimiert.

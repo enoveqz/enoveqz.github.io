@@ -10,10 +10,47 @@ const up = s => String(s || '').toUpperCase();
 const purl = slug => 'p/' + encodeURIComponent(slug) + '/';          // saubere Projekt-URL
 const here = h => (/impressum|privacy|notfound/.test(document.body.dataset.page) && h === '#contact') ? 'index.html#contact' : location.pathname + h;                              // Anker auf der aktuellen Seite
 
-async function load(path) {
+/* ---------- Sprache (EN / DE) ----------
+   Deutsche Texte liegen in content/de/ (gleiche Dateinamen wie in content/).
+   Fehlt dort eine Datei, wird automatisch die englische genommen. */
+const LANGS = ['en', 'de'];
+let LANG = (() => {
+  const q = new URLSearchParams(location.search).get('lang');
+  if (LANGS.includes(q)) { try { localStorage.setItem('lang', q); } catch (e) {} return q; }
+  try { const s = localStorage.getItem('lang'); if (LANGS.includes(s)) return s; } catch (e) {}
+  return 'en';
+})();
+const UI = {
+  de: {
+    'Work': 'Arbeiten', 'About': 'Über mich', 'Contact': 'Kontakt', 'Copy e-mail': 'E-Mail kopieren', 'Write ↗': 'Schreiben ↗',
+    'Index': 'Index', 'Back to top ↑': 'Nach oben ↑', 'Research question': 'Forschungsfrage', 'See work ↓': 'Arbeiten ansehen ↓',
+    'About me': 'Über mich', 'More about me': 'Mehr über mich', '02 / About': '02 / Über mich', '03 / Research interests': '03 / Forschungsinteressen',
+    'Portrait of': 'Porträt von', 'Project not found.': 'Projekt nicht gefunden.', 'Fig.': 'Abb.', 'Video & links': 'Video & Links',
+    'Play project video': 'Projektvideo abspielen', 'WATCH THE PROJECT VIDEO · YOUTUBE': 'PROJEKTVIDEO ANSEHEN · YOUTUBE',
+    'Click to load the video from YouTube.': 'Klicken, um das Video von YouTube zu laden.', 'Watch on YouTube ↗': 'Auf YouTube ansehen ↗',
+    'Thesis by': 'Thesis von', '← All projects': '← Alle Projekte', 'Project': 'Projekt', 'Next project →': 'Nächstes Projekt →',
+    'CV as PDF ↓': 'Lebenslauf als PDF ↓', 'Research interests': 'Forschungsinteressen', 'Download PDF ↓': 'PDF herunterladen ↓',
+    'Selected work': 'Ausgewählte Arbeiten', 'Education': 'Ausbildung', 'Experience': 'Erfahrung', 'Skills': 'Fähigkeiten',
+    'Workshops & more': 'Workshops & mehr', 'Languages': 'Sprachen', 'Looking for': 'Ich suche', 'Profile': 'Profil', 'Print': 'Drucken',
+    'Email': 'E-Mail', 'CV': 'Lebenslauf', 'COPIED ✓': 'KOPIERT ✓', 'Project video': 'Projektvideo', 'Switch language': 'Sprache wechseln',
+    'Page not found': 'Seite nicht gefunden', 'Lost in a dream': 'Im Traum verloren', 'Wake up': 'Aufwachen', 'Wrong turn': 'Falsch abgebogen',
+    'THIS PAGE<br>FELL ASLEEP.': 'DIESE SEITE<br>IST EINGESCHLAFEN.',
+    'Either the link is wrong or the page is somewhere in REM sleep. Better not wake it, go back instead:': 'Entweder ist der Link falsch oder die Seite steckt irgendwo im REM-Schlaf. Besser nicht wecken, sondern zurückgehen:',
+    'Back to work ↗': 'Zurück zu den Arbeiten ↗', 'Content could not be loaded:': 'Inhalte konnten nicht geladen werden:', 'Check the YAML files in /content.': 'Bitte die YAML-Dateien in /content prüfen.'
+  }
+};
+const t = k => (UI[LANG] && UI[LANG][k]) || k;
+async function loadRaw(path) {
   const r = await fetch(path, { cache: 'no-cache' });
   if (!r.ok) throw new Error(path + ' (' + r.status + ')');
   return (jsyaml.safeLoad || jsyaml.load)(await r.text());
+}
+async function load(path) {
+  if (LANG !== 'en' && path.startsWith('content/') && !/legal\.yml$|projects\.yml$/.test(path)) {
+    try { return await loadRaw(path.replace('content/', 'content/' + LANG + '/')); }
+    catch (e) { /* keine Übersetzung vorhanden → englische Datei */ }
+  }
+  return loadRaw(path);
 }
 async function loadAll() {
   const [site, about, list] = await Promise.all([load('content/site.yml'), load('content/about.yml'), load('content/projects.yml')]);
@@ -32,16 +69,17 @@ function nav(site, active) {
   return `<header class="nav"><div class="wrap">
     <a class="logo" href="index.html">${esc(site.logo)}</a>
     <span class="tag">${esc(site.nav_tag)}</span>
-    <nav class="links">${l('index.html#work', 'Work', 'work')}${l('about.html', 'About', 'about')}${l(here('#contact'), 'Contact', 'contact')}</nav>
+    <nav class="links">${l('index.html#work', t('Work'), 'work')}${l('about.html', t('About'), 'about')}${l(here('#contact'), t('Contact'), 'contact')}</nav>
+    <div class="lang" role="group" aria-label="${t('Switch language')}">${LANGS.map(c => `<button type="button" data-lang="${c}" class="${c === LANG ? 'on' : ''}" aria-pressed="${c === LANG}" lang="${c}">${c.toUpperCase()}</button>`).join('<span aria-hidden="true">/</span>')}</div>
   </div><div class="bar"></div></header>`;
 }
 function contact(site) {
   return `<section class="wrap block" id="contact"><div class="card pad contact rv">
-    <span class="small">Contact</span>
+    <span class="small">${t('Contact')}</span>
     <h2>${esc(site.contact_title)}</h2>
     <p>${txt(site.contact_text)}</p>
-    <button class="mail" type="button" data-copy="${esc(site.email)}" title="Copy e-mail">${esc(up(site.email))} <span aria-hidden="true">⧉</span></button>
-    <a class="mail" style="background:transparent;color:inherit;border:2px solid currentColor;margin-left:10px" href="mailto:${esc(site.email)}">Write ↗</a>
+    <button class="mail" type="button" data-copy="${esc(site.email)}" title="${t('Copy e-mail')}">${esc(up(site.email))} <span aria-hidden="true">⧉</span></button>
+    <a class="mail" style="background:transparent;color:inherit;border:2px solid currentColor;margin-left:10px" href="mailto:${esc(site.email)}">${t('Write ↗')}</a>
     ${(site.social || []).map(pair).map(([t, u]) => `<a class="mail" style="background:transparent;color:inherit;border:2px solid currentColor;margin-left:10px" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join('')}
     <div class="sticker" aria-hidden="true">${esc(String(site.contact_sticker || '').trim())}</div>
   </div></section>`;
@@ -50,9 +88,9 @@ function footer(site) {
   const soc = (site.social || []).map(pair).map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a></li>`).join('');
   return `<footer class="wrap footer"><div class="top">
     <div><h4>${esc(up(site.name))}</h4><div class="line">${esc(String(site.footer_line || '').trim())}</div></div>
-    <div><span class="small muted">Index</span><ul><li><a href="index.html#work">Work</a></li><li><a href="about.html">About</a></li><li><a href="${here('#contact')}">Contact</a></li></ul></div>
-    <div><span class="small muted">Contact</span><ul><li><a href="mailto:${esc(site.email)}">${esc(site.email)}</a></li>${soc}</ul></div>
-  </div><div class="bottom"><span>© ${new Date().getFullYear()} ${esc(site.name)}</span><span class="legal-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="${here('#top')}">Back to top ↑</a></span></div></footer>`;
+    <div><span class="small muted">${t('Index')}</span><ul><li><a href="index.html#work">${t('Work')}</a></li><li><a href="about.html">${t('About')}</a></li><li><a href="${here('#contact')}">${t('Contact')}</a></li></ul></div>
+    <div><span class="small muted">${t('Contact')}</span><ul><li><a href="mailto:${esc(site.email)}">${esc(site.email)}</a></li>${soc}</ul></div>
+  </div><div class="bottom"><span>© ${new Date().getFullYear()} ${esc(site.name)}</span><span class="legal-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="${here('#top')}">${t('Back to top ↑')}</a></span></div></footer>`;
 }
 function marquee(words) {
   const one = (words || []).map(w => `<span>${esc(up(w))}  /</span>`).join('');
@@ -68,7 +106,7 @@ function pcard(p, i, big, total) {
     <div class="tile" style="--tile-bg:${esc(p.tile_bg || '#ddd')}"><img src="${esc(tileOf(p))}" alt="${esc(p.title)}" loading="${big ? 'eager' : 'lazy'}" style="view-transition-name:tile-${esc(p.slug)}"></div>
     <div class="meta small"><span>${num(i)} / ${total}</span><span>${esc(p.year)}</span></div>
     <h3>${esc(p.title)}</h3>
-    ${rqOf(p) ? `<p class="rq"><span class="small">Research question</span>${txt(rqOf(p))}</p>` : ''}
+    ${rqOf(p) ? `<p class="rq"><span class="small">${t('Research question')}</span>${txt(rqOf(p))}</p>` : ''}
     <div class="row"><div>${rqOf(p) ? '' : `<p>${txt(p.line)}</p>`}<span class="chip">${esc(p.kind)}</span></div><span class="arrow">↗</span></div>
   </a>`;
 }
@@ -77,30 +115,30 @@ function pcard(p, i, big, total) {
 function home({ site, about, projects }) {
   const n = String(projects.length).padStart(2, '0');
   const cards = projects.map((p, i) => pcard(p, i, i === 0, n));
-  const t = site.about_teaser || {};
+  const tz = site.about_teaser || {};
   return nav(site, 'work') + `<main id="top">
   <section class="wrap hero">
     <div class="hero-top"><div class="card pad"><h1>${esc(String(site.hero || '').trim())}</h1></div>
     <a class="sticker" href="#contact" title="Contact">${esc(String(site.sticker || '').trim())}</a></div>
     <div class="intro"><p>${esc(String(site.intro || '').trim())}</p>
-      <div class="btns"><a class="btn" href="#work">See work ↓</a><a class="btn alt" href="about.html">About me</a></div></div>
+      <div class="btns"><a class="btn" href="#work">${t('See work ↓')}</a><a class="btn alt" href="about.html">${t('About me')}</a></div></div>
     <div class="chips">${(site.chips || []).map((c, k) => `<span class="chip">${esc(c)}</span>`).join('')}</div>
   </section>
   <section class="wrap work" id="work"><span class="chip fill sec-tag">${esc(site.work_label)}</span>
     ${cards[0] || ''}<div class="grid2">${cards.slice(1).join('')}</div></section>
   ${marquee(projects.map(p => p.title))}
   ${site.statement ? `<section class="wrap block"><div class="card ink pad statement rv"><span class="small">${esc(site.statement_label)}</span><p>${txt(site.statement)}</p></div></section>` : ''}
-  <section class="wrap block"><span class="chip fill sec-tag">02 / About</span>
-    <div class="card pad about-teaser rv"><img src="${esc(about.portrait)}" alt="Portrait of ${esc(site.name)}" loading="lazy">
-      <div><p class="lead">${txt(t.text)}</p><dl class="rows">${(t.rows || []).map(pair).map(([a, b]) => `<div><dt>${esc(a)}</dt><dd>${txt(b)}</dd></div>`).join('')}</dl>
-      <a class="btn" href="about.html" style="margin-top:20px">More about me</a></div></div></section>
-  <section class="wrap block"><span class="chip fill sec-tag">03 / Research interests</span>${interests(about)}</section>
+  <section class="wrap block"><span class="chip fill sec-tag">${t('02 / About')}</span>
+    <div class="card pad about-teaser rv"><img src="${esc(about.portrait)}" alt="${t('Portrait of')} ${esc(site.name)}" loading="lazy">
+      <div><p class="lead">${txt(tz.text)}</p><dl class="rows">${(tz.rows || []).map(pair).map(([a, b]) => `<div><dt>${esc(a)}</dt><dd>${txt(b)}</dd></div>`).join('')}</dl>
+      <a class="btn" href="about.html" style="margin-top:20px">${t('More about me')}</a></div></div></section>
+  <section class="wrap block"><span class="chip fill sec-tag">${t('03 / Research interests')}</span>${interests(about)}</section>
   ${contact(site)}</main>${footer(site)}`;
 }
 
 function sectionHTML(s, k) {
   const head = `<div><div class="num">${num(k)}</div><h2 class="ch-title">${esc(s.heading)}</h2></div>`;
-  const fig = (src, cap, size) => `<figure class="fig ${size === 'half' ? 'half' : ''}"><img src="${esc(src)}" alt="${esc(cap || '')}" loading="lazy">${cap ? `<figcaption>Fig. ${num(k)} — ${esc(cap)}</figcaption>` : ''}</figure>`;
+  const fig = (src, cap, size) => `<figure class="fig ${size === 'half' ? 'half' : ''}"><img src="${esc(src)}" alt="${esc(cap || '')}" loading="lazy">${cap ? `<figcaption>${t('Fig.')} ${num(k)} — ${esc(cap)}</figcaption>` : ''}</figure>`;
   let body = s.text ? `<p>${txt(s.text)}</p>` : '';
   if (s.chips) body += `<div class="chips" style="margin-bottom:30px">${s.chips.map((c, j) => `<span class="chip">${esc(c)}</span>`).join('')}</div>`;
   if (s.gallery) body += `<div class="gallery">${s.gallery.map(pair).map(([src, cap]) => `<figure class="fig"><img src="${esc(src)}" alt="${esc(cap)}" loading="lazy">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`).join('')}</div>`;
@@ -115,7 +153,7 @@ function sectionHTML(s, k) {
 
 function project({ site, projects }, slug) {
   const i = Math.max(0, projects.findIndex(p => p.slug === slug));
-  const p = projects[i]; if (!p) return nav(site, 'work') + `<p class="loading">Project not found.</p>`;
+  const p = projects[i]; if (!p) return nav(site, 'work') + `<p class="loading">${t('Project not found.')}</p>`;
   const nx = projects[(i + 1) % projects.length];
   document.title = p.title + ' – ' + site.name;
   let k = 0, secs = '';
@@ -133,17 +171,17 @@ function project({ site, projects }, slug) {
   if (rq && sub.toLowerCase().startsWith(rq.toLowerCase())) sub = sub.slice(rq.length).trim();
   if (rq && sub.toLowerCase() === rq.toLowerCase()) sub = '';
   const links = (p.links || []).map(pair).filter(([, u]) => u);
-  const video = p.video ? `<section class="video rv" id="video"><span class="chip fill sec-tag">Video &amp; links</span>
-      <button class="yt" type="button" data-yt="${esc(p.video)}" aria-label="Play project video"><img src="${esc(p.video_poster || (p.covers ? pair(p.covers[0])[0] : p.cover) || tileOf(p))}" alt="" loading="lazy"><span class="lab">WATCH THE PROJECT VIDEO · YOUTUBE</span><span class="yt-note">Click to load the video from YouTube.</span><span class="play">▶</span></button>
-      <div class="btns"><a class="btn" href="https://www.youtube.com/watch?v=${esc(p.video)}" target="_blank" rel="noopener">Watch on YouTube ↗</a>${links.map(([t, u]) => `<a class="btn alt" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join('')}</div></section>`
+  const video = p.video ? `<section class="video rv" id="video"><span class="chip fill sec-tag">${esc(t('Video & links'))}</span>
+      <button class="yt" type="button" data-yt="${esc(p.video)}" aria-label="${t('Play project video')}"><img src="${esc(p.video_poster || (p.covers ? pair(p.covers[0])[0] : p.cover) || tileOf(p))}" alt="" loading="lazy"><span class="lab">${t('WATCH THE PROJECT VIDEO · YOUTUBE')}</span><span class="yt-note">${t('Click to load the video from YouTube.')}</span><span class="play">▶</span></button>
+      <div class="btns"><a class="btn" href="https://www.youtube.com/watch?v=${esc(p.video)}" target="_blank" rel="noopener">${t('Watch on YouTube ↗')}</a>${links.map(([t, u]) => `<a class="btn alt" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join('')}</div></section>`
     : (links.length ? `<div class="btns" style="margin-bottom:110px">${links.map(([t, u]) => `<a class="btn" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join('')}</div>` : '');
-  const au = p.author ? `<section class="card pad author rv"><img src="${esc(p.author.image)}" alt="${esc(p.author.name)}" loading="lazy"><div><span class="small">Thesis by</span><h3>${esc(p.author.name)}</h3><p style="font-size:18px">${txt(p.author.text)}</p><p class="small muted" style="line-height:1.7">${txt(p.author.note)}</p></div></section>` : '';
+  const au = p.author ? `<section class="card pad author rv"><img src="${esc(p.author.image)}" alt="${esc(p.author.name)}" loading="lazy"><div><span class="small">${t('Thesis by')}</span><h3>${esc(p.author.name)}</h3><p style="font-size:18px">${txt(p.author.text)}</p><p class="small muted" style="line-height:1.7">${txt(p.author.note)}</p></div></section>` : '';
   return nav(site, 'work') + `<main id="top" class="wrap">
-    <a class="back" href="index.html#work">← All projects</a>
+    <a class="back" href="index.html#work">${t('← All projects')}</a>
     <section class="p-hero">
-      <div class="card pad"><span class="small">Project ${num(i)} / ${String(projects.length).padStart(2, '0')} — ${esc(p.kind)}, ${esc(p.year)}</span>
+      <div class="card pad"><span class="small">${t('Project')} ${num(i)} / ${String(projects.length).padStart(2, '0')} — ${esc(p.kind)}, ${esc(p.year)}</span>
         <h1 style="view-transition-name:title-${esc(p.slug)}">${esc(p.title)}</h1>
-        ${rq ? `<div class="p-rq"><span class="small">Research question</span><p>${txt(rq)}</p></div>` : ''}
+        ${rq ? `<div class="p-rq"><span class="small">${t('Research question')}</span><p>${txt(rq)}</p></div>` : ''}
         ${sub ? `<p class="sub">${txt(sub)}</p>` : ''}
         <div class="chips">${(p.tags || []).map(t => `<span class="chip">${esc(t)}</span>`).join('')}</div></div>
       <span class="label">${esc(p.label || '★ ' + p.year)}</span>
@@ -155,24 +193,24 @@ function project({ site, projects }, slug) {
       : p.cover && !(p.video && !p.video_poster) ? `<figure class="cover rv"><img src="${esc(p.cover)}" alt="${esc(p.cover_caption || p.title)}"><figcaption>↑ ${esc(p.cover_caption || '')}</figcaption></figure>` : ''}
     <div class="chapters">${secs}</div>
     ${au}
-    ${nx && nx !== p ? `<a class="card next rv" href="${purl(nx.slug)}"><div><span class="small">Next project →</span><h2>${esc(nx.title)}</h2><p style="max-width:40ch;opacity:.8">${txt(nx.line)}</p><span class="arrow">↗</span></div><div class="tile" style="--tile-bg:${esc(nx.tile_bg || '#ddd')}"><img src="${esc(tileOf(nx))}" alt="" loading="lazy"></div></a>` : ''}
+    ${nx && nx !== p ? `<a class="card next rv" href="${purl(nx.slug)}"><div><span class="small">${t('Next project →')}</span><h2>${esc(nx.title)}</h2><p style="max-width:40ch;opacity:.8">${txt(nx.line)}</p><span class="arrow">↗</span></div><div class="tile" style="--tile-bg:${esc(nx.tile_bg || '#ddd')}"><img src="${esc(tileOf(nx))}" alt="" loading="lazy"></div></a>` : ''}
   </main>${contact(site)}${footer(site)}`;
 }
 
 function aboutPage({ site, about, projects }, C) {
-  document.title = 'About – ' + site.name;
+  document.title = t('About') + ' – ' + site.name;
   const n = String(projects.length).padStart(2, '0');
   return nav(site, 'about') + `<main id="top">
-  <section class="wrap a-hero"><div class="hero-top"><div class="card pad"><span class="small">About</span><h1>${esc(String(about.title || '').trim())}</h1></div>
+  <section class="wrap a-hero"><div class="hero-top"><div class="card pad"><span class="small">${t('About')}</span><h1>${esc(String(about.title || '').trim())}</h1></div>
     <div class="sticker" aria-hidden="true">${esc(String(about.sticker || '').trim())}</div></div></section>
-  <section class="wrap a-grid"><div class="portrait rv"><img src="${esc(about.portrait)}" alt="Portrait of ${esc(site.name)}"><span class="label">${esc(about.portrait_label || '')}</span></div>
+  <section class="wrap a-grid"><div class="portrait rv"><img src="${esc(about.portrait)}" alt="${t('Portrait of')} ${esc(site.name)}"><span class="label">${esc(about.portrait_label || '')}</span></div>
     <div><p class="lead rv">${txt(about.lead)}</p>
       <div class="card cv rv">
-        <div><span><span class="chip">Contact</span></span><p><a href="mailto:${esc(site.email)}">${esc(site.email)}</a>${(site.social || []).map(pair).map(([t, u]) => `<br><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join('')}${C && C.pdf ? `<br><a href="${esc(C.pdf)}" download>CV as PDF ↓</a>` : ''}</p></div></div></div></section>
+        <div><span><span class="chip">${t('Contact')}</span></span><p><a href="mailto:${esc(site.email)}">${esc(site.email)}</a>${(site.social || []).map(pair).map(([t, u]) => `<br><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join('')}${C && C.pdf ? `<br><a href="${esc(C.pdf)}" download>${t('CV as PDF ↓')}</a>` : ''}</p></div></div></div></section>
   ${marquee(about.marquee)}
-  <section class="wrap block"><span class="chip fill sec-tag">Research interests</span>${interests(about)}</section>
-  ${C ? `<section class="wrap block cv-about" id="cv"><div class="cv-title"><h2>CV</h2>${C.pdf ? `<a class="btn" href="${esc(C.pdf)}" download>Download PDF ↓</a>` : ''}</div>${cvBody(C)}</section>` : ''}
-  <section class="wrap block"><span class="chip fill sec-tag">Selected work</span><div class="plist">
+  <section class="wrap block"><span class="chip fill sec-tag">${t('Research interests')}</span>${interests(about)}</section>
+  ${C ? `<section class="wrap block cv-about" id="cv"><div class="cv-title"><h2>${t('CV')}</h2>${C.pdf ? `<a class="btn" href="${esc(C.pdf)}" download>${t('Download PDF ↓')}</a>` : ''}</div>${cvBody(C)}</section>` : ''}
+  <section class="wrap block"><span class="chip fill sec-tag">${t('Selected work')}</span><div class="plist">
     ${projects.map((p, i) => `<a href="${purl(p.slug)}"><span class="small">${num(i)}</span><b>${esc(p.title)}</b><span class="small k">${esc(p.kind)} · ${esc(p.year)}</span><span style="font-size:24px">↗</span></a>`).join('')}</div></section>
   ${contact(site)}</main>${footer(site)}`;
 }
@@ -180,37 +218,37 @@ function aboutPage({ site, about, projects }, C) {
 const cvEnt = e => `<div class="cv-e"><span class="when">${esc(e.when)}</span><div><b>${esc(e.title)}</b>${e.where ? `<span class="where">${esc(e.where)}</span>` : ''}${e.note ? `<p>${txt(e.note)}</p>` : ''}</div></div>`;
 const cvSec = (t, body) => `<section class="cv-sec"><span class="chip fill sec-tag">${esc(t)}</span>${body}</section>`;
 function cvBody(C) {
-  return `${cvSec('Education', (C.education || []).map(cvEnt).join(''))}
-  ${cvSec('Experience', (C.experience || []).map(cvEnt).join(''))}
+  return `${cvSec(t('Education'), (C.education || []).map(cvEnt).join(''))}
+  ${cvSec(t('Experience'), (C.experience || []).map(cvEnt).join(''))}
   <div class="cv-two"><div>
-    ${cvSec('Skills', (C.skills || []).map(pair).map(([k, v]) => `<div class="cv-sk"><span class="small">${esc(k)}</span><p>${txt(v)}</p></div>`).join(''))}
-    ${cvSec('Workshops & more', (C.workshops || []).map(cvEnt).join(''))}
+    ${cvSec(t('Skills'), (C.skills || []).map(pair).map(([k, v]) => `<div class="cv-sk"><span class="small">${esc(k)}</span><p>${txt(v)}</p></div>`).join(''))}
+    ${cvSec(t('Workshops & more'), (C.workshops || []).map(cvEnt).join(''))}
   </div><div>
-    <div class="card cv-lang"><span class="small">Languages</span>${(C.languages || []).map(pair).map(([l, v]) => `<div><b>${esc(l)}</b><span>${esc(up(v))}</span></div>`).join('')}</div>
-    ${C.looking ? `<div class="card pad cv-look"><span class="small">Looking for</span><p>${txt(C.looking)}</p></div>` : ''}
+    <div class="card cv-lang"><span class="small">${t('Languages')}</span>${(C.languages || []).map(pair).map(([l, v]) => `<div><b>${esc(l)}</b><span>${esc(up(v))}</span></div>`).join('')}</div>
+    ${C.looking ? `<div class="card pad cv-look"><span class="small">${t('Looking for')}</span><p>${txt(C.looking)}</p></div>` : ''}
   </div></div>`;
 }
 function cvPage({ site, about, projects }, C) {
-  document.title = 'CV – ' + site.name;
+  document.title = t('CV') + ' – ' + site.name;
   const ent = e => `<div class="cv-e"><span class="when">${esc(e.when)}</span><div><b>${esc(e.title)}</b>${e.where ? `<span class="where">${esc(e.where)}</span>` : ''}${e.note ? `<p>${txt(e.note)}</p>` : ''}</div></div>`;
   const sec = (t, body) => `<section class="cv-sec"><span class="chip fill sec-tag">${esc(t)}</span>${body}</section>`;
   const soc = (site.social || []).map(pair);
-  const rows = [['Email', `<a href="mailto:${esc(site.email)}">${esc(site.email)}</a>`], ['Portfolio', `<a href="index.html">${esc(String(site.url || '').replace(/^https?:\/\//, ''))}</a>`]]
+  const rows = [[t('Email'), `<a href="mailto:${esc(site.email)}">${esc(site.email)}</a>`], ['Portfolio', `<a href="index.html">${esc(String(site.url || '').replace(/^https?:\/\//, ''))}</a>`]]
     .concat(soc.map(([t, u]) => [t, `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))}</a>`]));
   return nav(site, 'cv') + `<main id="top" class="wrap cvp">
-  <div class="cv-actions no-print">${C.pdf ? `<a class="btn" href="${esc(C.pdf)}" download>Download PDF ↓</a>` : ''}<button class="btn alt" type="button" onclick="window.print()">Print</button></div>
-  <div class="card pad cv-head"><img src="${esc(about.portrait)}" alt="Portrait of ${esc(site.name)}">
+  <div class="cv-actions no-print">${C.pdf ? `<a class="btn" href="${esc(C.pdf)}" download>${t('Download PDF ↓')}</a>` : ''}<button class="btn alt" type="button" onclick="window.print()">${t('Print')}</button></div>
+  <div class="card pad cv-head"><img src="${esc(about.portrait)}" alt="${t('Portrait of')} ${esc(site.name)}">
     <div><h1>${esc(up(site.name))}</h1><p class="ttl">${esc(C.title)}</p><dl>${rows.map(([k, v]) => `<dt>${esc(up(k))}</dt><dd>${v}</dd>`).join('')}</dl></div>
     <div class="sticker" aria-hidden="true">${esc(String(C.sticker || '').trim())}</div></div>
-  ${sec('Profile', `<p class="cv-prof">${txt(C.profile)}</p>`)}
-  ${sec('Education', (C.education || []).map(ent).join(''))}
-  ${sec('Experience', (C.experience || []).map(ent).join(''))}
+  ${sec(t('Profile'), `<p class="cv-prof">${txt(C.profile)}</p>`)}
+  ${sec(t('Education'), (C.education || []).map(ent).join(''))}
+  ${sec(t('Experience'), (C.experience || []).map(ent).join(''))}
   <div class="cv-two"><div>
-    ${sec('Skills', (C.skills || []).map(pair).map(([k, v]) => `<div class="cv-sk"><span class="small">${esc(k)}</span><p>${txt(v)}</p></div>`).join(''))}
-    ${sec('Workshops & more', (C.workshops || []).map(ent).join(''))}
+    ${sec(t('Skills'), (C.skills || []).map(pair).map(([k, v]) => `<div class="cv-sk"><span class="small">${esc(k)}</span><p>${txt(v)}</p></div>`).join(''))}
+    ${sec(t('Workshops & more'), (C.workshops || []).map(ent).join(''))}
   </div><div>
-    <div class="card cv-lang"><span class="small">Languages</span>${(C.languages || []).map(pair).map(([l, v]) => `<div><b>${esc(l)}</b><span>${esc(up(v))}</span></div>`).join('')}</div>
-    ${C.looking ? `<div class="card pad cv-look"><span class="small">Looking for</span><p>${txt(C.looking)}</p></div>` : ''}
+    <div class="card cv-lang"><span class="small">${t('Languages')}</span>${(C.languages || []).map(pair).map(([l, v]) => `<div><b>${esc(l)}</b><span>${esc(up(v))}</span></div>`).join('')}</div>
+    ${C.looking ? `<div class="card pad cv-look"><span class="small">${t('Looking for')}</span><p>${txt(C.looking)}</p></div>` : ''}
   </div></div>
   </main>${contact(site)}${footer(site)}`;
 }
@@ -218,13 +256,13 @@ function cvPage({ site, about, projects }, C) {
 function notFound({ site, projects }) {
   document.title = '404 – ' + site.name;
   const blobs = [1, 2, 3, 4, 5, 6, 7, 8].map((n, i) => `<img src="assets/img/blobs/blob-${n}.png" alt="" style="--i:${i}">`).join('');
-  const words = ['Page not found', 'Lost in a dream', 'Error 404', 'Wake up', 'Wrong turn'];
+  const words = ['Page not found', 'Lost in a dream', 'Error 404', 'Wake up', 'Wrong turn'].map(t);
   const band = words.map(w => `<span>${esc(up(w))}  /</span>`).join('');
   return nav(site, '') + `<main id="top" class="nf">
   <section class="wrap nf-hero"><div class="card pad nf-card"><span class="small">Error 404</span>
-    <h1>THIS PAGE<br>FELL ASLEEP.</h1>
-    <p>Either the link is wrong or the page is somewhere in REM sleep. Better not wake it, go back instead:</p>
-    <div class="btns"><a class="btn" href="index.html#work">Back to work ↗</a><a class="btn alt" href="about.html">About me</a></div></div>
+    <h1>${t('THIS PAGE<br>FELL ASLEEP.')}</h1>
+    <p>${t('Either the link is wrong or the page is somewhere in REM sleep. Better not wake it, go back instead:')}</p>
+    <div class="btns"><a class="btn" href="index.html#work">${t('Back to work ↗')}</a><a class="btn alt" href="about.html">${t('About me')}</a></div></div>
     <a class="sticker" href="index.html#contact">ZZZ<br>Z…</a></section>
   <div class="nf-blobs" aria-hidden="true">${blobs}</div>
   <div class="marquee nf-band" aria-hidden="true"><div class="track">${band.repeat(4)}${band.repeat(4)}</div></div>
@@ -266,19 +304,28 @@ function interactions() {
   document.querySelectorAll('.rv').forEach(el => io ? io.observe(el) : el.classList.add('in'));
   setTimeout(() => document.querySelectorAll('.rv').forEach(el => { const r = el.getBoundingClientRect(); if (r.top < innerHeight) el.classList.add('in'); }), 60);
   document.querySelectorAll('[data-yt]').forEach(b => b.addEventListener('click', () => {
-    b.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${b.dataset.yt}?autoplay=1&rel=0" title="Project video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+    b.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${b.dataset.yt}?autoplay=1&rel=0" title="${t('Project video')}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
   }, { once: true }));
   document.querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', async () => {
     const v = b.dataset.copy, old = b.innerHTML;
-    try { await navigator.clipboard.writeText(v); b.innerHTML = 'COPIED ✓'; } catch (e) { location.href = 'mailto:' + v; }
+    try { await navigator.clipboard.writeText(v); b.innerHTML = t('COPIED ✓'); } catch (e) { location.href = 'mailto:' + v; }
     setTimeout(() => { b.innerHTML = old; }, 1600);
   }));
   document.querySelectorAll('[data-go]').forEach(b => { const go = e => { e.preventDefault(); e.stopPropagation(); location.href = b.dataset.go; }; b.addEventListener('click', go); b.addEventListener('keydown', e => { if (e.key === 'Enter') go(e); }); });
+  document.querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.lang === LANG) return;
+    LANG = b.dataset.lang;
+    try { localStorage.setItem('lang', LANG); } catch (e) {}
+    const u = new URL(location.href);
+    if (u.searchParams.has('lang')) { u.searchParams.set('lang', LANG); history.replaceState(null, '', u); }
+    const y = scrollY; render().then(() => scrollTo(0, y));
+  }));
   if (location.hash) { const t = document.getElementById(location.hash.slice(1)); if (t) setTimeout(() => t.scrollIntoView(), 50); }
 }
 
-(async () => {
+async function render() {
   const root = $('#app'), page = document.body.dataset.page;
+  document.documentElement.lang = LANG;
   try {
     const data = await loadAll();
     if (page === 'home') root.innerHTML = home(data);
@@ -290,7 +337,8 @@ function interactions() {
     interactions();
     document.documentElement.classList.add('ready');
   } catch (e) {
-    root.innerHTML = `<p class="loading">Content could not be loaded: ${esc(e.message)}<br>Check the YAML files in /content.</p>`;
+    root.innerHTML = `<p class="loading">${t('Content could not be loaded:')} ${esc(e.message)}<br>${t('Check the YAML files in /content.')}</p>`;
     console.error(e);
   }
-})();
+}
+render();

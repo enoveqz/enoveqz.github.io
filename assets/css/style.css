@@ -466,3 +466,15 @@ a.sticker { text-decoration: none; color: var(--ink); cursor: pointer; }
 .nf-band.two .track { animation-direction: reverse; }
 @media (max-width: 900px) { .nf-hero { grid-template-columns: 1fr; } .nf-hero .sticker { width: 130px; font-size: 28px; justify-self: end; margin-top: -10px; } }
 @media (prefers-reduced-motion: reduce) { .nf-blobs img { animation: none; } }
+
+/* Sprachumschalter EN / DE in der Navigation */
+.nav .lang { display: flex; align-items: center; gap: 6px; font: 400 15px var(--mono); }
+.nav .lang span { opacity: .4; }
+.nav .lang button { font: inherit; color: inherit; background: none; border: 0; padding: 4px 2px; cursor: pointer; opacity: .55; }
+.nav .lang button:hover { opacity: 1; }
+.nav .lang button.on { opacity: 1; font-weight: 600; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; }
+@media (max-width: 760px) { .nav .lang { font-size: 13px; gap: 4px; } }
+@media (max-width: 420px) { .nav .lang { font-size: 12px; } .nav .lang button { padding: 10px 2px; } }
+@media print { .nav .lang { display: none; } }
+.nav .links a { white-space: nowrap; }
+@media (max-width: 420px) { .nav .wrap { gap: 10px; } .nav .links { gap: 10px; } }

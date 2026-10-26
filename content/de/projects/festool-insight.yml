@@ -1,0 +1,72 @@
+title: Festool Insight
+line: Was wäre, wenn Werkzeuge verstehen statt nur reagieren?
+subtitle: Was wäre, wenn Werkzeuge verstehen statt nur reagieren? Datengetriebene Effizienz im Handwerk, 2035.
+kind: M.A.-Projekt mit Festool
+year: "2025/26"
+tags: [Future of Work, Emerging Technologies, Designforschung, IoT]
+tile: assets/img/festool-insight/tile.jpg
+tile_bg: "#2a2340"
+cover: assets/img/festool-insight/cover.jpg
+cover_caption: "Festool Insight: Sensor-Pack und AR-Brille"
+covers:
+  - [assets/img/festool-insight/sensor-pack.jpg, "SmartSensor Pack CSP27 zwischen Akku und Werkzeug"]
+  - [assets/img/festool-insight/ar-glasses.jpg, "AR-Brille mit RGB-Kamera für die visuelle Umgebung"]
+video: WLERX9tgy0U
+links:
+  - [Seite des Studiengangs Strategic Design, "https://sg.hfg-gmuend.de/projects/festool-insight"]
+
+facts:
+  - [Kontext, "Analytisches Designprojekt, M.A. Strategic Design, 2. Semester, Winter 2025/26, HfG Schwäbisch Gmünd, mit Festool als Projektpartner"]
+  - [Betreuung, "Prof. Benedikt Groß, Prof. Leif Huff"]
+  - [Team, "Lynn Metzner, Meltem Yalaz und Enis Sentürk"]
+  - [Meine Rolle, "Gesamter Designprozess, mit Fokus auf der Konzeptidee und der Gestaltung von Sensor-Pack, AR-Brille und Interface"]
+  - [Methoden, "Technologierecherche, Zukunftsszenario (2027–2035), Produkt- und Interface-Design, 3D-Visualisierung"]
+
+sections:
+  - type: chapter
+    heading: Kontext
+    text: Das Handwerk steht vor dem größten technologischen Umbruch seit der Industrialisierung. In unserem Szenario starten Sensoren 2027 als Nachrüstlösung und sind 2035 fester Bestandteil jedes Werkzeugs. AR-Brillen verbinden Maschinen, Materialien und Handwerker:innen in Echtzeit.
+
+  - type: chapter
+    heading: Ausgangslage
+    text: Elektrowerkzeuge sind leistungsstark, aber stumm. Sie geben kein Feedback, wenn sie falsch genutzt oder überlastet werden, und Fehler werden erst sichtbar, wenn ein Gerät kaputtgeht. Erfahrung bleibt bei der Person, nicht im System. Gleichzeitig kämpft das Handwerk mit Fachkräftemangel, wachsender Komplexität und Qualitätsdruck.
+
+  - type: question
+    text: Was wäre, wenn Werkzeuge verstehen statt nur reagieren?
+
+  - type: chapter
+    heading: Sensor-Pack
+    text: Der erste Schritt ist Wahrnehmung, nicht Intelligenz. Ein Sensor-Pack zwischen Akku und Werkzeug kombiniert einen Edge-AI-Mikrocontroller, eine IMU, Bluetooth, UWB und Temperatursensorik. Es misst Kräfte, Vibration und Materialzustand, ermöglicht vorausschauende Wartung, Sicherheitswarnungen und dokumentierte Arbeitsqualität und rüstet bestehende Festool-Werkzeuge auf.
+    image: assets/img/festool-insight/festool-board.jpg
+    caption: Die Sensorplatine zwischen Akku und Werkzeug
+
+  - type: chapter
+    heading: AR-Brille
+    text: Daten allein verändern nicht, wie Menschen arbeiten; dafür braucht es ein neues Interface. Die Brille nutzt Head-Tracking, eine Kamera und UWB, um Schritt-für-Schritt-Anleitungen und Echtzeit-Feedback ins Sichtfeld zu bringen, mit minimalen Overlays, die nur erscheinen, wenn sie relevant sind.
+    image: assets/img/festool-insight/festool-arview.jpg
+    caption: "AR-Ansicht beim Trockenbau: Fortschritt der Aufgabe und Empfehlungen"
+
+  - type: chapter
+    heading: Erweitertes Handwerk
+    text: Technologie als unaufdringlicher Co-Pilot. Vier Prinzipien prägen das System.
+    cards:
+      - [Sensorik, "Nachrüstlösung 2027, ins Werkzeug integriert bis 2035."]
+      - [AR-Design, "Minimale Overlays mit kontextabhängigen Daten, direkt im Arbeitsbereich."]
+      - [Edge AI, "Daten werden vor Ort verarbeitet, ohne Cloud-Latenz."]
+      - [Handwerker:innen im Loop, "Die Technologie lernt aus der echten Nutzung; der Mensch behält die Kontrolle."]
+
+  - type: chapter
+    heading: Plattform
+    text: "Eine Plattform bündelt Werkzeug- und Nutzungsdaten für die ganze Baustelle: frühe Fehlererkennung, Diebstahlerkennung über Standortanomalien und Baupläne, die in der AR-Ansicht zu Warnungen werden."
+    image: assets/img/festool-insight/festool-platform2.jpg
+    caption: "Insight-Plattform: Pläne hochladen, Warnungen pro Baustelle sehen"
+
+  - type: chapter
+    heading: Warum es zählt
+    text: Ziel ist, Handwerkswissen im Handwerk zu halten, statt es zu ersetzen. Das Szenario zielt auf Effizienzgewinne von mehr als 30 Prozent, gleichbleibende Qualität und AR-gestützte Lernpfade für die nächste Generation von Handwerker:innen.
+
+  - type: chapter
+    heading: Ergebnis
+    text: Ein Zukunftsszenario in drei Stufen bis 2035, entwickelt mit Festool. Festool baut nicht nur Werkzeuge. Festool baut Verständnis.
+    image: assets/img/festool-insight/festool-ar.jpg
+    caption: "Festool-Insight-AR-Brille: Dokumentation, Anleitung, Echtzeit-Feedback"

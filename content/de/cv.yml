@@ -1,0 +1,69 @@
+# ─────────────────────────────────────────────────────────────
+#  LEBENSLAUF – DEUTSCHE VERSION (Gegenstück zu content/cv.yml)
+# ─────────────────────────────────────────────────────────────
+title: Strategischer Designer · IoT · Designforschung
+profile: 'Strategischer Designer mit Design-Hintergrund im Internet of Things. Kein klassischer Designer, kein klassischer Ingenieur: Ich arbeite dazwischen, mit Forschung, Frameworks und Prototypen für Technologie, mit der Menschen wirklich leben. Interessen: HCI, Futures, Sensorik und Wearables, Gesundheit und Schlaf.'
+pdf: assets/cv/Enis-Sentuerk-CV.pdf
+sticker: |
+  OFFEN
+  FÜR
+  NEUES
+education:
+- when: 2025 — 2026
+  title: M.A. Strategic Design
+  where: HfG Schwäbisch Gmünd
+  note: 'Thesis: SOMNIA – ein Framework, um Klarträume als Lernressource zu nutzen, ohne den Schlaf zu beeinträchtigen. Betreut von Prof. Dr. Matthias Peissner und Prof. Dr. Julia Duwe.'
+- when: 2020 — 2025
+  title: B.A. Internet of Things
+  where: HfG Schwäbisch Gmünd
+  note: 'Thesis: PathAware – sichereres Wandern durch geteilte Echtzeit-Informationen zu Wegen.'
+- when: 2017 — 2019
+  title: Fachhochschulreife
+  where: IB Berufliche Schulen Reutlingen
+- when: 2003 — 2017
+  title: Schule
+  where: Freie Georgenschule Reutlingen
+experience:
+- when: 2023 — 2024
+  title: Ausstellungsdesign · 6 Monate
+  where: Simple GmbH, Köln
+  note: Content Creation für BMW und das Schokoladenmuseum Köln, Konzeption für die Beiersdorf AG.
+- when: '2023'
+  title: UI/UX-Design · 6 Monate
+  where: Bosch Sensortec
+  note: Interne Interfaces für Sensortests.
+- when: Freelance
+  title: Social Media & Content
+  where: HfG Schwäbisch Gmünd · Freie Waldorfschule Schwäbisch Gmünd
+  note: Social-Media-Konzepte und Content Creation; Funnels und Newsletter.
+- when: 2019 — 2021
+  title: Werkstudent · Logistik
+  where: Robert Bosch GmbH · Mercedes-Benz
+workshops:
+- when: '2025'
+  title: 'Workshop „Zeig deine Arbeit: deine digitale Visitenkarte“ (mit Alexandra Heider), M.A. Strategic Design, HfG'
+- when: '2025'
+  title: Workshop bei Festool zu Powertools 2035 (mit Lynn Metzner, Meltem Yalaz)
+- when: '2022'
+  title: Miele Circular Economy Hackathon, Impact Hub Berlin
+- when: 2011 — 2014
+  title: 'Frühe Praktika: Mechatronik (Robert Bosch GmbH), soziale Arbeit, Landwirtschaft und Vermessung'
+skills:
+- - Methoden
+  - Literatursynthese, Interviews, spekulatives Design, Framework-Entwicklung, Service- und Interaction Design, physisches und digitales Prototyping
+- - Tools
+  - Figma, Arduino, Blender, After Effects, Premiere Pro, KI-Tools
+- - Interessen
+  - HCI, Futures, Gesundheit & Schlaf, Keramik, Sport, Kunst
+languages:
+- - Deutsch
+  - Fließend
+- - Türkisch
+  - Fließend
+- - Englisch
+  - Fließend
+- - Französisch
+  - Grundkenntnisse
+- - Spanisch
+  - Grundkenntnisse
+looking: Promotionsstellen, Forschungskooperationen, Freelance-Projekte und Stellen in HCI, Designforschung und Strategic Design. Offen für Erasmus+-Aufenthalte im Ausland.

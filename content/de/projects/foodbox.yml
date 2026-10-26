@@ -1,0 +1,53 @@
+title: Foodbox
+line: Lebensmittel teilen in der Nachbarschaft, geöffnet per Bilderkennung
+kind: B.A.-Projekt, Prototyping/Redesign
+year: "2022/23"
+tags: [IoT, Physical Prototyping, Interaction Design]
+question: Wie können überschüssige Lebensmittel Menschen erreichen, die auf Spenden angewiesen sind, fair und direkt in ihrer Nachbarschaft?
+tile: assets/img/foodbox/tile.jpg
+tile_bg: "#ffffff"
+cover: assets/img/foodbox/foodbox-box.jpg
+cover_caption: Foodbox-Prototyp mit Smartphone an der Tür und einem Apfel im Fach
+video: AIleHmXAPgE
+links:
+  - [HfG-Ausstellungsseite, "https://ausstellung.hfg-gmuend.de/w-2223/projekte/foodbox/studiengang:dp"]
+
+facts:
+  - [Kontext, "Prototyping/Redesign, B.A. Internet of Things, 3. Semester, Winter 2022/23, HfG Schwäbisch Gmünd"]
+  - [Team, "Alice Sopp, Freya Michl, Paul Bense, Enis Sentürk"]
+  - [Betreuung, "Prof. Michael Schuster, Benjamin Thomsen"]
+  - [Meine Rolle, "Gesamtes Projekt, mit Fokus auf dem IoT-Prototyp: der komplette Code für Box, Bilderkennung und Server sowie das App-Design in Figma"]
+  - [Technik, "Arduino, NFC-Leser, Lichtschranke und Fotowiderstand, Kamera, Edge Impulse / Teachable Machine, Node, Socket.IO, Vue.js"]
+
+sections:
+  - type: chapter
+    heading: Ausgangslage
+    text: Lebensmittel, die noch gut sind, landen im Müll, während andere in derselben Nachbarschaft auf Spenden angewiesen sind. Wir wollten einen Weg, sie direkt zu teilen, ohne Zwischenstelle.
+
+  - type: chapter
+    heading: Konzept
+    text: Eine Station zum Teilen von Lebensmitteln in der Nachbarschaft. Die App zeigt Boxen in der Nähe und ihren Inhalt. Spendende legen Lebensmittel in ein Scanfach; eine Bilderkennung erkennt sie und öffnet das passende Fach. Holt jemand sie ab, bekommt die spendende Person ein Dankeschön.
+    image: assets/img/foodbox/fb-flow.jpg
+    caption: "Ablauf für Spendende: Scanfach, erkannte Spende, Übersicht, Benachrichtigung"
+
+  - type: chapter
+    heading: Das System
+    text: "Box und Apps arbeiten zusammen. Wir haben den Service um zwei fiktive Personas herum gestaltet, Luca und Klaus, die für typische Spendende und Empfangende stehen."
+    cards:
+      - [Die Box, "Eine Handyhalterung mit NFC-Tag, ein Scanfach mit Webcam und Lichtleiter, verriegelte Türen sowie gekühlte und ungekühlte Fächer."]
+      - [App für Spendende, "Spendende bieten überschüssige Lebensmittel an, bekommen ein Dankeschön, wenn sie abgeholt werden, und sammeln Punkte, um höhere Level zu erreichen, je mehr sie geben."]
+      - [App für Empfangende, "Empfangende verifizieren sich mit ihrem Tafel-Ausweis und erhalten ein tägliches Kontingent an „Foodies“, der App-Währung zum Abholen von Lebensmitteln."]
+
+  - type: chapter
+    heading: Prototyp
+    text: "Ein funktionierender MDF-Prototyp: Fotowiderstand und Lichtschranke lösen die Kamera aus, das Modell klassifiziert das Lebensmittel, ein Arduino mit NFC-Leser und H-Brücke entriegelt die Fächer, und App und Box kommunizieren in Echtzeit."
+    image: assets/img/foodbox/fb-dims.jpg
+    caption: Prototyp mit Maßen
+    size: half
+
+  - type: chapter
+    heading: Ergebnis
+    text: Gezeigt in der HfG-Ausstellung mit einem Produktvideo.
+    image: assets/img/foodbox/foodbox-donation.jpg
+    caption: Eine Spenderin legt einen Apfel in die Foodbox
+    size: half

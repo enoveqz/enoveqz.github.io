@@ -42,6 +42,13 @@ YAML-Regeln, damit nichts kaputtgeht:
 - Bei Listen wie `- [Titel, Text]`: Wenn der Text Kommas enthält, ihn in Anführungszeichen setzen: `- [Team, "Anna, Ben und Enis"]`.
 - Zeilenumbruch in kurzen Texten: `\n`.
 
+## Deutsche Version (Umschalter EN / DE oben rechts)
+- Deutsche Texte liegen in `content/de/` mit denselben Dateinamen: `site.yml`, `about.yml`, `cv.yml`, `projects/<projekt>.yml`.
+- Fehlt eine deutsche Datei, zeigt die Seite automatisch die englische.
+- Wenn du einen englischen Text änderst, die passende Datei in `content/de/` mit anpassen.
+- Reihenfolge der Projekte und Impressum/Datenschutz gelten für beide Sprachen (`content/projects.yml`, `content/legal.yml`).
+- Direktlink auf Deutsch: Adresse mit `?lang=de`, z. B. `https://enoveqz.github.io/p/somnia/?lang=de`. Die Auswahl wird im Browser gemerkt.
+
 ## Videos und Links
 In der Projektdatei:
 ```yaml

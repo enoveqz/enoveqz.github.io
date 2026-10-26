@@ -1,0 +1,42 @@
+title: PathAware
+line: Sichereres Wandern durch geteilte Echtzeit-Informationen zu Wegen
+kind: B.A.-Thesis
+year: "2024/25"
+tags: [Service Design, UX/UI, Kampagne]
+tile: assets/img/pathaware/tile.jpg
+tile_bg: "#5b3045"
+cover: assets/img/pathaware/pa-screens.jpg
+cover_caption: "PathAware-Web-App: Tourübersicht, Gefahrenmeldung und schnellster Weg zurück"
+video:
+links: []
+
+facts:
+  - [Kontext, "Bachelorthesis, B.A. Internet of Things, HfG Schwäbisch Gmünd"]
+  - [Team, "Paul Bense, Enis Sentürk"]
+  - [Meine Rolle, "Gesamter Designprozess als Hälfte eines Duos: Recherche, Konzept, App-Design und Kampagne"]
+  - [Rahmen, "Schweiz, auf Basis öffentlicher Schweizer Geodaten"]
+  - [Ergebnis, "Mobile-First-Web-App, QR-Code-Plakate, Flyer und eine Online-Kampagne"]
+
+sections:
+  - type: chapter
+    heading: Ausgangslage
+    text: Immer mehr Menschen wandern in den Alpen. In der Schweiz stiegen die Wander- und Bergunfälle von rund 17.700 pro Jahr Anfang der 2000er auf heute etwa 40.000. Der Klimawandel bringt mehr Ausspülungen und Steinschläge, doch gängige Apps zeigen aktuelle Sperrungen oder Gefahren selten an.
+
+  - type: question
+    text: Wie lässt sich der Informationsfluss zwischen Wandernden verbessern, um vor allem unerfahrene Wandernde zu informieren und Touren sicherer zu machen?
+
+  - type: chapter
+    heading: Vorgehen
+    text: "Wir haben Unfallstatistiken und bestehende Apps analysiert, zwei Personas definiert (eine Person, die zum ersten Mal alpin wandert, und eine erfahrene) und die Stakeholder kartiert: Wandernde, Alpenvereine und Wegewarte."
+
+  - type: chapter
+    heading: Konzept
+    text: "Kein Download: QR-Codes an Ausgangspunkten und Sperrungen öffnen eine Web-App. Wandernde melden Gefahren mit einem Foto, Alpenvereine prüfen sie, und alle anderen erhalten Warnungen, Alternativrouten und den schnellsten Weg zurück. Eine Checkliste und die Schwierigkeitsskala T1–T6 helfen bei der Vorbereitung."
+    image: assets/img/pathaware/pa-poster1.jpg
+    caption: "Plakat am Ausgangspunkt: Code scannen und informiert losgehen"
+
+  - type: chapter
+    heading: Kampagne
+    text: Plakate an den Ausgangspunkten sind der Einstieg in den Service, unterstützt durch Flyer und Online-Marketing.
+    image: assets/img/pathaware/pa-poster2.jpg
+    caption: "Kampagnenplakat: Echtzeit-Infos für deine nächste Tour"

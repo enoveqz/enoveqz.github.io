@@ -1,0 +1,53 @@
+# ─────────────────────────────────────────────────────────────
+#  ALLGEMEINE TEXTE DER WEBSITE – DEUTSCHE VERSION
+#  Gegenstück zu content/site.yml. Wird angezeigt, wenn oben „DE“ gewählt ist.
+#  Technische Angaben (URL, E-Mail, Links) bitte in beiden Dateien gleich halten.
+# ─────────────────────────────────────────────────────────────
+
+name: Enis Sentürk
+url: https://enoveqz.github.io
+logo: E.S. ©2026
+nav_tag: "[STRATEGIC DESIGN · IoT · HCI]"
+email: enissentuerk@hotmail.de
+
+meta_title: Enis Sentürk – Strategic Design & Research
+meta_description: Strategischer Designer mit IoT-Hintergrund. Ich arbeite zwischen Forschung, Frameworks und Prototypen für Technologie, mit der Menschen wirklich leben.
+
+hero: |
+  HI, ICH BIN
+  ENIS. ICH
+  GESTALTE, WIE
+  TECHNIK IN DEN
+  ALLTAG KOMMT.
+sticker: |
+  OFFEN
+  FÜR
+  NEUES
+intro: |
+  Kein klassischer Designer, kein klassischer Ingenieur.
+  Ich arbeite dazwischen: Forschung, Frameworks und Prototypen für Technologie, mit der Menschen wirklich leben.
+chips: [Strategic Design, IoT, HCI, Futures, Designforschung]
+work_label: "01 / Ausgewählte Arbeiten · 2022—2026"
+
+statement_label: DAZWISCHEN
+statement: ""
+
+about_teaser:
+  text: Vor dem Design habe ich in der Logistik gearbeitet und Mechatronik, Landwirtschaft und soziale Arbeit ausprobiert. Ich will bis heute wissen, wie Dinge gebaut sind und wie sie sich für die Menschen anfühlen, die sie nutzen.
+  rows:
+    - [Ausbildung, "M.A. Strategic Design, 2026 · B.A. Internet of Things · HfG Schwäbisch Gmünd"]
+    - [Erfahrung, "UI/UX-Design, Bosch Sensortec · Ausstellungsdesign, Simple GmbH"]
+    - [Fokus, "HCI, Futures, Sensorik und Wearables, Gesundheit und Schlaf"]
+
+contact_title: LASS UNS REDEN →
+contact_text: Offen für Promotionsstellen, Forschungskooperationen, Freelance-Projekte und Stellen in HCI, Designforschung und Strategic Design.
+contact_sticker: |
+  SAG
+  HALLO
+  :)
+
+footer_line: |
+  STRATEGISCHER DESIGNER · M.A. STRATEGIC DESIGN
+  B.A. INTERNET OF THINGS · HFG SCHWÄBISCH GMÜND
+social:
+  - [LinkedIn, "https://www.linkedin.com/in/freezdigital/"]

@@ -1,6 +1,6 @@
 title: SOMNIA
 line: Designing safeguards for sleep technology        # Kurztext auf der Startseite
-subtitle: "A framework for using lucid dreaming as a learning resource: safe, effective, inclusive, and without giving up sleep itself."
+subtitle: "A design framework for sleep-based learning in which sleep protection is a technical precondition, not a recommendation."
 kind: Master’s thesis
 year: "2026"
 label: ★ M.A. STRATEGIC DESIGN
@@ -8,7 +8,7 @@ sticker: |
   SLEEP
   COMES
   FIRST
-tags: [Design Futuring, Speculative Design, Framework, Lucid Dreaming, Sleep]
+tags: [Design Futuring, Speculative Design, Framework, Sleep-Based Learning, Sleep]
 tile: assets/img/somnia/tile.jpg          # Kachel auf der Startseite
 tile_bg: "#d2d2d2"
 cover: assets/img/somnia/cover.jpg
@@ -21,20 +21,20 @@ facts:
   - [Context, "Master’s thesis, M.A. Strategic Design, HfG Schwäbisch Gmünd, 3rd semester, summer 2026"]
   - [Supervision, "Prof. Dr. Matthias Peissner, Prof. Dr. Julia Duwe"]
   - [My role, "Solo project: research, strategy, framework, product and interface design, 3D"]
-  - [Methods, "Literature synthesis (~40 sources), speculative design, framework development, competitive and SWOT analysis, scenarios, UX, UI and product design"]
+  - [Methods, "Literature synthesis (~55 sources), speculative design, framework development, competitive and SWOT analysis, scenarios, UX, UI and product design"]
 
 sections:
   - type: card
     label: Abstract
-    lead: "Sleep is not a pause. It is an active process in which the brain consolidates memories, motor skills and what we learn during the day. SOMNIA focuses on lucid dreaming: dreams in which you know that you are dreaming and can shape what happens."
-    text: The thesis brings current research on sleep, dreams and learning together into a practical framework of principles and guidelines. Its main contribution is to combine dream-induction techniques that so far existed only in separate studies into one integrated system, presented through a speculative three-phase model.
+    lead: "Sleep is not a pause. It is an active process in which the brain consolidates memories, motor skills and what we learn during the day. SOMNIA looks at techniques that act on sleep, from targeted memory reactivation and dream incubation to lucid dreaming."
+    text: "The thesis brings current research on sleep, dreams and learning together into a practical framework of principles and guidelines. Its main contribution is protective gating: no method unlocks until sleep is stable, and the system, not the person, stops when sleep is disturbed. Existing induction and reactivation techniques are mapped onto this condition and explored through a speculative three-phase model."
 
   - type: question
-    text: How can lucid dreaming be used as a learning resource, safely and for everyone, without compromising sleep itself?
+    text: How can sleep-based learning techniques be designed so that protecting sleep comes before any learning goal?
 
   - type: chapter
     heading: Starting point
-    text: Research on targeted memory reactivation, dream incubation and lucid dreaming shows that sleep can be addressed with technology. But the methods exist as scattered findings in single studies, and none of them comes with a frame that protects the sleep it uses.
+    text: Research on targeted memory reactivation, dream incubation and lucid dreaming shows that sleep can be addressed with technology. Existing ethics in dream engineering ask these technologies to minimise their impact on sleep, but none enforces sleep protection as a technical precondition. Recent studies show that cues which disturb sleep can even weaken the memories they target.
 
   - type: chapter
     heading: Approach
@@ -74,7 +74,7 @@ sections:
 
   - type: chapter
     heading: The app
-    text: The app follows the rhythm of evening, night and morning instead of a classic tab structure. In the morning, a voice-to-text dream journal captures dreams before they fade; the daily overview shows dream recall, REM quality and the next session.
+    text: The app follows the rhythm of evening, night and morning instead of a classic tab structure. In the morning, a voice-to-text dream journal captures dreams before they fade; the daily overview shows the gate status and tonight's session, deliberately without sleep scores, streaks or rankings.
     gallery:
       - [assets/img/somnia/app-welcome.jpg, Onboarding]
       - [assets/img/somnia/app-dream.jpg, "Dream recording, voice to text"]
@@ -91,8 +91,8 @@ sections:
 
   - type: chapter
     heading: Where it could lead
-    text: SOMNIA is aimed at anyone who wants to learn. The framework points to applications in sport, education and therapy, and to questions for the ethical design of neurotechnology.
-    chips: [Sport & motor learning, Education, Therapy, Ethical neurotech design]
+    text: SOMNIA is aimed at anyone who wants to learn. The framework points to applications in sport and education, and to questions for the ethical design of neurotechnology. Therapeutic use would require clinical supervision and is outside its scope.
+    chips: [Sport & motor learning, Education, Ethical neurotech design]
 
   - type: chapter
     heading: Limits & next step
