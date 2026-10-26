@@ -43,7 +43,7 @@ const t = k => (UI[LANG] && UI[LANG][k]) || k;
 async function loadRaw(path) {
   const r = await fetch(path, { cache: 'no-cache' });
   if (!r.ok) throw new Error(path + ' (' + r.status + ')');
-  return (jsyaml.safeLoad || jsyaml.load)(await r.text());
+  return jsyaml.load(await r.text());
 }
 async function load(path) {
   if (LANG !== 'en' && path.startsWith('content/') && !/legal\.yml$|projects\.yml$/.test(path)) {
