@@ -35,7 +35,7 @@ const UI = {
     'Languages': 'Sprachen', 'Looking for': 'Ich suche', 'Profile': 'Profil', 'Email': 'E-Mail',
     'This page fell asleep.': 'Diese Seite ist eingeschlafen.',
     'The link is wrong, or the page is somewhere in REM sleep. Better not wake it.': 'Der Link ist falsch, oder die Seite steckt irgendwo im REM-Schlaf. Besser nicht wecken.',
-    'Back to work': 'Zurück zu den Arbeiten', 'Content could not be loaded:': 'Inhalte konnten nicht geladen werden:', 'Check the YAML files in /content.': 'Bitte die YAML-Dateien in /content prüfen.'
+    'Back to work': 'Zurück zu den Arbeiten', 'Close': 'Schließen', 'Content could not be loaded:': 'Inhalte konnten nicht geladen werden:', 'Check the YAML files in /content.': 'Bitte die YAML-Dateien in /content prüfen.'
   }
 };
 const t = k => (UI[LANG] && UI[LANG][k]) || k;
@@ -64,7 +64,7 @@ async function loadAll() {
 /* ---------- gemeinsame Teile ---------- */
 function nav(site, active) {
   const l = (h, label, k) => `<a href="${h}"${active === k ? ' aria-current="page"' : ''}>${label}</a>`;
-  return `<header class="nav"><div class="nav-in glass" data-glass="nav">
+  return `<header class="nav"><div class="nav-in glass" data-glass="none">
     <a class="brand" href="index.html">${esc(site.name)}</a>
     <nav aria-label="${t('Main navigation')}">${l('index.html#work', t('Work'), 'work')}${l('about.html', t('About'), 'about')}${l(here('#contact'), t('Contact'), 'contact')}</nav>
     <div class="lang" role="group" aria-label="${t('Switch language')}">${LANGS.map(c => `<button type="button" data-lang="${c}" aria-pressed="${c === LANG}" lang="${c}">${c.toUpperCase()}</button>`).join('')}</div>
@@ -95,12 +95,13 @@ function interests(about) {
   return `<div class="interests">${(about.interests || []).map((it, k) => `<div class="interest"><img src="assets/img/blobs/blob-${icons[k % 3]}.png" alt="" loading="lazy"><h3>${esc(it.title)}</h3><p>${txt(it.text)}</p></div>`).join('')}</div>`;
 }
 const tileOf = p => p.tile || p.cover;
+const sentence = s => { const w = String(s || '').trim().split(/\s+/).join(' ').toLowerCase(); return w.charAt(0).toUpperCase() + w.slice(1); };
 const rqOf = p => p.question || ((p.sections || []).find(s => s.type === 'question') || {}).text || '';
 const kindYear = p => [p.kind, p.year].filter(Boolean).map(esc).join(', ');
 
-function prow(p, eager) {
+function prow(p, eager, big) {
   const rq = rqOf(p);
-  return `<a class="prow" href="${purl(p.slug)}">
+  return `<a class="prow${big ? ' big' : ''}" href="${purl(p.slug)}">
     <figure class="pimg reveal" style="--tile-bg:${esc(p.tile_bg || '#dde1e5')}"><img src="${esc(tileOf(p))}" alt="${esc(p.title)}" loading="${eager ? 'eager' : 'lazy'}" style="view-transition-name:tile-${esc(p.slug)}"></figure>
     <div class="ptext">
       <p class="meta">${kindYear(p)}</p>
@@ -118,7 +119,7 @@ function home({ site, about, projects }) {
   <section class="wrap hero">
     ${site.greeting ? `<p class="greet">${esc(site.greeting)}</p>` : ''}
     <h1 class="hero-title">${txt(site.hero)}</h1>
-    <div class="orb glass" data-glass="orb" aria-hidden="true"></div>
+    ${site.sticker ? `<a class="orb glass" data-glass="orb" href="#contact"><span>${esc(sentence(site.sticker))}</span></a>` : ''}
     <div class="hero-foot">
       <div class="hero-panel glass">
         ${(site.chips || []).length ? `<p class="focus">${site.chips.map(esc).join(', ')}</p>` : ''}
@@ -129,7 +130,8 @@ function home({ site, about, projects }) {
   </section>
   <section class="wrap work" id="work">
     <h2 class="sec-h">${t('Selected work')}<sup>${sup(projects.length)}</sup></h2>
-    <div class="plist">${projects.map((p, i) => prow(p, i === 0)).join('')}</div>
+    ${projects[0] ? prow(projects[0], true, true) : ''}
+    <div class="pgrid">${projects.slice(1).map(p => prow(p, false, false)).join('')}</div>
   </section>
   <section class="wrap about-teaser">
     <figure class="reveal"><img src="${esc(about.portrait)}" alt="${t('Portrait of')} ${esc(site.name)}" loading="lazy"></figure>
@@ -145,18 +147,18 @@ function home({ site, about, projects }) {
 }
 
 function sectionHTML(s) {
-  const fig = (src, cap, size) => `<figure class="fig reveal${size === 'half' ? ' half' : ''}"><img src="${esc(src)}" alt="${esc(cap || '')}" loading="lazy">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`;
+  const fig = (src, cap, size) => `<figure class="fig reveal${size === 'half' ? ' half' : ''}"><img class="zoom" src="${esc(src)}" alt="${esc(cap || '')}" loading="lazy">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`;
   if (s.type === 'phases') {
     return `<section class="chapter phases-sec">
       <div class="ch-head"><h2>${esc(s.heading)}</h2>${s.text ? `<p>${txt(s.text)}</p>` : ''}</div>
       <ol class="phases">${(s.items || []).map(it => `<li class="phase">
-        <figure class="reveal">${it.image ? `<img src="${esc(it.image)}" alt="${esc(it.title)}" loading="lazy">` : ''}
-          <figcaption class="glass" data-glass="chip"><span>${esc(it.label)}</span><span>${esc(it.meta)}</span></figcaption></figure>
+        ${it.image ? `<figure class="reveal"><img class="zoom" src="${esc(it.image)}" alt="${esc(it.title)}" loading="lazy"></figure>` : ''}
+        <p class="meta"><b>${esc(it.label)}</b><span>${esc(it.meta)}</span></p>
         <h3>${esc(it.title)}</h3><p>${txt(it.text)}</p></li>`).join('')}</ol></section>`;
   }
   let body = s.text ? `<p>${txt(s.text)}</p>` : '';
   if (s.chips) body += `<ul class="tags">${s.chips.map(c => `<li>${esc(c)}</li>`).join('')}</ul>`;
-  if (s.gallery) body += `<div class="gallery">${s.gallery.map(pair).map(([src, cap]) => `<figure class="fig reveal"><img src="${esc(src)}" alt="${esc(cap)}" loading="lazy">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`).join('')}</div>`;
+  if (s.gallery) body += `<div class="gallery">${s.gallery.map(pair).map(([src, cap]) => `<figure class="fig reveal"><img class="zoom" src="${esc(src)}" alt="${esc(cap)}" loading="lazy">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`).join('')}</div>`;
   if (s.image) body += fig(s.image, s.caption, s.size);
   if (s.cards) body += `<dl class="points">${s.cards.map(pair).map(([a, b]) => `<div><dt>${esc(a)}</dt><dd>${txt(b)}</dd></div>`).join('')}</dl>`;
   return `<section class="chapter"><h2>${esc(s.heading)}</h2><div class="ch-body">${body}</div></section>`;
@@ -186,11 +188,11 @@ function project({ site, projects }, slug) {
   const poster = p.video_poster || (p.covers ? pair(p.covers[0])[0] : p.cover) || tileOf(p);
   const video = p.video ? `<section class="video" id="video">
       <button class="yt reveal" type="button" data-yt="${esc(p.video)}" aria-label="${t('Play project video')}"><img src="${esc(poster)}" alt="" loading="lazy">
-        <span class="yt-play glass" data-glass="chip"><span class="tri" aria-hidden="true"></span><span><b>${t('Play video')}</b><small>${t('Loads from YouTube after the click.')}</small></span></span></button>
+        <span class="yt-play glass" data-glass="none"><span class="tri" aria-hidden="true"></span><span><b>${t('Play video')}</b><small>${t('Loads from YouTube after the click.')}</small></span></span></button>
       <div class="btns"><a class="btn ghost" href="https://www.youtube.com/watch?v=${esc(p.video)}" target="_blank" rel="noopener">${t('Watch on YouTube')} ↗</a>${linkBtns}</div></section>`
     : (links.length ? `<div class="btns links-only">${linkBtns}</div>` : '');
-  const cover = p.covers ? `<div class="covers">${p.covers.map(pair).map(([src, cap]) => `<figure class="fig reveal"><img src="${esc(src)}" alt="${esc(cap)}"><figcaption>${esc(cap)}</figcaption></figure>`).join('')}</div>`
-    : p.cover && !(p.video && !p.video_poster) ? `<figure class="fig reveal cover"><img src="${esc(p.cover)}" alt="${esc(p.cover_caption || p.title)}"><figcaption>${esc(p.cover_caption || '')}</figcaption></figure>` : '';
+  const cover = p.covers ? `<div class="covers">${p.covers.map(pair).map(([src, cap]) => `<figure class="fig reveal"><img class="zoom" src="${esc(src)}" alt="${esc(cap)}"><figcaption>${esc(cap)}</figcaption></figure>`).join('')}</div>`
+    : p.cover && !(p.video && !p.video_poster) ? `<figure class="fig reveal cover"><img class="zoom" src="${esc(p.cover)}" alt="${esc(p.cover_caption || p.title)}"><figcaption>${esc(p.cover_caption || '')}</figcaption></figure>` : '';
   const au = p.author ? `<section class="author"><img src="${esc(p.author.image)}" alt="${esc(p.author.name)}" loading="lazy"><div><p class="meta">${t('Thesis by')}</p><h3>${esc(p.author.name)}</h3><p>${txt(p.author.text)}</p><p class="meta">${txt(p.author.note)}</p></div></section>` : '';
   return nav(site, 'work') + `<main id="top" class="wrap project">
     <a class="back" href="index.html#work">← ${t('All projects')}</a>
@@ -346,9 +348,7 @@ function glassFilter(w, h, r, opt) {
   return id;
 }
 const GLASS = {
-  nav: { bezel: 18, scale: 46, aberration: .06, after: 'blur(5px) saturate(1.6) brightness(1.06)' },
   panel: { bezel: 26, scale: 70, aberration: .07, after: 'blur(2px) saturate(1.5) brightness(1.05)' },
-  chip: { bezel: 12, scale: 34, aberration: .05, after: 'blur(6px) saturate(1.6) brightness(1.08)' },
   lens: { lens: true, bezel: 0, scale: 80, aberration: .09, after: 'saturate(1.25) brightness(1.04)' },
   orb: { lens: true, bezel: 0, scale: 150, aberration: .08, after: 'saturate(1.3) brightness(1.05)' }
 };
@@ -356,6 +356,8 @@ function refract(el) {
   if (!REFRACT) return;
   const w = Math.round(el.offsetWidth), h = Math.round(el.offsetHeight);
   if (!w || !h || w * h > 1600 * 1200) return;
+  if (el.dataset.glass === 'none') return;
+  if (!FINE && el.dataset.glass !== 'orb') return;   // Handy: nur die Kugel bricht das Licht, Rest bleibt mattes Glas (flüssiger)
   const opt = GLASS[el.dataset.glass || 'panel'] || GLASS.panel;
   if (el.dataset.gsize === w + 'x' + h) return;
   el.dataset.gsize = w + 'x' + h;
@@ -397,7 +399,7 @@ function cursor() {
     mx = e.clientX; my = e.clientY;
     dot.style.translate = `${mx}px ${my}px`;
     if (!shown) { shown = true; lx = mx; ly = my; document.documentElement.classList.add('lens-on'); }
-    const hot = e.target.closest && e.target.closest('a, button, [data-yt], label, input, textarea, select, .orb');
+    const hot = e.target.closest && e.target.closest('a, button, [data-yt], label, input, textarea, select, .orb, .zoom');
     document.documentElement.classList.toggle('lens-hot', !!hot);
     if (!run) { run = true; requestAnimationFrame(loop); }
   }, { passive: true });
@@ -414,14 +416,39 @@ function cursor() {
 /* ---------- Glaskugel im Hero: lässt sich mit der Maus (oder dem Finger) verschieben ---------- */
 function orb() {
   const o = $('.orb'); if (!o) return;
-  let dx = 0, dy = 0, sx = 0, sy = 0, px = 0, py = 0, drag = false;
+  let dx = 0, dy = 0, sx = 0, sy = 0, px = 0, py = 0, drag = false, moved = false;
   const set = () => { o.style.translate = `${dx.toFixed(1)}px ${dy.toFixed(1)}px`; };
-  o.addEventListener('pointerdown', e => { drag = true; o.setPointerCapture(e.pointerId); sx = dx; sy = dy; px = e.clientX; py = e.clientY; o.classList.add('grab'); });
-  o.addEventListener('pointermove', e => { if (!drag) return; dx = sx + e.clientX - px; dy = sy + e.clientY - py; set(); });
+  o.addEventListener('pointerdown', e => { drag = true; moved = false; o.setPointerCapture(e.pointerId); sx = dx; sy = dy; px = e.clientX; py = e.clientY; o.classList.add('grab'); });
+  o.addEventListener('pointermove', e => { if (!drag) return; if (Math.hypot(e.clientX - px, e.clientY - py) > 6) moved = true; dx = sx + e.clientX - px; dy = sy + e.clientY - py; set(); });
+  o.addEventListener('click', e => { if (moved) e.preventDefault(); });   // Ziehen ist kein Klick
+  o.addEventListener('dragstart', e => e.preventDefault());
   const end = () => { if (!drag) return; drag = false; o.classList.remove('grab'); };
   o.addEventListener('pointerup', end); o.addEventListener('pointercancel', end);
   o.addEventListener('dblclick', () => { dx = dy = 0; o.classList.add('home'); set(); setTimeout(() => o.classList.remove('home'), 700); });
 }
+
+/* ---------- Bild groß ansehen: Klick öffnet, Klick oder Esc schließt ---------- */
+function lightbox(img) {
+  const r = img.getBoundingClientRect();
+  const cap = img.closest('figure')?.querySelector('figcaption')?.textContent || img.alt || '';
+  const lb = document.createElement('div');
+  lb.className = 'lightbox'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', cap || img.alt);
+  lb.innerHTML = `<figure><img src="${esc(img.currentSrc || img.src)}" alt="${esc(img.alt)}">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure><button class="lb-close glass" type="button" aria-label="${t('Close')}">✕</button>`;
+  document.body.appendChild(lb); document.body.classList.add('lb-on');
+  const big = lb.querySelector('img'), btn = lb.querySelector('.lb-close');
+  const flip = () => { const b = big.getBoundingClientRect(); if (!b.width) return ''; return `translate(${r.left - b.left}px, ${r.top - b.top}px) scale(${r.width / b.width}, ${r.height / b.height})`; };
+  const show = () => { if (!REDUCED) { big.style.transition = 'none'; big.style.transform = flip(); big.offsetWidth; big.style.transition = ''; } big.style.transform = ''; lb.classList.add('open'); btn.focus({ preventScroll: true }); };
+  if (big.complete) requestAnimationFrame(show); else big.onload = show;
+  const close = () => {
+    document.removeEventListener('keydown', key);
+    lb.classList.remove('open'); if (!REDUCED) big.style.transform = flip();
+    setTimeout(() => { lb.remove(); document.body.classList.remove('lb-on'); img.focus?.({ preventScroll: true }); }, REDUCED ? 0 : 380);
+  };
+  const key = e => { if (e.key === 'Escape') close(); };
+  lb.addEventListener('click', close); document.addEventListener('keydown', key);
+}
+document.addEventListener('click', e => { const img = e.target.closest && e.target.closest('img.zoom'); if (img) lightbox(img); });
+document.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('img.zoom')) { e.preventDefault(); lightbox(e.target); } });
 
 /* ---------- Bewegung: Bilder öffnen sich beim Reinscrollen ---------- */
 let io = null, ticking = false;
@@ -440,6 +467,7 @@ function motion() {
 
 function interactions() {
   motion(); glassAll(); cursor(); orb();
+  document.querySelectorAll('img.zoom').forEach(i => { i.tabIndex = 0; i.setAttribute('role', 'button'); });
   document.querySelectorAll('[data-yt]').forEach(b => b.addEventListener('click', () => {
     b.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${b.dataset.yt}?autoplay=1&rel=0" title="${t('Project video')}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
     b.classList.add('playing');
