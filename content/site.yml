@@ -15,11 +15,8 @@ meta_title: Enis Sentürk – Strategic Design & Research
 meta_description: Strategic designer with a background in IoT, working between research, frameworks and prototypes for technology people actually live with.
 
 # Startseite oben
-hero: |
-  HI, I’M ENIS.
-  I DESIGN HOW
-  TECHNOLOGY ENTERS
-  EVERYDAY LIFE.
+greeting: Hi, I’m Enis.
+hero: I design how technology enters everyday life.
 sticker: |
   OPEN
   FOR
@@ -44,7 +41,7 @@ about_teaser:
     - [Focus, "HCI, futures, sensing and wearables, health and sleep"]
 
 # Kontakt-Karte (unten auf jeder Seite)
-contact_title: LET’S TALK →
+contact_title: Let’s talk
 contact_text: Open to PhD positions, research collaborations, freelance projects and roles in HCI, design research and strategic design.
 contact_sticker: |
   SAY
@@ -53,8 +50,8 @@ contact_sticker: |
 
 # Footer
 footer_line: |
-  STRATEGIC DESIGNER · M.A. STRATEGIC DESIGN
-  B.A. INTERNET OF THINGS · HFG SCHWÄBISCH GMÜND
+  Strategic designer, M.A. Strategic Design
+  B.A. Internet of Things, HfG Schwäbisch Gmünd
 # Weitere Links im Footer (z. B. LinkedIn). Leer lassen = nicht angezeigt.
 social:
   - [LinkedIn, "https://www.linkedin.com/in/freezdigital/"]

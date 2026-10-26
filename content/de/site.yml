@@ -13,12 +13,8 @@ email: enissentuerk@hotmail.de
 meta_title: Enis Sentürk – Strategic Design & Research
 meta_description: Strategischer Designer mit IoT-Hintergrund. Ich arbeite zwischen Forschung, Frameworks und Prototypen für Technologie, mit der Menschen wirklich leben.
 
-hero: |
-  HI, ICH BIN
-  ENIS. ICH
-  GESTALTE, WIE
-  TECHNIK IN DEN
-  ALLTAG KOMMT.
+greeting: Hi, ich bin Enis.
+hero: Ich gestalte, wie Technologie in den Alltag kommt.
 sticker: |
   OFFEN
   FÜR
@@ -39,7 +35,7 @@ about_teaser:
     - [Erfahrung, "UI/UX-Design, Bosch Sensortec · Ausstellungsdesign, Simple GmbH"]
     - [Fokus, "HCI, Futures, Sensorik und Wearables, Gesundheit und Schlaf"]
 
-contact_title: LASS UNS REDEN →
+contact_title: Lass uns reden
 contact_text: Offen für Promotionsstellen, Forschungskooperationen, Freelance-Projekte und Stellen in HCI, Designforschung und Strategic Design.
 contact_sticker: |
   SAG
@@ -47,7 +43,7 @@ contact_sticker: |
   :)
 
 footer_line: |
-  STRATEGISCHER DESIGNER · M.A. STRATEGIC DESIGN
-  B.A. INTERNET OF THINGS · HFG SCHWÄBISCH GMÜND
+  Strategischer Designer, M.A. Strategic Design
+  B.A. Internet of Things, HfG Schwäbisch Gmünd
 social:
   - [LinkedIn, "https://www.linkedin.com/in/freezdigital/"]

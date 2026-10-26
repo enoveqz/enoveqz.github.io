@@ -1,9 +1,7 @@
 # ─────────────────────────────────────────────────────────────
 #  ABOUT-SEITE – DEUTSCHE VERSION (Gegenstück zu content/about.yml)
 # ─────────────────────────────────────────────────────────────
-title: |
-  HALLO,
-  ICH BIN ENIS.
+title: Hallo, ich bin Enis.
 sticker: |
   IOT +
   STRATEGIC
