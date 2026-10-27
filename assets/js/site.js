@@ -35,7 +35,7 @@ const UI = {
     'Languages': 'Sprachen', 'Looking for': 'Ich suche', 'Profile': 'Profil', 'Email': 'E-Mail',
     'This page fell asleep.': 'Diese Seite ist eingeschlafen.',
     'The link is wrong, or the page is somewhere in REM sleep. Better not wake it.': 'Der Link ist falsch, oder die Seite steckt irgendwo im REM-Schlaf. Besser nicht wecken.',
-    'Back to work': 'Zurück zu den Arbeiten', 'Close': 'Schließen', 'Content could not be loaded:': 'Inhalte konnten nicht geladen werden:', 'Check the YAML files in /content.': 'Bitte die YAML-Dateien in /content prüfen.'
+    'Back to work': 'Zurück zu den Arbeiten', 'projects': 'Projekte', 'Close': 'Schließen', 'Content could not be loaded:': 'Inhalte konnten nicht geladen werden:', 'Check the YAML files in /content.': 'Bitte die YAML-Dateien in /content prüfen.'
   }
 };
 const t = k => (UI[LANG] && UI[LANG][k]) || k;
@@ -72,7 +72,7 @@ function nav(site, active) {
 }
 const socials = site => (site.social || []).map(pair).filter(([, u]) => u);
 function contact(site) {
-  return `<section class="wrap contact-wrap" id="contact"><div class="contact glass">
+  return `<section class="wrap contact-wrap" id="contact" data-tone="dark">${rule(t('Contact'), esc(site.email))}<div class="contact glass">
     <h2>${esc(String(site.contact_title || '').replace(/\s*→\s*$/, ''))}</h2>
     <p>${txt(site.contact_text)}</p>
     <div class="btns">
@@ -83,7 +83,7 @@ function contact(site) {
   </div></section>`;
 }
 function footer(site) {
-  return `<footer class="wrap footer">
+  return `<footer class="wrap footer" data-tone="dark">
     <div class="f-name">${esc(site.name)}<span>${txt(site.footer_line)}</span></div>
     <ul><li><a href="index.html#work">${t('Work')}</a></li><li><a href="about.html">${t('About')}</a></li><li><a href="${here('#contact')}">${t('Contact')}</a></li></ul>
     <ul><li><a href="mailto:${esc(site.email)}">${esc(site.email)}</a></li>${socials(site).map(([n, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(n)} ↗</a></li>`).join('')}</ul>
@@ -95,6 +95,9 @@ function interests(about) {
   return `<div class="interests">${(about.interests || []).map((it, k) => `<div class="interest"><img src="assets/img/blobs/blob-${icons[k % 3]}.png" alt="" loading="lazy"><h3>${esc(it.title)}</h3><p>${txt(it.text)}</p></div>`).join('')}</div>`;
 }
 const tileOf = p => p.tile || p.cover;
+/* Trennlinie: Haarlinie mit Kreuzmarken, optional Beschriftung links/rechts */
+const rule = (label, meta) => `<div class="rule" aria-hidden="${label ? 'false' : 'true'}">${label ? `<span>${label}</span>` : ''}<i></i>${meta ? `<span>${meta}</span>` : ''}</div>`;
+const yearSpan = ps => { const ys = ps.flatMap(p => String(p.year || '').match(/\d{4}/g) || []).map(Number); return ys.length ? `${Math.min(...ys)}–${Math.max(...ys)}` : ''; };
 const sentence = s => { const w = String(s || '').trim().split(/\s+/).join(' ').toLowerCase(); return w.charAt(0).toUpperCase() + w.slice(1); };
 const rqOf = p => p.question || ((p.sections || []).find(s => s.type === 'question') || {}).text || '';
 const kindYear = p => [p.kind, p.year].filter(Boolean).map(esc).join(', ');
@@ -129,27 +132,27 @@ function home({ site, about, projects }) {
     </div>
   </section>
   <section class="wrap work" id="work">
-    <h2 class="sec-h">${t('Selected work')}<sup>${sup(projects.length)}</sup></h2>
+    ${rule(t('Selected work'), `${projects.length} ${t('projects')}, ${yearSpan(projects)}`)}
     ${projects[0] ? prow(projects[0], true, true) : ''}
     <div class="pgrid">${projects.slice(1).map(p => prow(p, false, false)).join('')}</div>
   </section>
   <section class="wrap about-teaser">
     <figure class="reveal"><img src="${esc(about.portrait)}" alt="${t('Portrait of')} ${esc(site.name)}" loading="lazy"></figure>
     <div>
-      <h2 class="sec-h">${t('About')}</h2>
+      ${rule(t('About'), '')}
       <p class="lead">${txt(tz.text)}</p>
       <dl class="rows">${(tz.rows || []).map(pair).map(([a, b]) => `<div><dt>${esc(a)}</dt><dd>${txt(b)}</dd></div>`).join('')}</dl>
       <a class="btn ghost" href="about.html">${t('More about me')}</a>
     </div>
   </section>
-  <section class="wrap block"><h2 class="sec-h">${t('Research interests')}</h2>${interests(about)}</section>
+  <section class="wrap block" data-tone="dark">${rule(t('Research interests'), String((about.interests || []).length))}${interests(about)}</section>
   ${contact(site)}</main>${footer(site)}`;
 }
 
 function sectionHTML(s) {
   const fig = (src, cap, size) => `<figure class="fig reveal${size === 'half' ? ' half' : ''}"><img class="zoom" src="${esc(src)}" alt="${esc(cap || '')}" loading="lazy">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`;
   if (s.type === 'phases') {
-    return `<section class="chapter phases-sec">
+    return `${rule('', '')}<section class="chapter phases-sec" data-tone="dark">
       <div class="ch-head"><h2>${esc(s.heading)}</h2>${s.text ? `<p>${txt(s.text)}</p>` : ''}</div>
       <ol class="phases">${(s.items || []).map(it => `<li class="phase">
         ${it.image ? `<figure class="reveal"><img class="zoom" src="${esc(it.image)}" alt="${esc(it.title)}" loading="lazy"></figure>` : ''}
@@ -161,7 +164,7 @@ function sectionHTML(s) {
   if (s.gallery) body += `<div class="gallery">${s.gallery.map(pair).map(([src, cap]) => `<figure class="fig reveal"><img class="zoom" src="${esc(src)}" alt="${esc(cap)}" loading="lazy">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`).join('')}</div>`;
   if (s.image) body += fig(s.image, s.caption, s.size);
   if (s.cards) body += `<dl class="points">${s.cards.map(pair).map(([a, b]) => `<div><dt>${esc(a)}</dt><dd>${txt(b)}</dd></div>`).join('')}</dl>`;
-  return `<section class="chapter"><h2>${esc(s.heading)}</h2><div class="ch-body">${body}</div></section>`;
+  return `${rule('', '')}<section class="chapter"><h2>${esc(s.heading)}</h2><div class="ch-body">${body}</div></section>`;
 }
 
 function project({ site, projects }, slug) {
@@ -172,7 +175,7 @@ function project({ site, projects }, slug) {
   let secs = '';
   for (const s of p.sections || []) {
     if (s.type === 'question') continue;
-    if (s.type === 'card') secs += `<section class="chapter abstract"><h2>${esc(s.label || '')}</h2><div class="ch-body"><p class="lead">${txt(s.lead)}</p>${s.text ? `<p>${txt(s.text)}</p>` : ''}</div></section>`;
+    if (s.type === 'card') secs += `${rule('', '')}<section class="chapter abstract"><h2>${esc(s.label || '')}</h2><div class="ch-body"><p class="lead">${txt(s.lead)}</p>${s.text ? `<p>${txt(s.text)}</p>` : ''}</div></section>`;
     else secs += sectionHTML(s);
   }
   const allFacts = (p.facts || []).map(pair);
@@ -228,9 +231,9 @@ function aboutPage({ site, about, projects }, C) {
         </dl></div>
     </div>
   </section>
-  <section class="wrap block"><h2 class="sec-h">${t('Research interests')}</h2>${interests(about)}</section>
-  ${C ? `<section class="wrap block cv-about" id="cv"><div class="cv-title"><h2 class="sec-h">${t('CV')}</h2>${C.pdf ? `<a class="btn ghost" href="${esc(C.pdf)}" download>${t('Download PDF')} ↓</a>` : ''}</div>${cvBody(C)}</section>` : ''}
-  <section class="wrap block"><h2 class="sec-h">${t('Selected work')}<sup>${sup(projects.length)}</sup></h2><ul class="wlist">
+  <section class="wrap block" data-tone="dark">${rule(t('Research interests'), String((about.interests || []).length))}${interests(about)}</section>
+  ${C ? `<section class="wrap block cv-about" id="cv">${rule(t('CV'), '')}${C.pdf ? `<div class="cv-title"><a class="btn ghost" href="${esc(C.pdf)}" download>${t('Download PDF')} ↓</a></div>` : ''}${cvBody(C)}</section>` : ''}
+  <section class="wrap block">${rule(t('Selected work'), `${projects.length} ${t('projects')}, ${yearSpan(projects)}`)}<ul class="wlist">
     ${projects.map(p => `<li><a href="${purl(p.slug)}"><span class="w-img" style="--tile-bg:${esc(p.tile_bg || '#dde1e5')}"><img src="${esc(tileOf(p))}" alt="" loading="lazy"></span><b>${esc(p.title)}</b><span>${kindYear(p)}</span></a></li>`).join('')}</ul></section>
   ${contact(site)}</main>${footer(site)}`;
 }
@@ -452,9 +455,20 @@ document.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === 
 
 /* ---------- Bewegung: Bilder öffnen sich beim Reinscrollen ---------- */
 let io = null, ticking = false;
-function onScroll() { ticking = false; const n = $('.nav'); if (n) n.classList.toggle('scrolled', scrollY > 24); }
+let toneEls = [];
+function onScroll() {
+  ticking = false;
+  const n = $('.nav'); if (n) n.classList.toggle('scrolled', scrollY > 24);
+  // Seite wird dunkel, solange ein dunkler Abschnitt die Bildschirmmitte kreuzt (oder ganz unten)
+  const mid = innerHeight * .5, end = scrollY + innerHeight >= document.documentElement.scrollHeight - 4;
+  let dark = false;
+  for (const el of toneEls) { const r = el.getBoundingClientRect(); if (r.top < mid && r.bottom > mid) { dark = true; break; } }
+  if (end && toneEls.length) dark = true;
+  document.documentElement.classList.toggle('tone-dark', dark);
+}
 addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
 function motion() {
+  toneEls = [...document.querySelectorAll('[data-tone="dark"]')];
   const els = document.querySelectorAll('.reveal');
   if (REDUCED || !('IntersectionObserver' in window)) els.forEach(el => el.classList.add('in'));
   else {
