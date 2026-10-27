@@ -81,6 +81,14 @@ sections:
     image: assets/img/somnia/app-hand.jpg
     caption: “Welcome to Somnia”
 
+  - type: figma
+    heading: Prototyp
+    text: Klick dich selbst durch die App. Prototyp und User Flows sind die echten Figma-Dateien.
+    poster: assets/img/somnia/app-hand.jpg
+    items:
+      - [App-Prototyp, "https://www.figma.com/design/IjysZVcd79makfch4dHjHi/SOMNIA?node-id=1579-2"]
+      - [User Flows, "https://www.figma.com/design/IjysZVcd79makfch4dHjHi/SOMNIA?node-id=1840-128144"]
+
   - type: chapter
     heading: Feste Bedingungen
     text: Drei Dinge sind in keiner Phase verhandelbar. Sie sind als Gestaltungsbedingungen ins System eingebaut, damit Schlaf erholsam bleibt und nie zu einer weiteren Sache wird, die man optimiert.

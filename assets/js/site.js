@@ -35,7 +35,7 @@ const UI = {
     'Languages': 'Sprachen', 'Looking for': 'Ich suche', 'Profile': 'Profil', 'Email': 'E-Mail',
     'This page fell asleep.': 'Diese Seite ist eingeschlafen.',
     'The link is wrong, or the page is somewhere in REM sleep. Better not wake it.': 'Der Link ist falsch, oder die Seite steckt irgendwo im REM-Schlaf. Besser nicht wecken.',
-    'Back to work': 'Zurück zu den Arbeiten', 'projects': 'Projekte', 'Close': 'Schließen', 'Content could not be loaded:': 'Inhalte konnten nicht geladen werden:', 'Check the YAML files in /content.': 'Bitte die YAML-Dateien in /content prüfen.'
+    'Back to work': 'Zurück zu den Arbeiten', 'Open interactive prototype': 'Interaktiven Prototyp öffnen', 'Loads from Figma after the click.': 'Lädt erst nach dem Klick von Figma.', 'in Figma': 'in Figma', 'Figma prototype': 'Figma-Prototyp', 'projects': 'Projekte', 'Close': 'Schließen', 'Content could not be loaded:': 'Inhalte konnten nicht geladen werden:', 'Check the YAML files in /content.': 'Bitte die YAML-Dateien in /content prüfen.'
   }
 };
 const t = k => (UI[LANG] && UI[LANG][k]) || k;
@@ -72,7 +72,7 @@ function nav(site, active) {
 }
 const socials = site => (site.social || []).map(pair).filter(([, u]) => u);
 function contact(site) {
-  return `<section class="wrap contact-wrap" id="contact">${rule(t('Contact'), esc(site.email))}<div class="contact glass tone-dark">
+  return `<section class="wrap contact-wrap" id="contact">${rule(t('Contact'), esc(site.email))}<div class="contact glass">
     <h2>${esc(String(site.contact_title || '').replace(/\s*→\s*$/, ''))}</h2>
     <p>${txt(site.contact_text)}</p>
     <div class="btns">
@@ -158,6 +158,19 @@ function sectionHTML(s) {
         ${it.image ? `<figure class="reveal"><img class="zoom" src="${esc(it.image)}" alt="${esc(it.title)}" loading="lazy"></figure>` : ''}
         <p class="meta"><b>${esc(it.label)}</b><span>${esc(it.meta)}</span></p>
         <h3>${esc(it.title)}</h3><p>${txt(it.text)}</p></li>`).join('')}</ol></section>`;
+  }
+  if (s.type === 'figma') {
+    const items = (s.items || []).map(pair).filter(([, u]) => /^https:\/\/(www\.)?figma\.com\//.test(u));
+    if (!items.length) return '';
+    return `${rule('', '')}<section class="chapter"><h2>${esc(s.heading)}</h2><div class="ch-body">${s.text ? `<p>${txt(s.text)}</p>` : ''}
+      <div class="proto">
+        ${items.length > 1 ? `<div class="proto-tabs" role="tablist">${items.map(([n, u], j) => `<button type="button" role="tab" aria-selected="${j === 0}" data-figma="${esc(u)}">${esc(n)}</button>`).join('')}</div>` : ''}
+        <div class="proto-frame" data-src="${esc(items[0][1])}">
+          ${s.poster ? `<img src="${esc(s.poster)}" alt="" loading="lazy">` : ''}
+          <button class="proto-load glass" type="button" data-glass="none"><span class="tri" aria-hidden="true"></span><span><b>${t('Open interactive prototype')}</b><small>${t('Loads from Figma after the click.')}</small></span></button>
+        </div>
+        <div class="btns">${items.map(([n, u]) => `<a class="btn ghost" href="${esc(u)}" target="_blank" rel="noopener">${esc(n)} ${t('in Figma')} ↗</a>`).join('')}</div>
+      </div></div></section>`;
   }
   let body = s.text ? `<p>${txt(s.text)}</p>` : '';
   if (s.chips) body += `<ul class="tags">${s.chips.map(c => `<li>${esc(c)}</li>`).join('')}</ul>`;
@@ -294,8 +307,9 @@ function legalPage({ site }, kind, L) {
       <h2>2. Hosting über GitHub Pages</h2><p>Diese Website wird über GitHub Pages bereitgestellt, einen Dienst der GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Beim Aufruf der Seite verarbeitet GitHub technisch notwendige Daten wie IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene Datei und Browserinformationen (Server-Logfiles), um die Seite auszuliefern und die Sicherheit zu gewährleisten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer sicheren und stabilen Bereitstellung). Dabei kann eine Übermittlung in die USA stattfinden. Weitere Informationen: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub Privacy Statement</a>.</p>
       <h2>3. Keine Cookies, kein Tracking</h2><p>Diese Website setzt keine Cookies und verwendet keine Analyse- oder Tracking-Dienste. Schriftarten werden lokal von dieser Website geladen, es besteht keine Verbindung zu Google Fonts. Ob Sie die englische oder deutsche Version gewählt haben, speichert Ihr Browser lokal (localStorage); diese Angabe wird nicht übertragen.</p>
       <h2>4. YouTube-Videos</h2><p>Videos sind über YouTube (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland) eingebunden. Sie werden erst geladen, wenn Sie auf das Vorschaubild klicken; vorher werden keine Daten an YouTube übertragen. Nach dem Klick wird eine Verbindung zu YouTube im erweiterten Datenschutzmodus (youtube-nocookie.com) hergestellt, und YouTube erhält u. a. Ihre IP-Adresse und die Information, welches Video Sie aufgerufen haben. Rechtsgrundlage ist Ihre Einwilligung durch den Klick (Art. 6 Abs. 1 lit. a DSGVO). Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutzerklärung von Google</a>.</p>
+      <h2>4a. Figma-Prototypen</h2><p>Einige Projekte enthalten interaktive Prototypen von Figma (Figma, Inc., 760 Market Street, Floor 10, San Francisco, CA 94102, USA). Sie werden erst geladen, wenn Sie auf „Interaktiven Prototyp öffnen“ klicken; vorher werden keine Daten an Figma übertragen. Nach dem Klick erhält Figma u. a. Ihre IP-Adresse und Informationen zum aufgerufenen Prototyp, dabei kann eine Übermittlung in die USA stattfinden. Rechtsgrundlage ist Ihre Einwilligung durch den Klick (Art. 6 Abs. 1 lit. a DSGVO). Weitere Informationen: <a href="https://www.figma.com/legal/privacy/" target="_blank" rel="noopener">Datenschutzerklärung von Figma</a>.</p>
       <h2>5. Kontakt per E-Mail</h2><p>Wenn Sie mir eine E-Mail schreiben, verarbeite ich Ihre Angaben ausschließlich, um Ihre Anfrage zu beantworten (Art. 6 Abs. 1 lit. b bzw. f DSGVO). Die Daten werden gelöscht, sobald sie dafür nicht mehr benötigt werden.</p>
-      <h2>6. Externe Links</h2><p>Links zu anderen Websites (z. B. Hochschul-Ausstellungsseiten, YouTube, LinkedIn) öffnen die jeweilige Seite des Anbieters. Für die Datenverarbeitung dort ist der jeweilige Anbieter verantwortlich.</p>
+      <h2>6. Externe Links</h2><p>Links zu anderen Websites (z. B. Hochschul-Ausstellungsseiten, YouTube, Figma, LinkedIn) öffnen die jeweilige Seite des Anbieters. Für die Datenverarbeitung dort ist der jeweilige Anbieter verantwortlich.</p>
       <h2>7. Ihre Rechte</h2><p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO) sowie das Recht, eine erteilte Einwilligung jederzeit zu widerrufen. Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren, z. B. beim Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg.</p>
       <p class="meta">Stand: ${esc(L.updated || '')}</p>`;
   }
@@ -475,6 +489,16 @@ function interactions() {
     b.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${b.dataset.yt}?autoplay=1&rel=0" title="${t('Project video')}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
     b.classList.add('playing');
   }, { once: true }));
+  document.querySelectorAll('.proto').forEach(box => {
+    const frame = box.querySelector('.proto-frame');
+    const embed = u => `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(u)}`;
+    const load = u => { frame.dataset.src = u; frame.innerHTML = `<iframe src="${embed(u)}" title="${t('Figma prototype')}" allowfullscreen loading="lazy"></iframe>`; frame.classList.add('live'); };
+    box.querySelector('.proto-load')?.addEventListener('click', () => load(frame.dataset.src));
+    box.querySelectorAll('[data-figma]').forEach(tab => tab.addEventListener('click', () => {
+      box.querySelectorAll('[data-figma]').forEach(x => x.setAttribute('aria-selected', String(x === tab)));
+      if (frame.classList.contains('live')) load(tab.dataset.figma); else frame.dataset.src = tab.dataset.figma;
+    }));
+  });
   document.querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', async () => {
     const note = b.querySelector('[data-note]'), v = b.dataset.copy;
     try { await navigator.clipboard.writeText(v); if (note) { note.textContent = t('Copied') + ' ✓'; setTimeout(() => { note.textContent = t('Copy e-mail'); }, 1600); } }
