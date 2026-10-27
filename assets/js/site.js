@@ -172,7 +172,7 @@ function sectionHTML(s) {
     return `${rule('', '')}<section class="chapter"><h2>${esc(s.heading)}</h2><div class="ch-body">${s.text ? `<p>${txt(s.text)}</p>` : ''}
       <div class="proto">
         ${items.length > 1 ? `<div class="proto-tabs" role="tablist">${items.map(([n, u], j) => `<button type="button" role="tab" aria-selected="${j === 0}" data-figma="${esc(u)}">${esc(n)}</button>`).join('')}</div>` : ''}
-        <div class="device ${dev}">
+        <div class="device ${dev}" data-w="${+(s.size || [])[0] || (dev === 'watch' ? 184 : 390)}" data-h="${+(s.size || [])[1] || (dev === 'watch' ? 224 : 844)}" style="--fw:${+(s.size || [])[0] || (dev === 'watch' ? 184 : 390)};--fh:${+(s.size || [])[1] || (dev === 'watch' ? 224 : 844)}">
           <div class="device-screen proto-frame" data-src="${esc(items[0][1])}">
             <button class="proto-load" type="button"><span class="tri" aria-hidden="true"></span><b>${t('Start prototype')}</b><small>${t('Loads from Figma after the click.')}</small></button>
           </div>
@@ -507,19 +507,20 @@ function interactions() {
   }, { once: true }));
   document.querySelectorAll('.proto').forEach(box => {
     const frame = box.querySelector('.proto-frame');
-    const embed = u => {   // Prototyp genau in den Geräte-Screen einpassen, ohne Figma-Leisten
+    // Figma zeigt den Screen in Originalgröße (1:1) mittig im iframe. Das iframe ist größer als der Screen,
+    // wird mittig über den Gerätebildschirm gelegt und per CSS so skaliert, dass der Screen ihn genau füllt.
+    const dev = box.querySelector('.device'), fw = +dev.dataset.w || 390, fh = +dev.dataset.h || 844, M = 220;
+    const embed = u => {
       const x = new URL(u);
       if (x.pathname.startsWith('/proto/')) {
-        ['viewport', 't', 'show-proto-sidebar', 'content-scaling'].forEach(k => x.searchParams.delete(k));
-        x.searchParams.set('scaling', 'contain'); x.searchParams.set('hide-ui', '1');
+        ['viewport', 't', 'show-proto-sidebar'].forEach(k => x.searchParams.delete(k));
+        x.searchParams.set('scaling', 'min-zoom'); x.searchParams.set('content-scaling', 'fixed'); x.searchParams.set('hide-ui', '1');
       }
       return `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(x.toString())}`;
     };
-    // Figma lässt um den Screen einen Rand (ca. 54 px). Das iframe wird um diesen Rand größer gemacht und
-    // verschoben, damit der Screen genau den Gerätebildschirm füllt.
-    const PAD = 54;
-    const fit = () => { const f = frame.querySelector('iframe'); if (!f) return; const w = frame.clientWidth, h = frame.clientHeight;
-      Object.assign(f.style, { width: (w + 2 * PAD) + 'px', height: (h + 2 * PAD) + 'px', left: -PAD + 'px', top: -PAD + 'px', inset: 'auto' }); };
+    const fit = () => { const f = frame.querySelector('iframe'); if (!f) return;
+      const k = frame.clientWidth / fw, W = fw + 2 * M, H = fh + 2 * M;
+      Object.assign(f.style, { inset: 'auto', width: W + 'px', height: H + 'px', left: (frame.clientWidth - W) / 2 + 'px', top: (frame.clientHeight - H) / 2 + 'px', transform: `scale(${k})`, transformOrigin: '50% 50%' }); };
     const load = u => { frame.dataset.src = u; frame.innerHTML = `<iframe src="${embed(u)}" title="${t('Figma prototype')}" allowfullscreen loading="lazy"></iframe>`; frame.classList.add('live'); fit(); };
     addEventListener('resize', fit, { passive: true });
     box.querySelector('.proto-load')?.addEventListener('click', () => load(frame.dataset.src));
