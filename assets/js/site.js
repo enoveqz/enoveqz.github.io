@@ -35,7 +35,7 @@ const UI = {
     'Languages': 'Sprachen', 'Looking for': 'Ich suche', 'Profile': 'Profil', 'Email': 'E-Mail',
     'This page fell asleep.': 'Diese Seite ist eingeschlafen.',
     'The link is wrong, or the page is somewhere in REM sleep. Better not wake it.': 'Der Link ist falsch, oder die Seite steckt irgendwo im REM-Schlaf. Besser nicht wecken.',
-    'Back to work': 'Zurück zu den Arbeiten', 'Open interactive prototype': 'Interaktiven Prototyp öffnen', 'Loads from Figma after the click.': 'Lädt erst nach dem Klick von Figma.', 'in Figma': 'in Figma', 'Figma prototype': 'Figma-Prototyp', 'projects': 'Projekte', 'Close': 'Schließen', 'Content could not be loaded:': 'Inhalte konnten nicht geladen werden:', 'Check the YAML files in /content.': 'Bitte die YAML-Dateien in /content prüfen.'
+    'Back to work': 'Zurück zu den Arbeiten', 'Ad': 'Anzeige', 'Open interactive prototype': 'Interaktiven Prototyp öffnen', 'Loads from Figma after the click.': 'Lädt erst nach dem Klick von Figma.', 'in Figma': 'in Figma', 'Figma prototype': 'Figma-Prototyp', 'projects': 'Projekte', 'Close': 'Schließen', 'Content could not be loaded:': 'Inhalte konnten nicht geladen werden:', 'Check the YAML files in /content.': 'Bitte die YAML-Dateien in /content prüfen.'
   }
 };
 const t = k => (UI[LANG] && UI[LANG][k]) || k;
@@ -122,7 +122,10 @@ function home({ site, about, projects }) {
   <section class="wrap hero">
     ${site.greeting ? `<p class="greet">${esc(site.greeting)}</p>` : ''}
     <h1 class="hero-title">${txt(site.hero)}</h1>
-    ${site.sticker ? `<a class="orb glass" data-glass="orb" href="#contact"><span>${esc(sentence(site.sticker))}</span></a>` : ''}
+    ${site.sticker ? `<a class="orb crt glass" data-glass="orb" href="#contact" aria-label="${esc(sentence(site.sticker))}, ${t('Contact')}">
+      <span class="crt-noise" aria-hidden="true"></span>
+      <span class="crt-ad" aria-hidden="true"><small>${t('Ad')}</small><b data-text="${esc(sentence(site.sticker))}">${esc(sentence(site.sticker))}</b><small>${t('Contact')} →</small></span>
+    </a>` : ''}
     <div class="hero-foot">
       <div class="hero-panel glass">
         ${(site.chips || []).length ? `<p class="focus">${site.chips.map(esc).join(', ')}</p>` : ''}
@@ -330,7 +333,10 @@ function glassMap(w, h, r, bezel, lens) {
   const ctx = c.getContext('2d'), img = ctx.createImageData(w, h), d = img.data;
   for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
     let ox = 0, oy = 0;
-    if (lens) {                                   // runde Linse: wölbt sich wie ein Tropfen
+    if (lens === 'crt') {                         // Röhrenbildschirm: tonnenförmig gewölbt, zu den Rändern stärker
+      const nx = (x + .5 - w / 2) / (w / 2), ny = (y + .5 - h / 2) / (h / 2), r2 = nx * nx + ny * ny;
+      ox = Math.max(-1, Math.min(1, -nx * (.12 + .5 * r2))); oy = Math.max(-1, Math.min(1, -ny * (.12 + .5 * r2)));
+    } else if (lens) {                            // runde Linse: wölbt sich wie ein Tropfen
       const dx = (x + .5 - w / 2) / (w / 2), dy = (y + .5 - h / 2) / (h / 2), q = Math.hypot(dx, dy);
       if (q < 1) { const slope = Math.min(1, .22 * q / Math.sqrt(Math.max(.0025, 1 - q * q))); ox = -dx / (q || 1) * slope; oy = -dy / (q || 1) * slope; }
     } else {                                      // Scheibe: flach in der Mitte, Kante bricht das Licht
@@ -367,7 +373,7 @@ function glassFilter(w, h, r, opt) {
 const GLASS = {
   panel: { bezel: 26, scale: 70, aberration: .07, after: 'blur(2px) saturate(1.5) brightness(1.05)' },
   lens: { lens: true, bezel: 0, scale: 80, aberration: .09, after: 'saturate(1.25) brightness(1.04)' },
-  orb: { lens: true, bezel: 0, scale: 150, aberration: .08, after: 'saturate(1.3) brightness(1.05)' }
+  orb: { lens: 'crt', bezel: 0, scale: 90, aberration: .1, after: 'saturate(1.35) brightness(1.06)' }
 };
 function refract(el) {
   if (!REFRACT) return;
@@ -433,6 +439,11 @@ function cursor() {
 /* ---------- Glaskugel im Hero: lässt sich mit der Maus (oder dem Finger) verschieben ---------- */
 function orb() {
   const o = $('.orb'); if (!o) return;
+  // Bildrauschen einmal erzeugen und als Kachel benutzen
+  if (!window.__noise) { const c = document.createElement('canvas'); c.width = c.height = 96; const g = c.getContext('2d'), im = g.createImageData(96, 96);
+    for (let i = 0; i < im.data.length; i += 4) { const v = Math.random() * 255 | 0; im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255; }
+    g.putImageData(im, 0, 0); window.__noise = c.toDataURL(); }
+  o.style.setProperty('--noise', `url(${window.__noise})`);
   let dx = 0, dy = 0, sx = 0, sy = 0, px = 0, py = 0, drag = false, moved = false;
   const set = () => { o.style.translate = `${dx.toFixed(1)}px ${dy.toFixed(1)}px`; };
   o.addEventListener('pointerdown', e => { drag = true; moved = false; o.setPointerCapture(e.pointerId); sx = dx; sy = dy; px = e.clientX; py = e.clientY; o.classList.add('grab'); });

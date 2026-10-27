@@ -150,11 +150,43 @@ p { margin: 0 0 1em; }
 .orb.glass, .orb.glass.refract { background: rgba(255, 255, 255, .05); }
 .orb { display: grid; place-items: center; text-decoration: none; color: var(--ink); }
 .orb:hover { color: var(--ink); }
-.orb span { position: relative; z-index: 1; font: 400 clamp(20px, 2vw, 30px)/1.05 var(--display); letter-spacing: -.01em; text-align: center; max-width: 7ch; text-shadow: 0 1px 0 rgba(255, 255, 255, .7); pointer-events: none; }
-.orb::after { background: radial-gradient(circle at 30% 24%, rgba(255, 255, 255, .85), rgba(255, 255, 255, 0) 30%), radial-gradient(circle at 72% 82%, rgba(255, 255, 255, .35), rgba(255, 255, 255, 0) 26%); mix-blend-mode: screen; }
+.orb::after { background: radial-gradient(ellipse at 28% 18%, rgba(255, 255, 255, .8), rgba(255, 255, 255, 0) 34%); mix-blend-mode: screen; }
+
+/* Glas-Röhrenbildschirm mit Werbeanzeige */
+.orb.crt { width: clamp(150px, 14vw, 210px); aspect-ratio: 4 / 3; border-radius: 22% / 26%; left: min(68vw, 980px); top: clamp(150px, 20vh, 230px); overflow: hidden; }
+.orb.crt::before { content: ""; display: block; position: absolute; inset: 0; border-radius: inherit; z-index: 2; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(20, 30, 60, .06) 0 1px, transparent 1px 4px);
+  box-shadow: inset 0 0 28px rgba(20, 30, 60, .22), inset 0 0 0 1px rgba(255, 255, 255, .55); }
+.orb.crt.glass.refract::before { display: block; }
+.crt-noise { position: absolute; inset: 0; border-radius: inherit; z-index: 1; pointer-events: none; background: var(--noise) 0 0 / 96px 96px; opacity: .035; mix-blend-mode: multiply; transition: opacity .25s; }
+.crt-ad { position: absolute; inset: 0; z-index: 1; display: grid; grid-template-rows: auto 1fr auto; padding: 11% 13%; pointer-events: none; }
+.crt-ad small { font: 500 9px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
+.crt-ad small:last-child { justify-self: end; color: var(--accent); }
+.crt-ad b { align-self: center; justify-self: center; text-align: center; font: 500 clamp(15px, 1.35vw, 20px)/1.05 var(--display); letter-spacing: .02em; text-transform: uppercase;
+  text-shadow: -1px 0 rgba(255, 30, 90, .55), 1px 0 rgba(30, 140, 255, .6); animation: glitch 6s steps(1) infinite; }
+@keyframes glitch {
+  0%, 91%, 100% { transform: none; clip-path: none; }
+  92% { transform: translate(-3px, 0) skewX(-10deg); clip-path: inset(10% 0 55% 0); }
+  93% { transform: translate(3px, 1px); clip-path: inset(50% 0 12% 0); }
+  94% { transform: translate(-1px, -1px); clip-path: none; }
+  95% { transform: none; }
+}
+@keyframes static { 0% { background-position: 0 0; } 33% { background-position: -31px 17px; } 66% { background-position: 23px -41px; } 100% { background-position: -11px 29px; } }
+@keyframes roll { from { background-position: 0 0; } to { background-position: 0 6px; } }
+.orb.crt:hover .crt-noise { opacity: .12; animation: static .3s steps(1) infinite; }
+.orb.crt.grab .crt-noise { opacity: .34; animation: static .14s steps(1) infinite; }
+.orb.crt.grab::before { animation: roll .25s linear infinite; }
+.orb.crt.grab .crt-ad b { animation: glitch-hard .22s steps(1) infinite; }
+@keyframes glitch-hard {
+  0% { transform: translate(-2px, 0) skewX(-6deg); clip-path: inset(0 0 60% 0); }
+  25% { transform: translate(3px, 1px); clip-path: inset(40% 0 10% 0); }
+  50% { transform: translate(-1px, -2px); clip-path: none; }
+  75% { transform: translate(2px, 0) skewX(8deg); clip-path: inset(20% 0 30% 0); }
+}
+@media (prefers-reduced-motion: reduce) { .crt-ad b, .orb.crt .crt-noise, .orb.crt::before { animation: none !important; } }
 .orb.grab { cursor: grabbing; scale: 1.06; }
 .orb.home { transition: translate .7s cubic-bezier(.3, 1.4, .5, 1), scale .4s; }
-@media (max-width: 760px) { .orb { left: auto; right: -24px; top: 96px; width: 150px; } }
+@media (max-width: 760px) { .orb.crt { left: auto; right: 4px; top: 92px; width: 132px; } .crt-ad small { font-size: 8px; } .crt-ad b { font-size: 14px; } }
 .hero-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-top: clamp(36px, 5vw, 64px); }
 .hero-panel { max-width: 520px; padding: 28px 28px 24px; border-radius: var(--r-xl); }
 .hero-panel p { font-size: 18px; line-height: 1.55; color: var(--ink-2); margin-bottom: 22px; }
