@@ -515,7 +515,13 @@ function interactions() {
       }
       return `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(x.toString())}`;
     };
-    const load = u => { frame.dataset.src = u; frame.innerHTML = `<iframe src="${embed(u)}" title="${t('Figma prototype')}" allowfullscreen loading="lazy"></iframe>`; frame.classList.add('live'); };
+    // Figma lässt um den Screen einen Rand (ca. 54 px). Das iframe wird um diesen Rand größer gemacht und
+    // verschoben, damit der Screen genau den Gerätebildschirm füllt.
+    const PAD = 54;
+    const fit = () => { const f = frame.querySelector('iframe'); if (!f) return; const w = frame.clientWidth, h = frame.clientHeight;
+      Object.assign(f.style, { width: (w + 2 * PAD) + 'px', height: (h + 2 * PAD) + 'px', left: -PAD + 'px', top: -PAD + 'px', inset: 'auto' }); };
+    const load = u => { frame.dataset.src = u; frame.innerHTML = `<iframe src="${embed(u)}" title="${t('Figma prototype')}" allowfullscreen loading="lazy"></iframe>`; frame.classList.add('live'); fit(); };
+    addEventListener('resize', fit, { passive: true });
     box.querySelector('.proto-load')?.addEventListener('click', () => load(frame.dataset.src));
     box.querySelectorAll('[data-figma]').forEach(tab => tab.addEventListener('click', () => {
       box.querySelectorAll('[data-figma]').forEach(x => x.setAttribute('aria-selected', String(x === tab)));
