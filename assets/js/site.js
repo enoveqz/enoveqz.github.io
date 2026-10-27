@@ -507,7 +507,14 @@ function interactions() {
   }, { once: true }));
   document.querySelectorAll('.proto').forEach(box => {
     const frame = box.querySelector('.proto-frame');
-    const embed = u => `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(u + (u.includes('/proto/') ? '&hide-ui=1' : ''))}`;
+    const embed = u => {   // Prototyp genau in den Geräte-Screen einpassen, ohne Figma-Leisten
+      const x = new URL(u);
+      if (x.pathname.startsWith('/proto/')) {
+        ['viewport', 't', 'show-proto-sidebar', 'content-scaling'].forEach(k => x.searchParams.delete(k));
+        x.searchParams.set('scaling', 'contain'); x.searchParams.set('hide-ui', '1');
+      }
+      return `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(x.toString())}`;
+    };
     const load = u => { frame.dataset.src = u; frame.innerHTML = `<iframe src="${embed(u)}" title="${t('Figma prototype')}" allowfullscreen loading="lazy"></iframe>`; frame.classList.add('live'); };
     box.querySelector('.proto-load')?.addEventListener('click', () => load(frame.dataset.src));
     box.querySelectorAll('[data-figma]').forEach(tab => tab.addEventListener('click', () => {
