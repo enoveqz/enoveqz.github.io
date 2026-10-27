@@ -35,6 +35,13 @@ sections:
     image: assets/img/pathaware/pa-poster1.jpg
     caption: "Trailhead poster: scan the code to start the hike informed"
 
+  - type: figma
+    heading: Prototype
+    text: Click through the web app the way a hiker would after scanning a trailhead code.
+    device: phone
+    items:
+      - [Web app prototype, "https://www.figma.com/proto/HzVms3B03ILMdbSRUkLdXV/Bachleor?node-id=1-16234&viewport=1566%2C421%2C0.11&t=jEsAiyLYqBXuDVGC-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A15711&show-proto-sidebar=1&page-id=1%3A6"]
+
   - type: chapter
     heading: Campaign
     text: Posters at trailheads are the entry point into the service, supported by flyers and online marketing.

@@ -35,6 +35,13 @@ sections:
     image: assets/img/pathaware/pa-poster1.jpg
     caption: "Plakat am Ausgangspunkt: Code scannen und informiert losgehen"
 
+  - type: figma
+    heading: Prototyp
+    text: Klick dich durch die Web-App, so wie Wandernde nach dem Scannen am Ausgangspunkt.
+    device: phone
+    items:
+      - [Web-App-Prototyp, "https://www.figma.com/proto/HzVms3B03ILMdbSRUkLdXV/Bachleor?node-id=1-16234&viewport=1566%2C421%2C0.11&t=jEsAiyLYqBXuDVGC-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A15711&show-proto-sidebar=1&page-id=1%3A6"]
+
   - type: chapter
     heading: Kampagne
     text: Plakate an den Ausgangspunkten sind der Einstieg in den Service, unterstützt durch Flyer und Online-Marketing.

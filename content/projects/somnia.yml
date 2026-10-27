@@ -83,11 +83,10 @@ sections:
 
   - type: figma
     heading: Prototype
-    text: Click through the app yourself. The prototype and the user flows are live Figma files.
-    poster: assets/img/somnia/app-hand.jpg
+    text: Click through the app flow, from onboarding to recording a dream.
+    device: phone
     items:
-      - [App prototype, "https://www.figma.com/design/IjysZVcd79makfch4dHjHi/SOMNIA?node-id=1579-2"]
-      - [User flows, "https://www.figma.com/design/IjysZVcd79makfch4dHjHi/SOMNIA?node-id=1840-128144"]
+      - [App prototype, "https://www.figma.com/proto/IjysZVcd79makfch4dHjHi/SOMNIA?node-id=1849-129303&viewport=45347%2C-5423%2C1&t=PDceDc65HDuxeJfO-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1849%3A129303&show-proto-sidebar=1&page-id=1840%3A128144"]
 
   - type: chapter
     heading: Fixed conditions

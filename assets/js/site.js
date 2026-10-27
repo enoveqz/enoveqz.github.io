@@ -35,7 +35,7 @@ const UI = {
     'Languages': 'Sprachen', 'Looking for': 'Ich suche', 'Profile': 'Profil', 'Email': 'E-Mail',
     'This page fell asleep.': 'Diese Seite ist eingeschlafen.',
     'The link is wrong, or the page is somewhere in REM sleep. Better not wake it.': 'Der Link ist falsch, oder die Seite steckt irgendwo im REM-Schlaf. Besser nicht wecken.',
-    'Back to work': 'Zurück zu den Arbeiten', 'Ad': 'Anzeige', 'Open interactive prototype': 'Interaktiven Prototyp öffnen', 'Loads from Figma after the click.': 'Lädt erst nach dem Klick von Figma.', 'in Figma': 'in Figma', 'Figma prototype': 'Figma-Prototyp', 'projects': 'Projekte', 'Close': 'Schließen', 'Content could not be loaded:': 'Inhalte konnten nicht geladen werden:', 'Check the YAML files in /content.': 'Bitte die YAML-Dateien in /content prüfen.'
+    'Back to work': 'Zurück zu den Arbeiten',  'Start prototype': 'Prototyp starten', 'Loads from Figma after the click.': 'Lädt erst nach dem Klick von Figma.', 'in Figma': 'in Figma', 'Figma prototype': 'Figma-Prototyp', 'projects': 'Projekte', 'Close': 'Schließen', 'Content could not be loaded:': 'Inhalte konnten nicht geladen werden:', 'Check the YAML files in /content.': 'Bitte die YAML-Dateien in /content prüfen.'
   }
 };
 const t = k => (UI[LANG] && UI[LANG][k]) || k;
@@ -122,9 +122,12 @@ function home({ site, about, projects }) {
   <section class="wrap hero">
     ${site.greeting ? `<p class="greet">${esc(site.greeting)}</p>` : ''}
     <h1 class="hero-title">${txt(site.hero)}</h1>
-    ${site.sticker ? `<a class="orb crt glass" data-glass="orb" href="#contact" aria-label="${esc(sentence(site.sticker))}, ${t('Contact')}">
-      <span class="crt-noise" aria-hidden="true"></span>
-      <span class="crt-ad" aria-hidden="true"><small>${t('Ad')}</small><b data-text="${esc(sentence(site.sticker))}">${esc(sentence(site.sticker))}</b><small>${t('Contact')} →</small></span>
+    ${site.sticker ? `<a class="orb tv" href="#contact" aria-label="${esc(sentence(site.sticker))}">
+      <span class="tv-screen glass" data-glass="orb">
+        <span class="tv-ad" aria-hidden="true"><span class="tv-burst"></span><b>${esc(String(site.sticker).trim().split(/\s+/).join(' '))}!</b></span>
+        <span class="crt-noise" aria-hidden="true"></span>
+      </span>
+      <span class="tv-knobs" aria-hidden="true"><i></i><i></i><em></em></span>
     </a>` : ''}
     <div class="hero-foot">
       <div class="hero-panel glass">
@@ -165,14 +168,16 @@ function sectionHTML(s) {
   if (s.type === 'figma') {
     const items = (s.items || []).map(pair).filter(([, u]) => /^https:\/\/(www\.)?figma\.com\//.test(u));
     if (!items.length) return '';
+    const dev = s.device === 'watch' ? 'watch' : 'phone';
     return `${rule('', '')}<section class="chapter"><h2>${esc(s.heading)}</h2><div class="ch-body">${s.text ? `<p>${txt(s.text)}</p>` : ''}
       <div class="proto">
         ${items.length > 1 ? `<div class="proto-tabs" role="tablist">${items.map(([n, u], j) => `<button type="button" role="tab" aria-selected="${j === 0}" data-figma="${esc(u)}">${esc(n)}</button>`).join('')}</div>` : ''}
-        <div class="proto-frame" data-src="${esc(items[0][1])}">
-          ${s.poster ? `<img src="${esc(s.poster)}" alt="" loading="lazy">` : ''}
-          <button class="proto-load glass" type="button" data-glass="none"><span class="tri" aria-hidden="true"></span><span><b>${t('Open interactive prototype')}</b><small>${t('Loads from Figma after the click.')}</small></span></button>
+        <div class="device ${dev}">
+          <div class="device-screen proto-frame" data-src="${esc(items[0][1])}">
+            <button class="proto-load" type="button"><span class="tri" aria-hidden="true"></span><b>${t('Start prototype')}</b><small>${t('Loads from Figma after the click.')}</small></button>
+          </div>
         </div>
-        <div class="btns">${items.map(([n, u]) => `<a class="btn ghost" href="${esc(u)}" target="_blank" rel="noopener">${esc(n)} ${t('in Figma')} ↗</a>`).join('')}</div>
+        <div class="btns proto-links">${items.map(([n, u]) => `<a class="btn ghost" href="${esc(u)}" target="_blank" rel="noopener">${esc(n)} ${t('in Figma')} ↗</a>`).join('')}</div>
       </div></div></section>`;
   }
   let body = s.text ? `<p>${txt(s.text)}</p>` : '';
@@ -310,7 +315,7 @@ function legalPage({ site }, kind, L) {
       <h2>2. Hosting über GitHub Pages</h2><p>Diese Website wird über GitHub Pages bereitgestellt, einen Dienst der GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Beim Aufruf der Seite verarbeitet GitHub technisch notwendige Daten wie IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene Datei und Browserinformationen (Server-Logfiles), um die Seite auszuliefern und die Sicherheit zu gewährleisten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer sicheren und stabilen Bereitstellung). Dabei kann eine Übermittlung in die USA stattfinden. Weitere Informationen: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub Privacy Statement</a>.</p>
       <h2>3. Keine Cookies, kein Tracking</h2><p>Diese Website setzt keine Cookies und verwendet keine Analyse- oder Tracking-Dienste. Schriftarten werden lokal von dieser Website geladen, es besteht keine Verbindung zu Google Fonts. Ob Sie die englische oder deutsche Version gewählt haben, speichert Ihr Browser lokal (localStorage); diese Angabe wird nicht übertragen.</p>
       <h2>4. YouTube-Videos</h2><p>Videos sind über YouTube (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland) eingebunden. Sie werden erst geladen, wenn Sie auf das Vorschaubild klicken; vorher werden keine Daten an YouTube übertragen. Nach dem Klick wird eine Verbindung zu YouTube im erweiterten Datenschutzmodus (youtube-nocookie.com) hergestellt, und YouTube erhält u. a. Ihre IP-Adresse und die Information, welches Video Sie aufgerufen haben. Rechtsgrundlage ist Ihre Einwilligung durch den Klick (Art. 6 Abs. 1 lit. a DSGVO). Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutzerklärung von Google</a>.</p>
-      <h2>4a. Figma-Prototypen</h2><p>Einige Projekte enthalten interaktive Prototypen von Figma (Figma, Inc., 760 Market Street, Floor 10, San Francisco, CA 94102, USA). Sie werden erst geladen, wenn Sie auf „Interaktiven Prototyp öffnen“ klicken; vorher werden keine Daten an Figma übertragen. Nach dem Klick erhält Figma u. a. Ihre IP-Adresse und Informationen zum aufgerufenen Prototyp, dabei kann eine Übermittlung in die USA stattfinden. Rechtsgrundlage ist Ihre Einwilligung durch den Klick (Art. 6 Abs. 1 lit. a DSGVO). Weitere Informationen: <a href="https://www.figma.com/legal/privacy/" target="_blank" rel="noopener">Datenschutzerklärung von Figma</a>.</p>
+      <h2>4a. Figma-Prototypen</h2><p>Einige Projekte enthalten interaktive Prototypen von Figma (Figma, Inc., 760 Market Street, Floor 10, San Francisco, CA 94102, USA). Sie werden erst geladen, wenn Sie auf „Prototyp starten“ klicken; vorher werden keine Daten an Figma übertragen. Nach dem Klick erhält Figma u. a. Ihre IP-Adresse und Informationen zum aufgerufenen Prototyp, dabei kann eine Übermittlung in die USA stattfinden. Rechtsgrundlage ist Ihre Einwilligung durch den Klick (Art. 6 Abs. 1 lit. a DSGVO). Weitere Informationen: <a href="https://www.figma.com/legal/privacy/" target="_blank" rel="noopener">Datenschutzerklärung von Figma</a>.</p>
       <h2>5. Kontakt per E-Mail</h2><p>Wenn Sie mir eine E-Mail schreiben, verarbeite ich Ihre Angaben ausschließlich, um Ihre Anfrage zu beantworten (Art. 6 Abs. 1 lit. b bzw. f DSGVO). Die Daten werden gelöscht, sobald sie dafür nicht mehr benötigt werden.</p>
       <h2>6. Externe Links</h2><p>Links zu anderen Websites (z. B. Hochschul-Ausstellungsseiten, YouTube, Figma, LinkedIn) öffnen die jeweilige Seite des Anbieters. Für die Datenverarbeitung dort ist der jeweilige Anbieter verantwortlich.</p>
       <h2>7. Ihre Rechte</h2><p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO) sowie das Recht, eine erteilte Einwilligung jederzeit zu widerrufen. Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren, z. B. beim Landesbeauftragten für den Datenschutz und die Informationsfreiheit Baden-Württemberg.</p>
@@ -502,7 +507,7 @@ function interactions() {
   }, { once: true }));
   document.querySelectorAll('.proto').forEach(box => {
     const frame = box.querySelector('.proto-frame');
-    const embed = u => `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(u)}`;
+    const embed = u => `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(u + (u.includes('/proto/') ? '&hide-ui=1' : ''))}`;
     const load = u => { frame.dataset.src = u; frame.innerHTML = `<iframe src="${embed(u)}" title="${t('Figma prototype')}" allowfullscreen loading="lazy"></iframe>`; frame.classList.add('live'); };
     box.querySelector('.proto-load')?.addEventListener('click', () => load(frame.dataset.src));
     box.querySelectorAll('[data-figma]').forEach(tab => tab.addEventListener('click', () => {

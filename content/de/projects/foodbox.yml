@@ -30,6 +30,13 @@ sections:
     image: assets/img/foodbox/fb-flow.jpg
     caption: "Ablauf für Spendende: Scanfach, erkannte Spende, Übersicht, Benachrichtigung"
 
+  - type: figma
+    heading: App-Prototyp
+    text: Klick dich durch den App-Flow für Spendende und Empfangende.
+    device: phone
+    items:
+      - [App-Prototyp, "https://www.figma.com/proto/4JS63h3xiPShrQfaVq4DAX/Foodbox?node-id=2-22639&viewport=-389%2C-1664%2C0.32&t=tCUnE9wV4ciPXtP8-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=2%3A23149&show-proto-sidebar=1&page-id=2%3A1131"]
+
   - type: chapter
     heading: Das System
     text: "Box und Apps arbeiten zusammen. Wir haben den Service um zwei fiktive Personas herum gestaltet, Luca und Klaus, die für typische Spendende und Empfangende stehen."

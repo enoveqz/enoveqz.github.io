@@ -44,6 +44,13 @@ sections:
     image: assets/img/or3/or3-wristband.jpg
     caption: "Digital navigation via wristband: straight ahead to the waiting room"
 
+  - type: figma
+    heading: Watch prototype
+    text: "The wristband interface, prototyped as an Apple Watch flow: orientation, waiting time and the call to treatment."
+    device: watch
+    items:
+      - [Watch prototype, "https://www.figma.com/proto/BKniMd1lYuhPoMUJnm2qFm/OR3?node-id=1-149&viewport=437%2C566%2C0.23&t=0nVMEj6aVf6zJBkV-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A161&page-id=0%3A1"]
+
   - type: chapter
     heading: The system
     text: Six parts work together, from the moment patients arrive until they leave.

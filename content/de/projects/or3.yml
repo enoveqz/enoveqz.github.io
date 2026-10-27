@@ -44,6 +44,13 @@ sections:
     image: assets/img/or3/or3-wristband.jpg
     caption: "Digitale Navigation per Armband: geradeaus zum Wartebereich"
 
+  - type: figma
+    heading: Watch-Prototyp
+    text: "Das Armband-Interface als Apple-Watch-Flow: Orientierung, Wartezeit und der Aufruf zur Behandlung."
+    device: watch
+    items:
+      - [Watch-Prototyp, "https://www.figma.com/proto/BKniMd1lYuhPoMUJnm2qFm/OR3?node-id=1-149&viewport=437%2C566%2C0.23&t=0nVMEj6aVf6zJBkV-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A161&page-id=0%3A1"]
+
   - type: chapter
     heading: Das System
     text: Sechs Teile greifen ineinander, von der Ankunft bis zum Verlassen der Notaufnahme.
