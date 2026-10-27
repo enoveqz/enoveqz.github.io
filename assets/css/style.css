@@ -116,8 +116,10 @@ p { margin: 0 0 1em; }
 .btn-note { font-size: 13px; opacity: .6; font-weight: 400; }
 
 /* ---------- Navigation ---------- */
-.nav { position: fixed; top: max(14px, env(safe-area-inset-top, 0px)); left: 0; right: 0; z-index: 50; padding-inline: 16px; pointer-events: none; }
-.nav-in { pointer-events: auto; max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 28px; padding: 8px 8px 8px 22px; border-radius: var(--r-xl); transition: background .3s, box-shadow .3s; }
+.nav { position: fixed; top: max(14px, env(safe-area-inset-top, 0px)); left: 0; right: 0; z-index: 50; pointer-events: none;
+  padding-left: max(48px, env(safe-area-inset-left, 0px)); padding-right: max(48px, env(safe-area-inset-right, 0px)); }   /* gleiche Kanten wie der Inhalt (.wrap) */
+@media (max-width: 760px) { .nav { padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); } }
+.nav-in { pointer-events: auto; max-width: var(--wrap); margin: 0 auto; display: flex; align-items: center; gap: 28px; padding: 8px 8px 8px 22px; border-radius: var(--r-xl); transition: background .3s, box-shadow .3s; }
 .nav.scrolled .nav-in:not(.refract) { background: rgba(255, 255, 255, .62); }
 .nav a { text-decoration: none; }
 .brand { font: 500 16px var(--display); letter-spacing: -.01em; white-space: nowrap; margin-right: auto; }
