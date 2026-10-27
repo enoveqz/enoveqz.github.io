@@ -377,7 +377,6 @@ function glassFilter(w, h, r, opt) {
 }
 const GLASS = {
   panel: { bezel: 26, scale: 70, aberration: .07, after: 'blur(2px) saturate(1.5) brightness(1.05)' },
-  lens: { lens: true, bezel: 0, scale: 80, aberration: .09, after: 'saturate(1.25) brightness(1.04)' },
   orb: { lens: 'crt', bezel: 0, scale: 90, aberration: .1, after: 'saturate(1.35) brightness(1.06)' }
 };
 function refract(el) {
@@ -404,38 +403,26 @@ function glassAll() {
   els.forEach(el => { refract(el); if (ro) ro.observe(el); });
 }
 
-/* ---------- Glas-Cursor: Linse folgt der Maus, Klick erzeugt eine Welle ---------- */
-let lens = null;
+/* ---------- Cursor: blauer Punkt; wird über Links und Bildern größer, Klick erzeugt einen kleinen Ring ---------- */
+let dot = null;
 function cursor() {
-  if (!FINE || REDUCED || lens) return;
-  document.documentElement.classList.add('has-lens');
-  lens = document.createElement('div'); lens.className = 'lens glass'; lens.dataset.glass = 'lens'; lens.setAttribute('aria-hidden', 'true');
-  const dot = document.createElement('div'); dot.className = 'lens-dot'; dot.setAttribute('aria-hidden', 'true');
-  document.body.append(lens, dot);
-  refract(lens);
-  let mx = innerWidth / 2, my = innerHeight / 2, lx = mx, ly = my, vx = 0, vy = 0, run = false, shown = false;
-  const loop = () => {
-    const ax = (mx - lx) * .2, ay = (my - ly) * .2;
-    vx = vx * .55 + ax; vy = vy * .55 + ay; lx += vx; ly += vy;
-    const sp = Math.min(1, Math.hypot(vx, vy) / 40), ang = Math.atan2(vy, vx) * 180 / Math.PI;
-    lens.style.setProperty('--x', lx.toFixed(1) + 'px'); lens.style.setProperty('--y', ly.toFixed(1) + 'px');
-    lens.style.setProperty('--rot', ang.toFixed(1) + 'deg'); lens.style.setProperty('--stretch', (1 + sp * .22).toFixed(3)); lens.style.setProperty('--squash', (1 - sp * .14).toFixed(3));
-    if (Math.abs(mx - lx) + Math.abs(my - ly) + Math.abs(vx) + Math.abs(vy) > .2) requestAnimationFrame(loop); else run = false;
-  };
+  if (!FINE || REDUCED || dot) return;
+  const root = document.documentElement;
+  root.classList.add('has-dot');
+  dot = document.createElement('div'); dot.className = 'cursor-dot'; dot.setAttribute('aria-hidden', 'true');
+  document.body.append(dot);
   addEventListener('pointermove', e => {
     if (e.pointerType !== 'mouse') return;
-    mx = e.clientX; my = e.clientY;
-    dot.style.translate = `${mx}px ${my}px`;
-    if (!shown) { shown = true; lx = mx; ly = my; document.documentElement.classList.add('lens-on'); }
-    const hot = e.target.closest && e.target.closest('a, button, [data-yt], label, input, textarea, select, .orb, .zoom');
-    document.documentElement.classList.toggle('lens-hot', !!hot);
-    if (!run) { run = true; requestAnimationFrame(loop); }
+    dot.style.translate = `${e.clientX}px ${e.clientY}px`;
+    root.classList.add('dot-on');
+    const hot = e.target.closest && e.target.closest('a, button, [data-yt], label, select, .orb, .zoom');
+    root.classList.toggle('dot-hot', !!hot);
   }, { passive: true });
-  document.addEventListener('pointerleave', () => { shown = false; document.documentElement.classList.remove('lens-on'); });
-  addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') document.documentElement.classList.add('lens-down'); });
+  document.addEventListener('pointerleave', () => root.classList.remove('dot-on'));
+  addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') root.classList.add('dot-down'); });
   addEventListener('pointerup', e => {
     if (e.pointerType !== 'mouse') return;
-    document.documentElement.classList.remove('lens-down');
+    root.classList.remove('dot-down');
     const w = document.createElement('div'); w.className = 'ripple'; w.style.left = e.clientX + 'px'; w.style.top = e.clientY + 'px';
     document.body.appendChild(w); w.addEventListener('animationend', () => w.remove());
   });
