@@ -72,7 +72,7 @@ function nav(site, active) {
 }
 const socials = site => (site.social || []).map(pair).filter(([, u]) => u);
 function contact(site) {
-  return `<section class="wrap contact-wrap" id="contact" data-tone="dark">${rule(t('Contact'), esc(site.email))}<div class="contact glass">
+  return `<section class="wrap contact-wrap" id="contact">${rule(t('Contact'), esc(site.email))}<div class="contact glass tone-dark">
     <h2>${esc(String(site.contact_title || '').replace(/\s*→\s*$/, ''))}</h2>
     <p>${txt(site.contact_text)}</p>
     <div class="btns">
@@ -83,7 +83,7 @@ function contact(site) {
   </div></section>`;
 }
 function footer(site) {
-  return `<footer class="wrap footer" data-tone="dark">
+  return `<footer class="wrap footer">
     <div class="f-name">${esc(site.name)}<span>${txt(site.footer_line)}</span></div>
     <ul><li><a href="index.html#work">${t('Work')}</a></li><li><a href="about.html">${t('About')}</a></li><li><a href="${here('#contact')}">${t('Contact')}</a></li></ul>
     <ul><li><a href="mailto:${esc(site.email)}">${esc(site.email)}</a></li>${socials(site).map(([n, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(n)} ↗</a></li>`).join('')}</ul>
@@ -145,14 +145,14 @@ function home({ site, about, projects }) {
       <a class="btn ghost" href="about.html">${t('More about me')}</a>
     </div>
   </section>
-  <section class="wrap block" data-tone="dark">${rule(t('Research interests'), String((about.interests || []).length))}${interests(about)}</section>
+  <section class="wrap block">${rule(t('Research interests'), String((about.interests || []).length))}${interests(about)}</section>
   ${contact(site)}</main>${footer(site)}`;
 }
 
 function sectionHTML(s) {
   const fig = (src, cap, size) => `<figure class="fig reveal${size === 'half' ? ' half' : ''}"><img class="zoom" src="${esc(src)}" alt="${esc(cap || '')}" loading="lazy">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`;
   if (s.type === 'phases') {
-    return `${rule('', '')}<section class="chapter phases-sec" data-tone="dark">
+    return `${rule('', '')}<section class="chapter phases-sec">
       <div class="ch-head"><h2>${esc(s.heading)}</h2>${s.text ? `<p>${txt(s.text)}</p>` : ''}</div>
       <ol class="phases">${(s.items || []).map(it => `<li class="phase">
         ${it.image ? `<figure class="reveal"><img class="zoom" src="${esc(it.image)}" alt="${esc(it.title)}" loading="lazy"></figure>` : ''}
@@ -231,7 +231,7 @@ function aboutPage({ site, about, projects }, C) {
         </dl></div>
     </div>
   </section>
-  <section class="wrap block" data-tone="dark">${rule(t('Research interests'), String((about.interests || []).length))}${interests(about)}</section>
+  <section class="wrap block">${rule(t('Research interests'), String((about.interests || []).length))}${interests(about)}</section>
   ${C ? `<section class="wrap block cv-about" id="cv">${rule(t('CV'), '')}${C.pdf ? `<div class="cv-title"><a class="btn ghost" href="${esc(C.pdf)}" download>${t('Download PDF')} ↓</a></div>` : ''}${cvBody(C)}</section>` : ''}
   <section class="wrap block">${rule(t('Selected work'), `${projects.length} ${t('projects')}, ${yearSpan(projects)}`)}<ul class="wlist">
     ${projects.map(p => `<li><a href="${purl(p.slug)}"><span class="w-img" style="--tile-bg:${esc(p.tile_bg || '#dde1e5')}"><img src="${esc(tileOf(p))}" alt="" loading="lazy"></span><b>${esc(p.title)}</b><span>${kindYear(p)}</span></a></li>`).join('')}</ul></section>
@@ -455,20 +455,9 @@ document.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === 
 
 /* ---------- Bewegung: Bilder öffnen sich beim Reinscrollen ---------- */
 let io = null, ticking = false;
-let toneEls = [];
-function onScroll() {
-  ticking = false;
-  const n = $('.nav'); if (n) n.classList.toggle('scrolled', scrollY > 24);
-  // Seite wird dunkel, solange ein dunkler Abschnitt die Bildschirmmitte kreuzt (oder ganz unten)
-  const mid = innerHeight * .5, end = scrollY + innerHeight >= document.documentElement.scrollHeight - 4;
-  let dark = false;
-  for (const el of toneEls) { const r = el.getBoundingClientRect(); if (r.top < mid && r.bottom > mid) { dark = true; break; } }
-  if (end && toneEls.length) dark = true;
-  document.documentElement.classList.toggle('tone-dark', dark);
-}
+function onScroll() { ticking = false; const n = $('.nav'); if (n) n.classList.toggle('scrolled', scrollY > 24); }
 addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
 function motion() {
-  toneEls = [...document.querySelectorAll('[data-tone="dark"]')];
   const els = document.querySelectorAll('.reveal');
   if (REDUCED || !('IntersectionObserver' in window)) els.forEach(el => el.classList.add('in'));
   else {
